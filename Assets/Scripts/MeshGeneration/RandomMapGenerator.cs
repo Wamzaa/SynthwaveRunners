@@ -25,7 +25,7 @@ public class RandomMapGenerator : MonoBehaviour
     private void Start()
     {
         //GenerateListObject(MeshGenerator.GeneratorMode.Tunnel, 20, 30, 40, 100, 50, 15, 0, 30, 33, 5, 50, 10);
-        GenerateFlatRoad(MeshGenerator.GeneratorMode.Road, 50, 100, 200, 500, 200, 30, 15, 0, 30, 33, 5, 50, 10, MeshGenerator.RoadMode.FlatRoad);
+        GenerateFlatRoad(MeshGenerator.GeneratorMode.Road, 50, 100, 200, 500, 200, 30, 15, 0, 30, 33, 5, 50, 10, MeshGenerator.RoadMode.TornadoRoad);
         //GenerateFlatRoad(MeshGenerator.GeneratorMode.Tunnel, 50, 100, 200, 500, 500, 30, 15, 0, 200, 220, 5, 50, 10, MeshGenerator.RoadMode.TornadoRoad);
     }
 

@@ -680,7 +680,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d0898a6af6682148ac8e6124e69d199, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 1
+  mode: 0
   roadMode: 0
   controlPointsList:
   - {fileID: 1007339371}
@@ -697,7 +697,7 @@ MonoBehaviour:
   - {fileID: 529761660}
   - {fileID: 202162133}
   - {fileID: 149879334}
-  resolution: 10
+  resolution: 30
   pointResolution: 15
   initialRoadRotation: 0
   mat: {fileID: 2100000, guid: b340ee50af8bf364b801bd70b1e45cc3, type: 2}
@@ -2004,7 +2004,7 @@ MonoBehaviour:
   currentSpeed: 0
   bestHeight: 4
   firePower: 2
-  frictionCoefficient: 0.2
+  frictionCoefficient: 0.5
   jumpForce: 1000
   rotationLookSpeed: 2
 --- !u!135 &750957076
@@ -3438,7 +3438,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1229813721
 MonoBehaviour:
   m_ObjectHideFlags: 0

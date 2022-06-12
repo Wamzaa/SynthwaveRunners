@@ -30,6 +30,9 @@ public class PlayerMovement : MonoBehaviour
     private float speedTimer = 0f;
     private int currentSpeedIndex = 0;
 
+    //private LineRenderer meanRenderer;
+    //private LineRenderer currentRenderer;
+
     private void Start()
     {
         currentSpeed = 0f;
@@ -43,6 +46,17 @@ public class PlayerMovement : MonoBehaviour
         listSpeed.Add(new Speed(4f, 60, 100));
         listSpeed.Add(new Speed(7f, 100, 150));
         listSpeed.Add(new Speed(10f, 150, 200));
+
+        /*GameObject meanObj = new GameObject();
+        meanRenderer = meanObj.AddComponent<LineRenderer>();
+        meanRenderer.endColor = Color.green;
+        meanRenderer.startWidth = 0.01f;
+        meanRenderer.endWidth = 0.01f;
+        GameObject currentObj = new GameObject();
+        currentRenderer = currentObj.AddComponent<LineRenderer>();
+        currentRenderer.endColor = Color.red;
+        currentRenderer.startWidth = 0.01f;
+        currentRenderer.endWidth = 0.01f;*/
     }
 
     private void Update()
@@ -76,6 +90,27 @@ public class PlayerMovement : MonoBehaviour
             ChangeSpeed(-0.7f);
         }
 
+        Vector3 playerForward = rb.velocity.normalized;
+        Vector3 playerRight = Vector3.Cross(currentNormal, playerForward);
+        playerRight = playerRight.normalized;
+        float coefOffRay = 1.0f;
+        Vector3[] listDirectionRaycast = new Vector3[]
+        {
+            -currentNormal, -currentNormal + coefOffRay*playerForward, -currentNormal + coefOffRay*playerRight, -currentNormal - coefOffRay*playerForward, -currentNormal - coefOffRay*playerRight,
+            -currentNormal + coefOffRay*playerForward + coefOffRay*playerRight, -currentNormal - coefOffRay*playerForward + coefOffRay*playerRight, -currentNormal + coefOffRay*playerForward - coefOffRay*playerRight, -currentNormal - coefOffRay*playerForward - coefOffRay*playerRight,
+        };
+        Vector3 meanNormal = Vector3.zero;
+        RaycastHit hitOffDir;
+        foreach (Vector3 dir in listDirectionRaycast)
+        {
+            Vector3 normDir = dir.normalized;
+            if (Physics.Raycast(this.transform.position, normDir, out hitOffDir, Mathf.Infinity, LayerMask.GetMask("Floor")))
+            {
+                meanNormal = meanNormal + hitOffDir.normal;
+            }
+        }
+        meanNormal = meanNormal.normalized;
+
         RaycastHit hit;
         if(Physics.Raycast(this.transform.position, -currentNormal, out hit, Mathf.Infinity, LayerMask.GetMask("Floor"))){
             if(hit.distance > 200f)
@@ -84,7 +119,10 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                currentNormal = hit.normal;
+                /*meanRenderer.SetPositions(new Vector3[] { this.transform.position, this.transform.position + currentNormal });
+                currentRenderer.SetPositions(new Vector3[] { this.transform.position, this.transform.position + meanNormal });*/
+                //currentNormal = hit.normal;
+                currentNormal = meanNormal;
             }
 
             if(bestHeight > hit.distance)
