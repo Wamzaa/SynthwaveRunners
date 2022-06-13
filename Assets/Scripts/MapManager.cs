@@ -18,6 +18,11 @@ public class MapManager : MonoBehaviour
 
     private float startTime;
 
+    [Header("Prefabs")]
+    public GameObject player;
+    public GameObject Ui;
+
+
     private void Awake()
     {
         // MapManager est un singleton
@@ -34,6 +39,9 @@ public class MapManager : MonoBehaviour
         lap = 0;
         SetupCheckpoints();
         startTime = Time.time;
+
+        GameObject.Instantiate(player);
+        GameObject.Instantiate(Ui);
     }
 
     public void SetupCheckpoints()

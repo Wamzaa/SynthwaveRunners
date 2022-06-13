@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MapTest.unity
     guid: d1c3109bdb54ad54c8a2b2838528e640
+  - enabled: 1
+    path: Assets/Scenes/The Tube.unity
+    guid: 92727edf30b4dd64ba3647ca411548a0
   m_configObjects: {}
