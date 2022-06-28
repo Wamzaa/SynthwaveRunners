@@ -20,8 +20,14 @@ public class MeshGenerator : MonoBehaviour
     public int pointResolution;
     public float initialRoadRotation;
 
-    [Header ("--- Material ---")]
+    [Header ("--- Materials ---")]
     public Material mat;
+    public Material edgeMat;
+
+    [Header("--- Decoration ---")]
+    public bool withRoadLight;
+    public float roadLightScale;
+    public float roadLightInter;
 
     private Vector3[] vertices;
     private int[] triangles;
@@ -319,6 +325,7 @@ public class MeshGenerator : MonoBehaviour
 
         List<Vector3> anchorList = new List<Vector3>();
         List<Vector3> roadNormals = new List<Vector3>();
+        float roadLightCount = 0.0f;
 
         Vector3 vecHInit = Vector3.Cross(Vector3.up, controlPointsOrientation[0]);
         Vector3 vecYInit = Vector3.Cross(controlPointsOrientation[0], vecHInit);
@@ -343,6 +350,42 @@ public class MeshGenerator : MonoBehaviour
             anchorList.Add(pAnchor1);
             anchorList.Add(pAnchor2);
             roadNormals.Add(roadNormal);
+        }
+
+        for (int c = 1; c < controlPoints.Count; c++)
+        {
+            float lightDeltaDist = (controlPoints[c].transform.position - controlPoints[c-1].transform.position).magnitude;
+            for(int i= (int)Mathf.Floor(roadLightCount / roadLightInter) + 1; i < ((roadLightCount + lightDeltaDist) / roadLightInter); i++)
+            {
+                float t = (i * roadLightInter - roadLightCount) / lightDeltaDist;
+
+                Vector3 midPos = Vector3.Lerp(controlPoints[c - 1].transform.position, controlPoints[c].transform.position, t);
+                Vector3 posCenter = controlPoints[c].transform.position;
+                Vector3 roadNormal = Vector3.Cross(posCenter - anchorList[2 * (c - 1)], posCenter - anchorList[2 * (c - 1) + 1]);
+                Vector3 vecH = Vector3.Cross(roadNormal, controlPointsOrientation[c]);
+                vecH = vecH.normalized;
+
+                GameObject leftRoadLight = new GameObject("leftRoadLight");
+                RoadLightGenerator leftGen = leftRoadLight.AddComponent<RoadLightGenerator>();
+                leftGen.gapLength = 0.3f;
+                leftGen.mat = edgeMat;
+                leftGen.scale = roadLightScale;
+                leftGen.transform.position = midPos + (t * (controlPoints[c-1].width - controlPoints[c - 1].height / 2) * vecH + (1-t) * (controlPoints[c].width - controlPoints[c].height / 2) * vecH);
+                leftGen.transform.LookAt(midPos);
+                Quaternion leftLightRot = Quaternion.LookRotation(midPos - leftGen.transform.position, roadNormal);
+                leftGen.transform.rotation = leftLightRot;
+
+                GameObject rightRoadLight = new GameObject("rightRoadLight");
+                RoadLightGenerator rightGen = rightRoadLight.AddComponent<RoadLightGenerator>();
+                rightGen.gapLength = 0.3f;
+                rightGen.mat = edgeMat;
+                rightGen.scale = roadLightScale;
+                rightGen.transform.position = midPos - (t * (controlPoints[c - 1].width - controlPoints[c - 1].height / 2) * vecH + (1 - t) * (controlPoints[c].width - controlPoints[c].height / 2) * vecH);
+                rightGen.transform.LookAt(midPos);
+                Quaternion rightLightRot = Quaternion.LookRotation(midPos - rightGen.transform.position, roadNormal); 
+                rightGen.transform.rotation = rightLightRot;
+            }
+            roadLightCount += lightDeltaDist;
         }
 
         float currentLength = 0.0f;

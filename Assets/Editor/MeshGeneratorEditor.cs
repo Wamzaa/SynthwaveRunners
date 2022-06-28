@@ -17,6 +17,12 @@ public class MeshGeneratorEditor : Editor
     public SerializedProperty initialRoadRotation_prop;
 
     public SerializedProperty material_prop;
+    public SerializedProperty edgeMaterial_prop;
+    
+    public SerializedProperty withRoadLight_prop;
+    public SerializedProperty roadLightScale_prop;
+    public SerializedProperty roadLightInter_prop;
+
 
     private void OnEnable()
     {
@@ -27,6 +33,11 @@ public class MeshGeneratorEditor : Editor
         pointResolution_prop = serializedObject.FindProperty("pointResolution");
         initialRoadRotation_prop = serializedObject.FindProperty("initialRoadRotation");
         material_prop = serializedObject.FindProperty("mat");
+        edgeMaterial_prop = serializedObject.FindProperty("edgeMat");
+        withRoadLight_prop = serializedObject.FindProperty("withRoadLight");
+        roadLightScale_prop = serializedObject.FindProperty("roadLightScale");
+        roadLightInter_prop = serializedObject.FindProperty("roadLightInter");
+
     }
 
     public override void OnInspectorGUI()
@@ -52,10 +63,19 @@ public class MeshGeneratorEditor : Editor
                 EditorGUILayout.PropertyField(resolution_prop);
                 EditorGUILayout.PropertyField(pointResolution_prop);
                 EditorGUILayout.PropertyField(initialRoadRotation_prop);
+
+                EditorGUILayout.PropertyField(withRoadLight_prop);
+                bool roadLightMode = (bool)withRoadLight_prop.boolValue;
+                if (roadLightMode)
+                {
+                    EditorGUILayout.PropertyField(roadLightScale_prop);
+                    EditorGUILayout.PropertyField(roadLightInter_prop);
+                }
                 break;
         }
 
         EditorGUILayout.PropertyField(material_prop);
+        EditorGUILayout.PropertyField(edgeMaterial_prop);
 
         serializedObject.ApplyModifiedProperties();
     }

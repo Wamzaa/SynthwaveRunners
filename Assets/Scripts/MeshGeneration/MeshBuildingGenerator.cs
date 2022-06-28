@@ -11,10 +11,7 @@ public class MeshBuildingGenerator : MonoBehaviour
     public float windowGap;
     public float windowSize;
 
-    private List<Vector3> vertices;
-    private List<Vector3> normals;
-    private List<Vector2> uvs;
-    private List<int> triangles;
+    public Material mat;
 
     void Start()
     {
@@ -28,27 +25,28 @@ public class MeshBuildingGenerator : MonoBehaviour
 
     public void BuildSimpleBlocBuilding()
     {
-        /*
+        GameObject baseCube = new GameObject("base(Building)");
+        baseCube.transform.parent = this.transform;
+        baseCube.transform.position = this.transform.position + height * 0.5f * this.transform.up;
+        CubeGenerator baseCubeGenerator = baseCube.AddComponent<CubeGenerator>();
+        baseCubeGenerator.mat = mat;
+        baseCubeGenerator.gapLength = 5.0f;
+        Vector3 baseCubeScale = new Vector3(width, height, depth);
+        baseCubeGenerator.size = baseCubeScale;
+        baseCubeGenerator.Init();
 
-        GameObject quadObj = new GameObject("QuadObj");
-        quadObj.transform.parent = meshParent.transform;
-        MeshFilter meshFilter = quadObj.AddComponent<MeshFilter>();
-        Mesh mesh = meshFilter.mesh;
-        mesh.Clear();
-
-        mesh.vertices = vertices;
-        mesh.triangles = triangles;
-        mesh.normals = normals;
-        mesh.uv = uvs;
-
-        mesh.RecalculateNormals();
-
-        MeshRenderer meshRenderer = quadObj.AddComponent<MeshRenderer>();
-        meshRenderer.materials = new Material[] { mat };
-
-        MeshCollider collider = quadObj.AddComponent<MeshCollider>();
-        collider.convex = true;
-
-        quadObj.layer = LayerMask.NameToLayer("Floor");*/
+        int nbWindows = (int) Mathf.Round(height / windowGap) - 1;
+        for(int i=0; i<nbWindows; i++)
+        {
+            GameObject windowCube = new GameObject("window(Building)-" + i);
+            windowCube.transform.parent = this.transform;
+            windowCube.transform.position = this.transform.position + (i+1) * (height/(nbWindows+1)) * this.transform.up;
+            CubeGenerator windowCubeGenerator = windowCube.AddComponent<CubeGenerator>();
+            windowCubeGenerator.mat = mat;
+            windowCubeGenerator.gapLength = 20.0f;
+            Vector3 windowCubeScale = new Vector3(width * 1.05f, 10.0f, depth * 0.75f);
+            windowCubeGenerator.size = windowCubeScale;
+            windowCubeGenerator.Init();
+        }
     }
 }

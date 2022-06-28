@@ -15,10 +15,6 @@ public class CubeGenerator : MonoBehaviour
     private Vector3[] normals;
     private Vector2[] uvs;
 
-    private void Start()
-    {
-        //GenerateCubePrimitive();
-    }
 
     public void Init()
     {
@@ -169,4 +165,17 @@ public class CubeGenerator : MonoBehaviour
         MeshRenderer meshRenderer = this.gameObject.AddComponent<MeshRenderer>();
         meshRenderer.materials = new Material[] { mat };
     }
+
+    public static void SetupCubeMesh(string name, Transform parent, Vector3 position, Vector3 size, float gapLength, Material mat)
+    {
+        GameObject newCube = new GameObject(name);
+        newCube.transform.parent = parent;
+        newCube.transform.position = position;
+        CubeGenerator newCubeGenerator = newCube.AddComponent<CubeGenerator>();
+        newCubeGenerator.mat = mat;
+        newCubeGenerator.gapLength = gapLength;
+        newCubeGenerator.size = size;
+        newCubeGenerator.Init();
+    }
+
 }

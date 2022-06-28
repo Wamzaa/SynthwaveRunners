@@ -15,44 +15,27 @@ public class RoadLightGenerator : MonoBehaviour
 
     private void GenerateRoadLight()
     {
-        GameObject baseCube = new GameObject("base(RoadLight)");
-        baseCube.transform.parent = this.transform;
-        baseCube.transform.position = this.transform.position + scale * 0.5f * this.transform.up;
-        CubeGenerator baseCubeGenerator = baseCube.AddComponent<CubeGenerator>();
-        baseCubeGenerator.mat = mat;
-        baseCubeGenerator.gapLength = gapLength;
-        Vector3 baseCubeScale = new Vector3(0.3f, 1.0f, 0.3f);
-        baseCubeGenerator.size = scale * baseCubeScale;
-        baseCubeGenerator.Init();
+        Quaternion rot = this.transform.rotation;
+        this.transform.rotation = Quaternion.identity;
 
-        GameObject armCube = new GameObject("arm(RoadLight)");
-        armCube.transform.parent = this.transform;
-        armCube.transform.position = this.transform.position + scale * 2.0f * this.transform.up;
-        CubeGenerator armCubeGenerator = armCube.AddComponent<CubeGenerator>();
-        armCubeGenerator.mat = mat;
-        armCubeGenerator.gapLength = gapLength;
-        Vector3 armCubeScale = new Vector3(0.15f, 2.2f, 0.15f);
-        armCubeGenerator.size = scale * armCubeScale;
-        armCubeGenerator.Init();
+        /*Vector3 vecForward = this.transform.forward;
+        Vector3 vecRight = this.transform.right;
+        Vector3 vecUp = this.transform.up;*/
+        Vector3 tempSize; 
 
-        GameObject headCube = new GameObject("head(RoadLight)");
-        headCube.transform.parent = this.transform;
-        headCube.transform.position = this.transform.position + scale * 3.2f * this.transform.up + scale * 0.25f * this.transform.forward;
-        CubeGenerator headCubeGenerator = headCube.AddComponent<CubeGenerator>();
-        headCubeGenerator.mat = mat;
-        headCubeGenerator.gapLength = gapLength;
-        Vector3 headCubeScale = new Vector3(0.35f, 0.2f, 0.8f);
-        headCubeGenerator.size = scale * headCubeScale;
-        headCubeGenerator.Init();
+        tempSize = scale * new Vector3(0.3f, 1.0f, 0.3f);
+        CubeGenerator.SetupCubeMesh("base(RoadLight)", this.transform, this.transform.position + scale * new Vector3(0.0f, 0.5f, 0.0f), tempSize , gapLength, mat);
 
-        GameObject lightCube = new GameObject("light(RoadLight)");
-        lightCube.transform.parent = this.transform;
-        lightCube.transform.position = this.transform.position + scale * 3.1f * this.transform.up + scale * 0.35f * this.transform.forward;
-        CubeGenerator lightCubeGenerator = lightCube.AddComponent<CubeGenerator>();
-        lightCubeGenerator.mat = mat;
-        lightCubeGenerator.gapLength = scale * 0.45f;
-        Vector3 lightCubeScale = new Vector3(0.25f, 0.12f, 0.45f);
-        lightCubeGenerator.size = scale * lightCubeScale;
-        lightCubeGenerator.Init();
+        tempSize = scale * new Vector3(0.15f, 2.2f, 0.15f);
+        CubeGenerator.SetupCubeMesh("arm(RoadLight)", this.transform, this.transform.position + scale * new Vector3(0.0f, 2.0f, 0.0f), tempSize , gapLength, mat);
+
+        tempSize = scale * new Vector3(0.35f, 0.2f, 0.8f);
+        CubeGenerator.SetupCubeMesh("head(RoadLight)", this.transform, this.transform.position + scale * new Vector3(0.0f, 3.2f, 0.25f), tempSize , gapLength, mat);
+
+        tempSize = scale * new Vector3(0.25f, 0.12f, 0.45f);
+        CubeGenerator.SetupCubeMesh("light(RoadLight)", this.transform, this.transform.position + scale * new Vector3(0.0f, 3.1f, 0.35f), tempSize , scale * 0.45f, mat);
+
+
+        this.transform.rotation = rot;
     }
 }
