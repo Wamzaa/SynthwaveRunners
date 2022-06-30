@@ -1380,8 +1380,12 @@ MonoBehaviour:
   height: 200
   width: 80
   depth: 120
-  windowGap: 40
-  windowSize: 0
+  gapLength: 2.5
+  type: 0
+  windowGap: 15
+  windowSize: 5
+  bothSide: 1
+  windowType: 1
   mat: {fileID: 2100000, guid: a1ee60ebc97e00c44bb7cfbf9cf07d66, type: 2}
 --- !u!4 &731229694
 Transform:
