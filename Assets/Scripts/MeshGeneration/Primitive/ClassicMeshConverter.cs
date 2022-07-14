@@ -36,24 +36,12 @@ public class ClassicMeshConverter : MonoBehaviour
         int off = 0;
         for (int i = 0; i < triangles.Length / 3; i++)
         {
-
-
             TriangleGenerator.TriMesh triMesh = TriangleGenerator.GetTriMesh(off, vertices[triangles[3 * i + 0]], vertices[triangles[3 * i + 1]], vertices[triangles[3 * i + 2]], true, true, true, gapLength);
-            newVertices.Add(triMesh.vertices[0]);
-            newVertices.Add(triMesh.vertices[1]);
-            newVertices.Add(triMesh.vertices[2]);
-            newTriangles.Add(triMesh.triangles[0]);
-            newTriangles.Add(triMesh.triangles[1]);
-            newTriangles.Add(triMesh.triangles[2]);
-            newNormals.Add(triMesh.normals[0]);
-            newNormals.Add(triMesh.normals[1]);
-            newNormals.Add(triMesh.normals[2]);
-            newUvs.Add(triMesh.uvs[0]);
-            newUvs.Add(triMesh.uvs[1]);
-            newUvs.Add(triMesh.uvs[2]);
-            newUvs2.Add(triMesh.uvs2[0]);
-            newUvs2.Add(triMesh.uvs2[1]);
-            newUvs2.Add(triMesh.uvs2[2]);
+            newVertices.AddRange(triMesh.vertices);
+            newTriangles.AddRange(triMesh.triangles);
+            newNormals.AddRange(triMesh.normals);
+            newUvs.AddRange(triMesh.uvs);
+            newUvs2.AddRange(triMesh.uvs2);
             off += 3;
         }
 
