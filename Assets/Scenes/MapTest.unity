@@ -906,14 +906,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 333996986}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb0bbd09827c21842bcdfa3a1fa08357, type: 3}
+  m_Script: {fileID: 11500000, guid: 7fbef5dd07b2ca7458c106e76402c8c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 50
-  height: 20
-  resolution: 20
-  hasVerticalLines: 0
-  gapLength: 1
+  resolution: 3
+  gapLength: 0.3
   mat: {fileID: 2100000, guid: 375d5ae21f8cae140a38ef6aaca2b6bf, type: 2}
 --- !u!4 &333996988
 Transform:
