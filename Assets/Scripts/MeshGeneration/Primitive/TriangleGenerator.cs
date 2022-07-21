@@ -52,14 +52,18 @@ public class TriangleGenerator : MonoBehaviour
         float h2 = Mathf.Abs(Vector3.Dot(Vector3.Cross(Vector3.Normalize(p1 - p3), n), (p2 - p1)));
         float h3 = Mathf.Abs(Vector3.Dot(Vector3.Cross(Vector3.Normalize(p2 - p1), n), (p3 - p2)));
 
-        float a1 = hasEdge1 ? gapLength / (h1 - gapLength) : -1.0f;
-        float a2 = hasEdge2 ? gapLength / (h2 - gapLength) : -1.0f;
-        float a3 = hasEdge3 ? gapLength / (h3 - gapLength) : -1.0f;
+        float a1 = hasEdge1 ? (h1 > gapLength ? gapLength / (h1 - gapLength) : 1.0f) : -1.0f;
+        float a2 = hasEdge2 ? (h2 > gapLength ? gapLength / (h2 - gapLength) : 1.0f) : -1.0f;
+        float a3 = hasEdge3 ? (h3 > gapLength ? gapLength / (h3 - gapLength) : 1.0f) : -1.0f;
+
+        float b1 = h1 > gapLength ? 1.0f : -1.0f;
+        float b2 = h2 > gapLength ? 1.0f : -1.0f;
+        float b3 = h3 > gapLength ? 1.0f : -1.0f;
 
         uvs = new Vector2[]
         {
-            new Vector2(1.0f, -a2),
-            new Vector2(-a1, 1.0f),
+            new Vector2(b1, -a2),
+            new Vector2(-a1, b2),
             new Vector2(-a1, -a2)
         };
 
@@ -67,7 +71,7 @@ public class TriangleGenerator : MonoBehaviour
         {
             new Vector2(-a3, 0.0f),
             new Vector2(-a3, 0.0f),
-            new Vector2(1.0f, 0.0f)
+            new Vector2(b3, 0.0f)
         };
 
 
@@ -133,14 +137,18 @@ public class TriangleGenerator : MonoBehaviour
         float h2 = Mathf.Abs(Vector3.Dot(Vector3.Cross(Vector3.Normalize(_p1 - _p3), n), (_p2 - _p1)));
         float h3 = Mathf.Abs(Vector3.Dot(Vector3.Cross(Vector3.Normalize(_p2 - _p1), n), (_p3 - _p2)));
 
-        float a1 = edge1 ? gapLength / (h1 - gapLength) : -1.0f;
-        float a2 = edge2 ? gapLength / (h2 - gapLength) : -1.0f;
-        float a3 = edge3 ? gapLength / (h3 - gapLength) : -1.0f;
+        float a1 = edge1 ? (h1 > gapLength ? gapLength / (h1 - gapLength) : 1.0f) : -1.0f;
+        float a2 = edge2 ? (h2 > gapLength ? gapLength / (h2 - gapLength) : 1.0f) : -1.0f;
+        float a3 = edge3 ? (h3 > gapLength ? gapLength / (h3 - gapLength) : 1.0f) : -1.0f;
+
+        float b1 = h1 > gapLength ? 1.0f : -1.0f;
+        float b2 = h2 > gapLength ? 1.0f : -1.0f;
+        float b3 = h3 > gapLength ? 1.0f : -1.0f;
 
         triMesh.uvs = new Vector2[]
         {
-            new Vector2(1.0f, -a2),
-            new Vector2(-a1, 1.0f),
+            new Vector2(b1, -a2),
+            new Vector2(-a1, b2),
             new Vector2(-a1, -a2)
         };
 
@@ -148,7 +156,7 @@ public class TriangleGenerator : MonoBehaviour
         {
             new Vector2(-a3, 0.0f),
             new Vector2(-a3, 0.0f),
-            new Vector2(1.0f, 0.0f)
+            new Vector2(b3, 0.0f)
         };
 
         triMesh.normals = new Vector3[]

@@ -141,19 +141,17 @@ public class IcosphereGenerator : MonoBehaviour
         meshRenderer.materials = new Material[] { mat };
     }
 
-    public static void SetupCylinderMesh(string name, Transform parent, Vector3 position, float radius, float height, int resolution, bool hasLines, float gapLength, Material mat)
+    public static void SetupIcoSphereMesh(string name, Transform parent, Vector3 position, float radius, int resolution, float gapLength, Material mat)
     {
-        GameObject newCylinder = new GameObject(name);
-        newCylinder.transform.parent = parent;
-        newCylinder.transform.position = position;
-        CylinderGenerator newCylinderGenerator = newCylinder.AddComponent<CylinderGenerator>();
-        newCylinderGenerator.mat = mat;
-        newCylinderGenerator.gapLength = gapLength;
-        newCylinderGenerator.radius = radius;
-        newCylinderGenerator.height = height;
-        newCylinderGenerator.resolution = resolution;
-        newCylinderGenerator.hasVerticalLines = hasLines;
-        newCylinderGenerator.Init();
+        GameObject newSphere = new GameObject(name);
+        newSphere.transform.parent = parent;
+        newSphere.transform.position = position;
+        IcosphereGenerator newSphereGenerator = newSphere.AddComponent<IcosphereGenerator>();
+        newSphereGenerator.mat = mat;
+        newSphereGenerator.gapLength = gapLength;
+        newSphereGenerator.radius = radius;
+        newSphereGenerator.resolution = resolution;
+        newSphereGenerator.Init();
     }
 
 }

@@ -7,11 +7,15 @@ public class MeshBuildingGenerator : MonoBehaviour
     public float height;
     public float width;
     public float depth;
+    public float radius;
+
+    public int resolution;
+    public bool hasCylinderLines;
 
     public float gapLength;
 
     public BuildingType type;
-    public enum BuildingType { SimpleBloc,  AlterTower};
+    public enum BuildingType { SimpleBloc, CircularBloc, AlterTower, CircularAlterTower };
 
     public float windowGap;
     public float windowSize;
@@ -36,9 +40,17 @@ public class MeshBuildingGenerator : MonoBehaviour
         {
             BuildSimpleBlocBuilding();
         }
+        else if (type == BuildingType.CircularBloc)
+        {
+            BuildCircularBlocBuilding();
+        }
         else if(type == BuildingType.AlterTower)
         {
             BuildAlterTowerBuilding();
+        }
+        else if (type == BuildingType.CircularAlterTower)
+        {
+            BuildCircularAlterTowerBuilding();
         }
     }
 
@@ -135,6 +147,66 @@ public class MeshBuildingGenerator : MonoBehaviour
         
     }
 
+    public void BuildCircularBlocBuilding()
+    {
+        GameObject baseCube = new GameObject("base(Building)");
+        baseCube.transform.parent = this.transform;
+        baseCube.transform.position = this.transform.position + height * 0.5f * this.transform.up;
+        CylinderGenerator baseCubeGenerator = baseCube.AddComponent<CylinderGenerator>();
+        baseCubeGenerator.mat = mat;
+        baseCubeGenerator.gapLength = gapLength;
+        baseCubeGenerator.height = height;
+        baseCubeGenerator.radius = radius;
+        baseCubeGenerator.resolution = resolution;
+        baseCubeGenerator.hasVerticalLines = hasCylinderLines;
+        baseCubeGenerator.Init();
+
+        if (windowType == WindowType.Line || windowType == WindowType.OpenLine)
+        {
+            float windowGapLength = (windowType == WindowType.Line) ? windowSize : gapLength;
+            int nbWindows = (int)Mathf.Round(height / windowGap) - 1;
+            for (int i = 1; i <= nbWindows; i++)
+            {
+                GameObject windowCube = new GameObject("window(Building)-" + i);
+                windowCube.transform.parent = this.transform;
+                windowCube.transform.position = this.transform.position + i * (height / (nbWindows + 1)) * this.transform.up;
+                CylinderGenerator windowCubeGenerator = windowCube.AddComponent<CylinderGenerator>();
+                windowCubeGenerator.mat = mat;
+                windowCubeGenerator.gapLength = windowGapLength;
+                windowCubeGenerator.height = windowSize;
+                windowCubeGenerator.radius = radius + gapLength;
+                windowCubeGenerator.resolution = resolution;
+                windowCubeGenerator.hasVerticalLines = hasCylinderLines;
+                windowCubeGenerator.Init();
+            }
+        }
+        /*else if (windowType == WindowType.Square || windowType == WindowType.OpenSquare)
+        {
+            float windowGapLength = (windowType == WindowType.Square) ? windowSize : gapLength;
+            int nbWindowsHeight = (int)Mathf.Round(height / windowGap) - 1;
+            int nbWindowsDepth = (int)Mathf.Round(depth / windowGap) - 1;
+            for (int i = 1; i <= nbWindowsHeight; i++)
+            {
+                for (int j = 1; j <= nbWindowsDepth; j++)
+                {
+                    GameObject windowCube = new GameObject("window(Building)-" + i + "/" + j);
+                    windowCube.transform.parent = this.transform;
+                    windowCube.transform.position = this.transform.position + i * (height / (nbWindowsHeight + 1)) * this.transform.up + (j * (depth / (nbWindowsDepth + 1)) - depth / 2) * this.transform.forward;
+                    CubeGenerator windowCubeGenerator = windowCube.AddComponent<CubeGenerator>();
+                    windowCubeGenerator.mat = mat;
+                    windowCubeGenerator.gapLength = windowGapLength;
+                    Vector3 windowCubeScale = new Vector3(width + gapLength, windowSize, windowSize);
+                    windowCubeGenerator.size = windowCubeScale;
+                    windowCubeGenerator.Init();
+                }
+            }
+        }*/
+        else if (windowType == WindowType.None)
+        {
+            //Nothing
+        }
+
+    }
 
     public void BuildAlterTowerBuilding()
     {
@@ -188,4 +260,60 @@ public class MeshBuildingGenerator : MonoBehaviour
             windowCubeGenerator.Init();
         }
     }
-}
+
+    public void BuildCircularAlterTowerBuilding()
+    {
+        GameObject baseCube = new GameObject("base(Building)");
+        baseCube.transform.parent = this.transform;
+        baseCube.transform.position = this.transform.position + height * 0.5f * this.transform.up;
+        CylinderGenerator baseCubeGenerator = baseCube.AddComponent<CylinderGenerator>();
+        baseCubeGenerator.mat = mat;
+        baseCubeGenerator.gapLength = gapLength;
+        baseCubeGenerator.height = height;
+        baseCubeGenerator.radius = 0.25f * radius;
+        baseCubeGenerator.resolution = resolution;
+        baseCubeGenerator.hasVerticalLines = hasCylinderLines;
+        baseCubeGenerator.Init();
+
+        float alterLen = 0.5f * height / nbAlter;
+        for (int i = 0; i < nbAlter; i++)
+        {
+            GameObject windowCube = new GameObject("alter(Building)-" + i);
+            windowCube.transform.parent = this.transform;
+            windowCube.transform.position = this.transform.position + ((2 * i + 1) * alterLen - 0.5f * alterLen) * this.transform.up;
+            CylinderGenerator windowCubeGenerator = windowCube.AddComponent<CylinderGenerator>();
+            windowCubeGenerator.mat = mat;
+            windowCubeGenerator.gapLength = gapLength;
+
+            float ratioPos = ((2.0f * i + 1.0f) - 0.5f) / (nbAlter * 2.0f);
+
+            switch (alterFunction)
+            {
+                case FunctionShape.Linear:
+                    windowCubeGenerator.radius = ((1.0f - ratioPos) * 0.75f + 0.25f) * radius;
+                    break;
+                case FunctionShape.ZigZag:
+                    if (i % 2 == 0)
+                    {
+                        windowCubeGenerator.radius = radius;
+                    }
+                    else
+                    {
+                        windowCubeGenerator.radius = 0.4f * radius;
+                    }
+                    break;
+                case FunctionShape.SquareRoot:
+                    windowCubeGenerator.radius = (Mathf.Sqrt(1.0f - ratioPos) * 0.75f + 0.25f) * radius;
+                    break;
+                case FunctionShape.Square:
+                    windowCubeGenerator.radius = ((1.0f - ratioPos) * (1.0f - ratioPos) * 0.75f + 0.25f) * radius;
+                    break;
+            }
+
+            windowCubeGenerator.height = alterLen;
+            windowCubeGenerator.resolution = resolution;
+            windowCubeGenerator.hasVerticalLines = hasCylinderLines;
+            windowCubeGenerator.Init();
+        }
+    }
+    }

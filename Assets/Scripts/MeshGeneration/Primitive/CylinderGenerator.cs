@@ -15,15 +15,15 @@ public class CylinderGenerator : MonoBehaviour
 
     private void Start()
     {
-        Init();
+        //Init();
     }
 
     public void Init()
     {
-        GenerateCubePrimitive();
+        GenerateCylinderPrimitive();
     }
 
-    private void GenerateCubePrimitive()
+    private void GenerateCylinderPrimitive()
     {
         List<Vector3> newVertices = new List<Vector3>();
         List<int> newTriangles = new List<int>();
