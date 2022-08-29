@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//NOTE : Classe relue -> OK
+//On peut enlever ce qui concerne la gestion des objets de la classe. cette classe semble plus performante si l'on utilise que les fonctions statiques de la classe
+//Ce qui précède pourra être vérifier plus tard (calcul qu'à l'initialisation, plus performant de n'avoir qu'un mesh
+
 public class TriangleGenerator : MonoBehaviour
 {
     public Vector3 p1;
@@ -56,9 +60,9 @@ public class TriangleGenerator : MonoBehaviour
         float a2 = hasEdge2 ? (h2 > gapLength ? gapLength / (h2 - gapLength) : 1.0f) : -1.0f;
         float a3 = hasEdge3 ? (h3 > gapLength ? gapLength / (h3 - gapLength) : 1.0f) : -1.0f;
 
-        float b1 = h1 > gapLength ? 1.0f : -1.0f;
-        float b2 = h2 > gapLength ? 1.0f : -1.0f;
-        float b3 = h3 > gapLength ? 1.0f : -1.0f;
+        float b1 = hasEdge1 ? (h1 > gapLength ? 1.0f : -1.0f) : 1.0f;
+        float b2 = hasEdge2 ? (h2 > gapLength ? 1.0f : -1.0f) : 1.0f;
+        float b3 = hasEdge3 ? (h3 > gapLength ? 1.0f : -1.0f) : 1.0f;
 
         uvs = new Vector2[]
         {
@@ -141,9 +145,9 @@ public class TriangleGenerator : MonoBehaviour
         float a2 = edge2 ? (h2 > gapLength ? gapLength / (h2 - gapLength) : 1.0f) : -1.0f;
         float a3 = edge3 ? (h3 > gapLength ? gapLength / (h3 - gapLength) : 1.0f) : -1.0f;
 
-        float b1 = h1 > gapLength ? 1.0f : -1.0f;
-        float b2 = h2 > gapLength ? 1.0f : -1.0f;
-        float b3 = h3 > gapLength ? 1.0f : -1.0f;
+        float b1 = edge1 ? (h1 > gapLength ? 1.0f : -1.0f) : 1.0f;
+        float b2 = edge2 ? (h2 > gapLength ? 1.0f : -1.0f) : 1.0f;
+        float b3 = edge3 ? (h3 > gapLength ? 1.0f : -1.0f) : 1.0f;
 
         triMesh.uvs = new Vector2[]
         {
