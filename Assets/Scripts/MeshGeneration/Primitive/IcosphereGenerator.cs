@@ -116,7 +116,7 @@ public class IcosphereGenerator : MonoBehaviour
         int off = 0;
         for (int i = 0; i < icoTris.Count / 3; i++)
         {
-            TriangleGenerator.TriMesh triMesh = TriangleGenerator.GetTriMesh(off, icoVertices[icoTris[3 * i + 0]], icoVertices[icoTris[3 * i + 1]], icoVertices[icoTris[3 * i + 2]], true, true, true, gapLength);
+            TriMesh triMesh = TriangleGenerator.GetTriMesh(off, icoVertices[icoTris[3 * i + 0]], icoVertices[icoTris[3 * i + 1]], icoVertices[icoTris[3 * i + 2]], true, true, true, gapLength);
             newVertices.AddRange(triMesh.vertices);
             newTriangles.AddRange(triMesh.triangles);
             newNormals.AddRange(triMesh.normals);

@@ -36,7 +36,7 @@ public class ClassicMeshConverter : MonoBehaviour
         int off = 0;
         for (int i = 0; i < triangles.Length / 3; i++)
         {
-            TriangleGenerator.TriMesh triMesh = TriangleGenerator.GetTriMesh(off, vertices[triangles[3 * i + 0]], vertices[triangles[3 * i + 1]], vertices[triangles[3 * i + 2]], true, true, true, gapLength);
+            TriMesh triMesh = TriangleGenerator.GetTriMesh(off, vertices[triangles[3 * i + 0]], vertices[triangles[3 * i + 1]], vertices[triangles[3 * i + 2]], true, true, true, gapLength);
             newVertices.AddRange(triMesh.vertices);
             newTriangles.AddRange(triMesh.triangles);
             newNormals.AddRange(triMesh.normals);

@@ -43,7 +43,7 @@ public class CylinderGenerator : MonoBehaviour
             Vector3 p3 = new Vector3(radius * Mathf.Cos(2 * Mathf.PI * (i + 1) / resolution), height / 2, radius * Mathf.Sin(2 * Mathf.PI * (i + 1) / resolution));
             Vector3 p4 = new Vector3(radius * Mathf.Cos(2 * Mathf.PI * (i + 1) / resolution), -height / 2, radius * Mathf.Sin(2 * Mathf.PI * (i + 1) / resolution));
 
-            TriangleGenerator.TriMesh triMesh = TriangleGenerator.GetTriMesh(off, p3, p1, upPoint, false, false, true, gapLength);
+            TriMesh triMesh = TriangleGenerator.GetTriMesh(off, p3, p1, upPoint, false, false, true, gapLength);
             newVertices.AddRange(triMesh.vertices);
             newTriangles.AddRange(triMesh.triangles);
             newNormals.AddRange(triMesh.normals);
