@@ -39,7 +39,7 @@ public class CylinderGenerator : MonoBehaviour
 
             off += 3;
 
-            triMesh = SquareGenerator.GetTriMesh(off, p2, p1, p3, p4, gapLength);
+            triMesh = SquareGenerator.GetTriMesh(off, p2, p1, p3, p4, true, hasLines, gapLength);
             trianglesSqua.AddRange(triMesh.triangles);
             meshTri.Combine(triMesh);
 

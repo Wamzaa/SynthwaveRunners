@@ -4,25 +4,12 @@ using UnityEngine;
 
 public class IcosphereGenerator : MonoBehaviour
 {
-    public float radius;
-    public int resolution;
-
-    public float gapLength;
-
-    public Material mat;
-
-    private void Start()
+    public static void SetupIcoSphereMesh(string name, Transform parent, Vector3 position, float radius, int resolution, float gapLength, Material mat)
     {
-        Init();
-    }
+        GameObject newSphere = new GameObject(name);
+        newSphere.transform.parent = parent;
+        newSphere.transform.position = position;
 
-    public void Init()
-    {
-        GenerateIcospherePrimitive();
-    }
-
-    private void GenerateIcospherePrimitive()
-    {
         List<Vector3> icoVertices = new List<Vector3>();
         List<int> icoTris = new List<int>();
 
@@ -44,13 +31,13 @@ public class IcosphereGenerator : MonoBehaviour
         icoVertices.Add(new Vector3(b, -a, 0));
         icoVertices.Add(new Vector3(-b, -a, 0));
 
-        for(int i=0; i<12; i++)
+        for (int i = 0; i < 12; i++)
         {
             icoVertices[i] = radius * icoVertices[i].normalized;
         }
 
         // add triangles
-        icoTris.AddRange( new List<int> { 2, 1, 0 });
+        icoTris.AddRange(new List<int> { 2, 1, 0 });
         icoTris.AddRange(new List<int> { 1, 2, 3 });
         icoTris.AddRange(new List<int> { 5, 4, 3 });
         icoTris.AddRange(new List<int> { 4, 8, 3 });
@@ -71,13 +58,13 @@ public class IcosphereGenerator : MonoBehaviour
         icoTris.AddRange(new List<int> { 5, 11, 4 });
         icoTris.AddRange(new List<int> { 10, 8, 4 });
 
-        for(int it=0; it<resolution; it++)
+        for (int it = 0; it < resolution; it++)
         {
             List<Vector3> newIcoVertices = new List<Vector3>();
             List<int> newIcoTris = new List<int>();
             int offsetIco = 0;
 
-            for (int t = 0; t < icoTris.Count/3; t++)
+            for (int t = 0; t < icoTris.Count / 3; t++)
             {
                 Vector3 icoA = icoVertices[icoTris[3 * t + 0]];
                 Vector3 icoB = icoVertices[icoTris[3 * t + 1]];
@@ -107,51 +94,30 @@ public class IcosphereGenerator : MonoBehaviour
             icoTris = newIcoTris;
         }
 
-        List<Vector3> newVertices = new List<Vector3>();
-        List<int> newTriangles = new List<int>();
-        List<Vector3> newNormals = new List<Vector3>();
-        List<Vector2> newUvs = new List<Vector2>();
-        List<Vector2> newUvs2 = new List<Vector2>();
+        TriMesh icoMesh = new TriMesh();
 
         int off = 0;
         for (int i = 0; i < icoTris.Count / 3; i++)
         {
             TriMesh triMesh = TriangleGenerator.GetTriMesh(off, icoVertices[icoTris[3 * i + 0]], icoVertices[icoTris[3 * i + 1]], icoVertices[icoTris[3 * i + 2]], true, true, true, gapLength);
-            newVertices.AddRange(triMesh.vertices);
-            newTriangles.AddRange(triMesh.triangles);
-            newNormals.AddRange(triMesh.normals);
-            newUvs.AddRange(triMesh.uvs);
-            newUvs2.AddRange(triMesh.uvs2);
+            icoMesh.Combine(triMesh);
             off += 3;
         }
 
-        MeshFilter meshFilter = this.gameObject.AddComponent<MeshFilter>();
+        MeshFilter meshFilter = newSphere.AddComponent<MeshFilter>();
         Mesh mesh = meshFilter.mesh;
         mesh.Clear();
 
-        mesh.vertices = newVertices.ToArray();
-        mesh.triangles = newTriangles.ToArray();
-        mesh.normals = newNormals.ToArray();
-        mesh.uv = newUvs.ToArray();
-        mesh.uv2 = newUvs2.ToArray();
+        mesh.vertices = icoMesh.vertices;
+        mesh.triangles = icoMesh.triangles;
+        mesh.normals = icoMesh.normals;
+        mesh.uv = icoMesh.uvs;
+        mesh.uv2 = icoMesh.uvs2;
 
         mesh.RecalculateNormals();
 
-        MeshRenderer meshRenderer = this.gameObject.AddComponent<MeshRenderer>();
+        MeshRenderer meshRenderer = newSphere.AddComponent<MeshRenderer>();
         meshRenderer.materials = new Material[] { mat };
-    }
-
-    public static void SetupIcoSphereMesh(string name, Transform parent, Vector3 position, float radius, int resolution, float gapLength, Material mat)
-    {
-        GameObject newSphere = new GameObject(name);
-        newSphere.transform.parent = parent;
-        newSphere.transform.position = position;
-        IcosphereGenerator newSphereGenerator = newSphere.AddComponent<IcosphereGenerator>();
-        newSphereGenerator.mat = mat;
-        newSphereGenerator.gapLength = gapLength;
-        newSphereGenerator.radius = radius;
-        newSphereGenerator.resolution = resolution;
-        newSphereGenerator.Init();
     }
 
 }

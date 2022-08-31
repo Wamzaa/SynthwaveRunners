@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SquareGenerator : MonoBehaviour
 {
-    public static TriMesh GetTriMesh(int indexOffset, Vector3 _p1, Vector3 _p2, Vector3 _p3, Vector3 _p4, float gapLength)
+    public static TriMesh GetTriMesh(int indexOffset, Vector3 _p1, Vector3 _p2, Vector3 _p3, Vector3 _p4, bool hasHoriLines, bool hasVertLines, float gapLength)
     {
         TriMesh triMesh = new TriMesh();
 
@@ -31,27 +31,22 @@ public class SquareGenerator : MonoBehaviour
         float tempE;
 
         tempE = Mathf.Min(2 * gapLength / (_p3 - _p2).magnitude, 1.0f);
-        if (tempE == 1.0f)
-        {
-            xMin = 1.0f;
-            xMax = 1.0f;
-        }
-        else
-        {
-            xMin = -0.5f / (1 - tempE);
-            xMax = 0.5f / (1 - tempE);
-        }
+        xMin = (tempE == 1.0f) ? 1.0f : -0.5f / (1 - tempE);
+        xMax = (tempE == 1.0f) ? 1.0f : 0.5f / (1 - tempE);
 
         tempE = Mathf.Min(2 * gapLength / (_p2 - _p1).magnitude, 1.0f);
-        if (tempE == 1.0f)
+        yMin = (tempE == 1.0f) ? 1.0f : -0.5f / (1 - tempE);
+        yMax = (tempE == 1.0f) ? 1.0f : 0.5f / (1 - tempE);
+
+        if (!hasHoriLines)
         {
-            yMin = 1.0f;
-            yMax = 1.0f;
+            yMin = 0.0f;
+            yMax = 0.0f;
         }
-        else
+        if (!hasVertLines)
         {
-            yMin = -0.5f / (1 - tempE);
-            yMax = 0.5f / (1 - tempE);
+            xMin = 0.0f;
+            xMax = 0.0f;
         }
 
         triMesh.uvs = new Vector2[]
