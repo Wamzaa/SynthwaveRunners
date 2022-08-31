@@ -37,7 +37,10 @@ public class MeshBuildingGenerator : MonoBehaviour
 
     public void SetUp()
     {
-        if(type == BuildingType.SimpleBloc)
+        Quaternion rot = this.transform.rotation;
+        this.transform.rotation = Quaternion.identity;
+
+        if (type == BuildingType.SimpleBloc)
         {
             BuildSimpleBlocBuilding();
         }
@@ -53,12 +56,14 @@ public class MeshBuildingGenerator : MonoBehaviour
         {
             BuildCircularAlterTowerBuilding();
         }
+
+        this.transform.rotation = rot;
     }
 
     public void BuildSimpleBlocBuilding()
     {
         Vector3 baseCubeScale = new Vector3(width, height, depth);
-        CubeGenerator.SetupCubeMesh("base(Building)", this.transform, this.transform.position + height * 0.5f * this.transform.up, baseCubeScale, gapLength, mat);
+        CubeGenerator.SetupCubeMesh("base(Building)", this.transform, this.transform.position + height * 0.5f * Vector3.up, baseCubeScale, gapLength, mat2);
         
         if(windowType == WindowType.Line || windowType == WindowType.OpenLine)
         {
@@ -67,7 +72,7 @@ public class MeshBuildingGenerator : MonoBehaviour
             for (int i = 1; i <= nbWindows; i++)
             {
                 Vector3 windowCubeScale = new Vector3(width + gapLength, windowSize, depth * 0.75f);
-                CubeGenerator.SetupCubeMesh("window(Building)-" + i, this.transform, this.transform.position + i * (height / (nbWindows + 1)) * this.transform.up, windowCubeScale, windowGapLength, mat);
+                CubeGenerator.SetupCubeMesh("window(Building)-" + i, this.transform, this.transform.position + i * (height / (nbWindows + 1)) * Vector3.up, windowCubeScale, windowGapLength, mat2);
                 
             }
 
@@ -76,7 +81,7 @@ public class MeshBuildingGenerator : MonoBehaviour
                 for (int i = 1; i <= nbWindows; i++)
                 {
                     Vector3 windowCubeScale = new Vector3(width * 0.75f, windowSize, depth + gapLength);
-                    CubeGenerator.SetupCubeMesh("window(Building)-" + (i + nbWindows), this.transform, this.transform.position + i * (height / (nbWindows + 1)) * this.transform.up, windowCubeScale, windowGapLength, mat);
+                    CubeGenerator.SetupCubeMesh("window(Building)-" + (i + nbWindows), this.transform, this.transform.position + i * (height / (nbWindows + 1)) * Vector3.up, windowCubeScale, windowGapLength, mat2);
                     
                 }
             }
@@ -91,7 +96,7 @@ public class MeshBuildingGenerator : MonoBehaviour
                 for(int j = 1; j <= nbWindowsDepth; j++)
                 {
                     Vector3 windowCubeScale = new Vector3(width + gapLength, windowSize, windowSize);
-                    CubeGenerator.SetupCubeMesh("window(Building)-" + i + "/" + j, this.transform, this.transform.position + i * (height / (nbWindowsHeight + 1)) * this.transform.up + (j * (depth / (nbWindowsDepth + 1)) - depth / 2) * this.transform.forward, windowCubeScale, windowGapLength, mat);
+                    CubeGenerator.SetupCubeMesh("window(Building)-" + i + "/" + j, this.transform, this.transform.position + i * (height / (nbWindowsHeight + 1)) * Vector3.up + (j * (depth / (nbWindowsDepth + 1)) - depth / 2) * Vector3.forward, windowCubeScale, windowGapLength, mat2);
 
                 }
             }
@@ -104,7 +109,7 @@ public class MeshBuildingGenerator : MonoBehaviour
                     for (int j = 1; j <= nbWindowsWidth; j++)
                     {
                         Vector3 windowCubeScale = new Vector3(windowSize, windowSize, depth + gapLength);
-                        CubeGenerator.SetupCubeMesh("window(Building)-" + i + "/" + j, this.transform, this.transform.position + i * (height / (nbWindowsHeight + 1)) * this.transform.up + (j * (width / (nbWindowsWidth + 1)) - width / 2) * this.transform.right, windowCubeScale, windowGapLength, mat);
+                        CubeGenerator.SetupCubeMesh("window(Building)-" + i + "/" + j, this.transform, this.transform.position + i * (height / (nbWindowsHeight + 1)) * Vector3.up + (j * (width / (nbWindowsWidth + 1)) - width / 2) * Vector3.right, windowCubeScale, windowGapLength, mat2);
 
                     }
                 }
@@ -119,7 +124,7 @@ public class MeshBuildingGenerator : MonoBehaviour
 
     public void BuildCircularBlocBuilding()
     {
-        CylinderGenerator.SetupCylinderMesh("base(Building)", this.transform, this.transform.position + height * 0.5f * this.transform.up, radius, height, resolution, hasCylinderLines, gapLength, mat, mat2);
+        CylinderGenerator.SetupCylinderMesh("base(Building)", this.transform, this.transform.position + height * 0.5f * Vector3.up, radius, height, resolution, hasCylinderLines, gapLength, mat, mat2);
 
         if (windowType == WindowType.Line || windowType == WindowType.OpenLine)
         {
@@ -127,7 +132,7 @@ public class MeshBuildingGenerator : MonoBehaviour
             int nbWindows = (int)Mathf.Round(height / windowGap) - 1;
             for (int i = 1; i <= nbWindows; i++)
             {
-                CylinderGenerator.SetupCylinderMesh("window(Building)-" + i, this.transform, this.transform.position + i * (height / (nbWindows + 1)) * this.transform.up, radius + gapLength, windowSize, resolution, hasCylinderLines, windowGapLength, mat, mat2);
+                CylinderGenerator.SetupCylinderMesh("window(Building)-" + i, this.transform, this.transform.position + i * (height / (nbWindows + 1)) * Vector3.up, radius + gapLength, windowSize, resolution, hasCylinderLines, windowGapLength, mat, mat2);
             }
         }
         /*else if (windowType == WindowType.Square || windowType == WindowType.OpenSquare)
@@ -161,7 +166,7 @@ public class MeshBuildingGenerator : MonoBehaviour
     public void BuildAlterTowerBuilding()
     {
         Vector3 baseCubeScale = new Vector3(width * 0.25f, height, depth * 0.25f);
-        CubeGenerator.SetupCubeMesh("base(Building)", this.transform, this.transform.position + height * 0.5f * this.transform.up, baseCubeScale, gapLength, mat);
+        CubeGenerator.SetupCubeMesh("base(Building)", this.transform, this.transform.position + height * 0.5f * Vector3.up, baseCubeScale, gapLength, mat2);
         
 
         float alterLen = 0.5f * height / nbAlter;
@@ -193,13 +198,13 @@ public class MeshBuildingGenerator : MonoBehaviour
                     break;
             }
 
-            CubeGenerator.SetupCubeMesh("alter(Building)-" + i, this.transform, this.transform.position + ((2 * i + 1) * alterLen - 0.5f * alterLen) * this.transform.up, windowCubeScale, gapLength, mat);
+            CubeGenerator.SetupCubeMesh("alter(Building)-" + i, this.transform, this.transform.position + ((2 * i + 1) * alterLen - 0.5f * alterLen) * Vector3.up, windowCubeScale, gapLength, mat2);
         }
     }
 
     public void BuildCircularAlterTowerBuilding()
     {
-        CylinderGenerator.SetupCylinderMesh("base(Building)", this.transform, this.transform.position + height * 0.5f * this.transform.up, 0.25f * radius, height, resolution, hasCylinderLines, gapLength, mat, mat2);
+        CylinderGenerator.SetupCylinderMesh("base(Building)", this.transform, this.transform.position + height * 0.5f * Vector3.up, 0.25f * radius, height, resolution, hasCylinderLines, gapLength, mat, mat2);
 
         float alterLen = 0.5f * height / nbAlter;
         for (int i = 0; i < nbAlter; i++)
@@ -230,7 +235,7 @@ public class MeshBuildingGenerator : MonoBehaviour
                     break;
             }
 
-            CylinderGenerator.SetupCylinderMesh("alter(Building)-" + i, this.transform, this.transform.position + ((2 * i + 1) * alterLen - 0.5f * alterLen) * this.transform.up, windowRadius, alterLen, resolution, hasCylinderLines, gapLength, mat, mat2);
+            CylinderGenerator.SetupCylinderMesh("alter(Building)-" + i, this.transform, this.transform.position + ((2 * i + 1) * alterLen - 0.5f * alterLen) * Vector3.up, windowRadius, alterLen, resolution, hasCylinderLines, gapLength, mat, mat2);
 
         }
     }

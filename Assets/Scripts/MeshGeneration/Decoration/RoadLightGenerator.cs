@@ -17,10 +17,7 @@ public class RoadLightGenerator : MonoBehaviour
     {
         Quaternion rot = this.transform.rotation;
         this.transform.rotation = Quaternion.identity;
-
-        /*Vector3 vecForward = this.transform.forward;
-        Vector3 vecRight = this.transform.right;
-        Vector3 vecUp = this.transform.up;*/
+        
         Vector3 tempSize; 
 
         tempSize = scale * new Vector3(0.3f, 1.0f, 0.3f);
