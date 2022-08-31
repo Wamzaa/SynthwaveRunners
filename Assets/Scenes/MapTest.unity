@@ -4058,6 +4058,7 @@ MonoBehaviour:
   nbAlter: 0
   alterFunction: 0
   mat: {fileID: 2100000, guid: 375d5ae21f8cae140a38ef6aaca2b6bf, type: 2}
+  mat2: {fileID: 2100000, guid: a1ee60ebc97e00c44bb7cfbf9cf07d66, type: 2}
 --- !u!4 &1782016855
 Transform:
   m_ObjectHideFlags: 0
@@ -4387,6 +4388,7 @@ MonoBehaviour:
   nbAlter: 0
   alterFunction: 0
   mat: {fileID: 2100000, guid: a1ee60ebc97e00c44bb7cfbf9cf07d66, type: 2}
+  mat2: {fileID: 0}
 --- !u!4 &1890373310
 Transform:
   m_ObjectHideFlags: 0

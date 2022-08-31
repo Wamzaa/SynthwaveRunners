@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TriangleGenerator : MonoBehaviour
@@ -62,4 +63,24 @@ public class TriMesh
     public Vector3[] normals;
     public Vector2[] uvs;
     public Vector2[] uvs2;
+
+    public TriMesh()
+    {
+        vertices = new Vector3[] { };
+        triangles = new int[] { };
+        normals = new Vector3[] { };
+        uvs = new Vector2[] { };
+        uvs2 = new Vector2[] { };
+    }
+
+    // TODO -> 
+    // vérifier si tout transformer en liste et uiliser l1.AddRange(l2) est mieux ou pas 
+    public void Combine(TriMesh m)
+    {
+        vertices = vertices.Concat(m.vertices).ToArray();
+        triangles = triangles.Concat(m.triangles).ToArray();
+        normals = normals.Concat(m.normals).ToArray();
+        uvs = uvs.Concat(m.uvs).ToArray();
+        uvs2 = uvs2.Concat(m.uvs2).ToArray();
+    }
 }

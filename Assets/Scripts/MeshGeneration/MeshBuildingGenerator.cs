@@ -28,6 +28,7 @@ public class MeshBuildingGenerator : MonoBehaviour
     public enum FunctionShape { Linear, ZigZag, SquareRoot, Square};
 
     public Material mat;
+    public Material mat2;
 
     void Start()
     {
@@ -56,46 +57,27 @@ public class MeshBuildingGenerator : MonoBehaviour
 
     public void BuildSimpleBlocBuilding()
     {
-        GameObject baseCube = new GameObject("base(Building)");
-        baseCube.transform.parent = this.transform;
-        baseCube.transform.position = this.transform.position + height * 0.5f * this.transform.up;
-        CubeGenerator baseCubeGenerator = baseCube.AddComponent<CubeGenerator>();
-        baseCubeGenerator.mat = mat;
-        baseCubeGenerator.gapLength = gapLength;
         Vector3 baseCubeScale = new Vector3(width, height, depth);
-        baseCubeGenerator.size = baseCubeScale;
-        baseCubeGenerator.Init();
-
+        CubeGenerator.SetupCubeMesh("base(Building)", this.transform, this.transform.position + height * 0.5f * this.transform.up, baseCubeScale, gapLength, mat);
+        
         if(windowType == WindowType.Line || windowType == WindowType.OpenLine)
         {
             float windowGapLength = (windowType == WindowType.Line) ? windowSize : gapLength;
             int nbWindows = (int)Mathf.Round(height / windowGap) - 1;
             for (int i = 1; i <= nbWindows; i++)
             {
-                GameObject windowCube = new GameObject("window(Building)-" + i);
-                windowCube.transform.parent = this.transform;
-                windowCube.transform.position = this.transform.position + i * (height / (nbWindows + 1)) * this.transform.up;
-                CubeGenerator windowCubeGenerator = windowCube.AddComponent<CubeGenerator>();
-                windowCubeGenerator.mat = mat;
-                windowCubeGenerator.gapLength = windowGapLength;
                 Vector3 windowCubeScale = new Vector3(width + gapLength, windowSize, depth * 0.75f);
-                windowCubeGenerator.size = windowCubeScale;
-                windowCubeGenerator.Init();
+                CubeGenerator.SetupCubeMesh("window(Building)-" + i, this.transform, this.transform.position + i * (height / (nbWindows + 1)) * this.transform.up, windowCubeScale, windowGapLength, mat);
+                
             }
 
             if (bothSide)
             {
                 for (int i = 1; i <= nbWindows; i++)
                 {
-                    GameObject windowCube = new GameObject("window(Building)-" + (i+nbWindows));
-                    windowCube.transform.parent = this.transform;
-                    windowCube.transform.position = this.transform.position + i * (height / (nbWindows + 1)) * this.transform.up;
-                    CubeGenerator windowCubeGenerator = windowCube.AddComponent<CubeGenerator>();
-                    windowCubeGenerator.mat = mat;
-                    windowCubeGenerator.gapLength = windowGapLength;
                     Vector3 windowCubeScale = new Vector3(width * 0.75f, windowSize, depth + gapLength);
-                    windowCubeGenerator.size = windowCubeScale;
-                    windowCubeGenerator.Init();
+                    CubeGenerator.SetupCubeMesh("window(Building)-" + (i + nbWindows), this.transform, this.transform.position + i * (height / (nbWindows + 1)) * this.transform.up, windowCubeScale, windowGapLength, mat);
+                    
                 }
             }
         }
@@ -108,15 +90,9 @@ public class MeshBuildingGenerator : MonoBehaviour
             {
                 for(int j = 1; j <= nbWindowsDepth; j++)
                 {
-                    GameObject windowCube = new GameObject("window(Building)-" + i + "/" + j);
-                    windowCube.transform.parent = this.transform;
-                    windowCube.transform.position = this.transform.position + i * (height / (nbWindowsHeight + 1)) * this.transform.up + (j * (depth / (nbWindowsDepth + 1)) - depth/2) * this.transform.forward;
-                    CubeGenerator windowCubeGenerator = windowCube.AddComponent<CubeGenerator>();
-                    windowCubeGenerator.mat = mat;
-                    windowCubeGenerator.gapLength = windowGapLength;
                     Vector3 windowCubeScale = new Vector3(width + gapLength, windowSize, windowSize);
-                    windowCubeGenerator.size = windowCubeScale;
-                    windowCubeGenerator.Init();
+                    CubeGenerator.SetupCubeMesh("window(Building)-" + i + "/" + j, this.transform, this.transform.position + i * (height / (nbWindowsHeight + 1)) * this.transform.up + (j * (depth / (nbWindowsDepth + 1)) - depth / 2) * this.transform.forward, windowCubeScale, windowGapLength, mat);
+
                 }
             }
 
@@ -127,15 +103,9 @@ public class MeshBuildingGenerator : MonoBehaviour
                 {
                     for (int j = 1; j <= nbWindowsWidth; j++)
                     {
-                        GameObject windowCube = new GameObject("window(Building)-" + i + "/" + j);
-                        windowCube.transform.parent = this.transform;
-                        windowCube.transform.position = this.transform.position + i * (height / (nbWindowsHeight + 1)) * this.transform.up + (j * (width / (nbWindowsWidth + 1)) - width / 2) * this.transform.right;
-                        CubeGenerator windowCubeGenerator = windowCube.AddComponent<CubeGenerator>();
-                        windowCubeGenerator.mat = mat;
-                        windowCubeGenerator.gapLength = windowGapLength;
                         Vector3 windowCubeScale = new Vector3(windowSize, windowSize, depth + gapLength);
-                        windowCubeGenerator.size = windowCubeScale;
-                        windowCubeGenerator.Init();
+                        CubeGenerator.SetupCubeMesh("window(Building)-" + i + "/" + j, this.transform, this.transform.position + i * (height / (nbWindowsHeight + 1)) * this.transform.up + (j * (width / (nbWindowsWidth + 1)) - width / 2) * this.transform.right, windowCubeScale, windowGapLength, mat);
+
                     }
                 }
             }
@@ -149,17 +119,7 @@ public class MeshBuildingGenerator : MonoBehaviour
 
     public void BuildCircularBlocBuilding()
     {
-        GameObject baseCube = new GameObject("base(Building)");
-        baseCube.transform.parent = this.transform;
-        baseCube.transform.position = this.transform.position + height * 0.5f * this.transform.up;
-        CylinderGenerator baseCubeGenerator = baseCube.AddComponent<CylinderGenerator>();
-        baseCubeGenerator.mat = mat;
-        baseCubeGenerator.gapLength = gapLength;
-        baseCubeGenerator.height = height;
-        baseCubeGenerator.radius = radius;
-        baseCubeGenerator.resolution = resolution;
-        baseCubeGenerator.hasVerticalLines = hasCylinderLines;
-        baseCubeGenerator.Init();
+        CylinderGenerator.SetupCylinderMesh("base(Building)", this.transform, this.transform.position + height * 0.5f * this.transform.up, radius, height, resolution, hasCylinderLines, gapLength, mat, mat2);
 
         if (windowType == WindowType.Line || windowType == WindowType.OpenLine)
         {
@@ -167,17 +127,7 @@ public class MeshBuildingGenerator : MonoBehaviour
             int nbWindows = (int)Mathf.Round(height / windowGap) - 1;
             for (int i = 1; i <= nbWindows; i++)
             {
-                GameObject windowCube = new GameObject("window(Building)-" + i);
-                windowCube.transform.parent = this.transform;
-                windowCube.transform.position = this.transform.position + i * (height / (nbWindows + 1)) * this.transform.up;
-                CylinderGenerator windowCubeGenerator = windowCube.AddComponent<CylinderGenerator>();
-                windowCubeGenerator.mat = mat;
-                windowCubeGenerator.gapLength = windowGapLength;
-                windowCubeGenerator.height = windowSize;
-                windowCubeGenerator.radius = radius + gapLength;
-                windowCubeGenerator.resolution = resolution;
-                windowCubeGenerator.hasVerticalLines = hasCylinderLines;
-                windowCubeGenerator.Init();
+                CylinderGenerator.SetupCylinderMesh("window(Building)-" + i, this.transform, this.transform.position + i * (height / (nbWindows + 1)) * this.transform.up, radius + gapLength, windowSize, resolution, hasCylinderLines, windowGapLength, mat, mat2);
             }
         }
         /*else if (windowType == WindowType.Square || windowType == WindowType.OpenSquare)
@@ -210,26 +160,13 @@ public class MeshBuildingGenerator : MonoBehaviour
 
     public void BuildAlterTowerBuilding()
     {
-        GameObject baseCube = new GameObject("base(Building)");
-        baseCube.transform.parent = this.transform;
-        baseCube.transform.position = this.transform.position + height * 0.5f * this.transform.up;
-        CubeGenerator baseCubeGenerator = baseCube.AddComponent<CubeGenerator>();
-        baseCubeGenerator.mat = mat;
-        baseCubeGenerator.gapLength = gapLength;
-        Vector3 baseCubeScale = new Vector3(width * 0.25f , height, depth * 0.25f);
-        baseCubeGenerator.size = baseCubeScale;
-        baseCubeGenerator.Init();
+        Vector3 baseCubeScale = new Vector3(width * 0.25f, height, depth * 0.25f);
+        CubeGenerator.SetupCubeMesh("base(Building)", this.transform, this.transform.position + height * 0.5f * this.transform.up, baseCubeScale, gapLength, mat);
+        
 
         float alterLen = 0.5f * height / nbAlter;
         for (int i = 0; i < nbAlter; i++)
         {
-            GameObject windowCube = new GameObject("alter(Building)-" + i);
-            windowCube.transform.parent = this.transform;
-            windowCube.transform.position = this.transform.position + ((2 * i + 1) * alterLen - 0.5f * alterLen) * this.transform.up;
-            CubeGenerator windowCubeGenerator = windowCube.AddComponent<CubeGenerator>();
-            windowCubeGenerator.mat = mat;
-            windowCubeGenerator.gapLength = gapLength;
-
             float ratioPos = ((2.0f * i + 1.0f) - 0.5f) / (nbAlter * 2.0f);
             Vector3 windowCubeScale = Vector3.zero;
 
@@ -256,64 +193,45 @@ public class MeshBuildingGenerator : MonoBehaviour
                     break;
             }
 
-            windowCubeGenerator.size = windowCubeScale;
-            windowCubeGenerator.Init();
+            CubeGenerator.SetupCubeMesh("alter(Building)-" + i, this.transform, this.transform.position + ((2 * i + 1) * alterLen - 0.5f * alterLen) * this.transform.up, windowCubeScale, gapLength, mat);
         }
     }
 
     public void BuildCircularAlterTowerBuilding()
     {
-        GameObject baseCube = new GameObject("base(Building)");
-        baseCube.transform.parent = this.transform;
-        baseCube.transform.position = this.transform.position + height * 0.5f * this.transform.up;
-        CylinderGenerator baseCubeGenerator = baseCube.AddComponent<CylinderGenerator>();
-        baseCubeGenerator.mat = mat;
-        baseCubeGenerator.gapLength = gapLength;
-        baseCubeGenerator.height = height;
-        baseCubeGenerator.radius = 0.25f * radius;
-        baseCubeGenerator.resolution = resolution;
-        baseCubeGenerator.hasVerticalLines = hasCylinderLines;
-        baseCubeGenerator.Init();
+        CylinderGenerator.SetupCylinderMesh("base(Building)", this.transform, this.transform.position + height * 0.5f * this.transform.up, 0.25f * radius, height, resolution, hasCylinderLines, gapLength, mat, mat2);
 
         float alterLen = 0.5f * height / nbAlter;
         for (int i = 0; i < nbAlter; i++)
         {
-            GameObject windowCube = new GameObject("alter(Building)-" + i);
-            windowCube.transform.parent = this.transform;
-            windowCube.transform.position = this.transform.position + ((2 * i + 1) * alterLen - 0.5f * alterLen) * this.transform.up;
-            CylinderGenerator windowCubeGenerator = windowCube.AddComponent<CylinderGenerator>();
-            windowCubeGenerator.mat = mat;
-            windowCubeGenerator.gapLength = gapLength;
-
+            float windowRadius = 0.0f;
             float ratioPos = ((2.0f * i + 1.0f) - 0.5f) / (nbAlter * 2.0f);
 
             switch (alterFunction)
             {
                 case FunctionShape.Linear:
-                    windowCubeGenerator.radius = ((1.0f - ratioPos) * 0.75f + 0.25f) * radius;
+                    windowRadius = ((1.0f - ratioPos) * 0.75f + 0.25f) * radius;
                     break;
                 case FunctionShape.ZigZag:
                     if (i % 2 == 0)
                     {
-                        windowCubeGenerator.radius = radius;
+                        windowRadius = radius;
                     }
                     else
                     {
-                        windowCubeGenerator.radius = 0.4f * radius;
+                        windowRadius = 0.4f * radius;
                     }
                     break;
                 case FunctionShape.SquareRoot:
-                    windowCubeGenerator.radius = (Mathf.Sqrt(1.0f - ratioPos) * 0.75f + 0.25f) * radius;
+                    windowRadius = (Mathf.Sqrt(1.0f - ratioPos) * 0.75f + 0.25f) * radius;
                     break;
                 case FunctionShape.Square:
-                    windowCubeGenerator.radius = ((1.0f - ratioPos) * (1.0f - ratioPos) * 0.75f + 0.25f) * radius;
+                    windowRadius = ((1.0f - ratioPos) * (1.0f - ratioPos) * 0.75f + 0.25f) * radius;
                     break;
             }
 
-            windowCubeGenerator.height = alterLen;
-            windowCubeGenerator.resolution = resolution;
-            windowCubeGenerator.hasVerticalLines = hasCylinderLines;
-            windowCubeGenerator.Init();
+            CylinderGenerator.SetupCylinderMesh("alter(Building)-" + i, this.transform, this.transform.position + ((2 * i + 1) * alterLen - 0.5f * alterLen) * this.transform.up, windowRadius, alterLen, resolution, hasCylinderLines, gapLength, mat, mat2);
+
         }
     }
     }

@@ -8,9 +8,9 @@ public class SquareGenerator : MonoBehaviour
     {
         TriMesh triMesh = new TriMesh();
 
-        if((_p4 - _p3 - _p2 + _p1).magnitude > 0.001f)
+        if((_p4 - _p3 + _p2 - _p1).magnitude > 0.1f)
         {
-            Debug.Log("Warning : this is not a square");
+            Debug.Log("Warning : this is not a square (" + (_p4 - _p3 + _p2 - _p1).magnitude + ")");
         }
 
         triMesh.vertices = new Vector3[]
@@ -62,7 +62,13 @@ public class SquareGenerator : MonoBehaviour
             new Vector2(xMax, yMin)
         };
 
-        triMesh.uvs2 = new Vector2[]{};
+        triMesh.uvs2 = new Vector2[]
+        {
+            Vector2.zero,
+            Vector2.zero,
+            Vector2.zero,
+            Vector2.zero
+        };
 
         triMesh.normals = new Vector3[]
         {

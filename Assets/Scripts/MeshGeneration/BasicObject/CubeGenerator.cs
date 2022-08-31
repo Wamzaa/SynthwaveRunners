@@ -4,31 +4,17 @@ using UnityEngine;
 
 public class CubeGenerator : MonoBehaviour
 {
-    public Vector3 size;
-
-    public float gapLength;
-
-    public Material mat;
-
-    private Vector3[] vertices;
-    private int[] triangles;
-    private Vector3[] normals;
-    private Vector2[] uvs;
-
-
-    public void Init()
+    public static void SetupCubeMesh(string name, Transform parent, Vector3 position, Vector3 size, float gapLength, Material mat)
     {
-        GenerateCubePrimitive();
-    }
+        GameObject newCube = new GameObject(name);
+        newCube.transform.parent = parent;
+        newCube.transform.position = position;
 
-    private void GenerateCubePrimitive()
-    {
-        Vector3 pos = this.transform.position;
-        Vector3 x = (size.x / 2) * this.transform.right;
-        Vector3 y = (size.y / 2) * this.transform.up;
-        Vector3 z = (size.z / 2) * this.transform.forward;
+        Vector3 x = (size.x / 2) * newCube.transform.right;
+        Vector3 y = (size.y / 2) * newCube.transform.up;
+        Vector3 z = (size.z / 2) * newCube.transform.forward;
 
-        vertices = new Vector3[]
+        Vector3[] vertices = new Vector3[]
         {
             - x - y - z,
             - x - y + z,
@@ -61,7 +47,7 @@ public class CubeGenerator : MonoBehaviour
             - x + y + z
         };
 
-        triangles = new int[]
+        int[] triangles = new int[]
         {
             0,3,2,
             0,2,1,
@@ -83,7 +69,7 @@ public class CubeGenerator : MonoBehaviour
         float tempE;
 
         tempE = Mathf.Min(2 * gapLength / size.x, 1.0f);
-        if(tempE == 1.0f)
+        if (tempE == 1.0f)
         {
             xMin = 1.0f;
             xMax = 1.0f;
@@ -118,7 +104,7 @@ public class CubeGenerator : MonoBehaviour
             zMax = 0.5f / (1 - tempE);
         }
 
-        uvs = new Vector2[]
+        Vector2[] uvs = new Vector2[]
         {
             new Vector2(xMin, zMin),
             new Vector2(xMin, zMax),
@@ -151,31 +137,17 @@ public class CubeGenerator : MonoBehaviour
             new Vector2(xMin, zMax)
         };
 
-        MeshFilter meshFilter = this.gameObject.AddComponent<MeshFilter>();
+        MeshFilter meshFilter = newCube.AddComponent<MeshFilter>();
         Mesh mesh = meshFilter.mesh;
         mesh.Clear();
 
         mesh.vertices = vertices;
         mesh.triangles = triangles;
-        mesh.normals = normals;
         mesh.uv = uvs;
-
         mesh.RecalculateNormals();
 
-        MeshRenderer meshRenderer = this.gameObject.AddComponent<MeshRenderer>();
+        MeshRenderer meshRenderer = newCube.AddComponent<MeshRenderer>();
         meshRenderer.materials = new Material[] { mat };
-    }
-
-    public static void SetupCubeMesh(string name, Transform parent, Vector3 position, Vector3 size, float gapLength, Material mat)
-    {
-        GameObject newCube = new GameObject(name);
-        newCube.transform.parent = parent;
-        newCube.transform.position = position;
-        CubeGenerator newCubeGenerator = newCube.AddComponent<CubeGenerator>();
-        newCubeGenerator.mat = mat;
-        newCubeGenerator.gapLength = gapLength;
-        newCubeGenerator.size = size;
-        newCubeGenerator.Init();
     }
 
 }
