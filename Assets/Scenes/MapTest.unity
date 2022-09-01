@@ -4039,22 +4039,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03967efd4c50b7b44a4ea582ef23403f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 3
   height: 100
   width: 20
   depth: 20
   radius: 10
-  resolution: 10
+  resolution: 60
   hasCylinderLines: 0
-  gapLength: 1
-  type: 3
-  windowGap: 9
-  windowSize: 3
-  bothSide: 1
   windowType: 1
-  nbAlter: 20
+  windowSize: 3
+  windowGap: 9
+  bothSide: 1
   alterFunction: 3
-  mat: {fileID: 2100000, guid: 375d5ae21f8cae140a38ef6aaca2b6bf, type: 2}
-  mat2: {fileID: 2100000, guid: a1ee60ebc97e00c44bb7cfbf9cf07d66, type: 2}
+  nbAlter: 20
+  nbPlane: 0
+  gapLength: 1
+  triMat: {fileID: 0}
+  squaMat: {fileID: 0}
 --- !u!4 &1782016855
 Transform:
   m_ObjectHideFlags: 0
@@ -4369,22 +4370,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03967efd4c50b7b44a4ea582ef23403f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 4
   height: 100
   width: 30
   depth: 20
-  radius: 10
+  radius: 80
   resolution: 10
   hasCylinderLines: 0
-  gapLength: 1
-  type: 0
-  windowGap: 5
-  windowSize: 3
-  bothSide: 1
   windowType: 1
+  windowSize: 4
+  windowGap: 7
+  bothSide: 1
+  alterFunction: 2
   nbAlter: 0
-  alterFunction: 0
-  mat: {fileID: 2100000, guid: 375d5ae21f8cae140a38ef6aaca2b6bf, type: 2}
-  mat2: {fileID: 2100000, guid: a1ee60ebc97e00c44bb7cfbf9cf07d66, type: 2}
+  nbPlane: 10
+  gapLength: 1
+  triMat: {fileID: 2100000, guid: 375d5ae21f8cae140a38ef6aaca2b6bf, type: 2}
+  squaMat: {fileID: 2100000, guid: a1ee60ebc97e00c44bb7cfbf9cf07d66, type: 2}
 --- !u!4 &1890373310
 Transform:
   m_ObjectHideFlags: 0
@@ -4392,13 +4394,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1890373308}
-  m_LocalRotation: {x: -0.04577058, y: 0.14193662, z: 0.30347693, w: 0.94109553}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -130, y: 0, z: -464}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: -9.921, y: 14.064, z: 34.519}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1950802702
 GameObject:
   m_ObjectHideFlags: 0

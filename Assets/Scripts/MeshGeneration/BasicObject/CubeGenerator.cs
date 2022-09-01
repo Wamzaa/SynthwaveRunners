@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CubeGenerator : MonoBehaviour
 {
-    public static void SetupCubeMesh(string name, Transform parent, Vector3 position, Vector3 size, float gapLength, Material mat)
+    public static Transform SetupCubeMesh(string name, Transform parent, Vector3 position, Vector3 size, float gapLength, Material mat)
     {
         GameObject newCube = new GameObject(name);
         newCube.transform.parent = parent;
@@ -148,6 +148,8 @@ public class CubeGenerator : MonoBehaviour
 
         MeshRenderer meshRenderer = newCube.AddComponent<MeshRenderer>();
         meshRenderer.materials = new Material[] { mat };
+
+        return newCube.transform;
     }
 
 }

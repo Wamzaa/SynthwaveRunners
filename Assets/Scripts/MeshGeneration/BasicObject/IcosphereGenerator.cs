@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class IcosphereGenerator : MonoBehaviour
 {
-    public static void SetupIcoSphereMesh(string name, Transform parent, Vector3 position, float radius, int resolution, float gapLength, Material mat)
+    public static Transform SetupIcoSphereMesh(string name, Transform parent, Vector3 position, float radius, int resolution, float gapLength, Material mat)
     {
         GameObject newSphere = new GameObject(name);
         newSphere.transform.parent = parent;
@@ -118,6 +118,8 @@ public class IcosphereGenerator : MonoBehaviour
 
         MeshRenderer meshRenderer = newSphere.AddComponent<MeshRenderer>();
         meshRenderer.materials = new Material[] { mat };
+
+        return newSphere.transform;
     }
 
 }

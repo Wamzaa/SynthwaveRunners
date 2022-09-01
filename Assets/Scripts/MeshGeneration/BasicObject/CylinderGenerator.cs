@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CylinderGenerator : MonoBehaviour
 {
-    public static void SetupCylinderMesh(string name, Transform parent, Vector3 position, float radius, float height, int resolution, bool hasLines, float gapLength, Material triMat, Material squaMat)
+    public static Transform SetupCylinderMesh(string name, Transform parent, Vector3 position, float radius, float height, int resolution, bool hasLines, float gapLength, Material triMat, Material squaMat)
     {
         GameObject newCylinder = new GameObject(name);
         newCylinder.transform.parent = parent;
@@ -65,6 +65,8 @@ public class CylinderGenerator : MonoBehaviour
 
         MeshRenderer meshRenderer = newCylinder.AddComponent<MeshRenderer>();
         meshRenderer.materials = new Material[] { triMat, squaMat };
+
+        return newCylinder.transform;
     }
 
 }
