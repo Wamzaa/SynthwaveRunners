@@ -4043,19 +4043,19 @@ MonoBehaviour:
   height: 100
   width: 20
   depth: 20
-  radius: 10
+  radius: 20
   resolution: 60
   hasCylinderLines: 0
   windowType: 1
   windowSize: 3
   windowGap: 9
   bothSide: 1
-  alterFunction: 3
+  alterFunction: 4
   nbAlter: 20
   nbPlane: 0
   gapLength: 1
-  triMat: {fileID: 0}
-  squaMat: {fileID: 0}
+  triMat: {fileID: 2100000, guid: 375d5ae21f8cae140a38ef6aaca2b6bf, type: 2}
+  squaMat: {fileID: 2100000, guid: a1ee60ebc97e00c44bb7cfbf9cf07d66, type: 2}
 --- !u!4 &1782016855
 Transform:
   m_ObjectHideFlags: 0

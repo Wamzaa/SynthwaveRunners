@@ -30,7 +30,7 @@ public class MeshBuildingGenerator : MonoBehaviour
     [Header("--- Specific Settings ---")]
     // Alter Tower Settings
     public FunctionShape alterFunction;
-    public enum FunctionShape { Linear, ZigZag, SquareRoot, Square };
+    public enum FunctionShape { Linear, ZigZag, SquareRoot, Square, Keel };
 
     public int nbAlter;
 
@@ -199,7 +199,7 @@ public class MeshBuildingGenerator : MonoBehaviour
                     }
                     else
                     {
-                        windowCubeScale = new Vector3(0.4f * width, alterLen, 0.4f * depth);
+                        windowCubeScale = new Vector3(0.6f * width, alterLen, 0.6f * depth);
                     }
                     break;
                 case FunctionShape.SquareRoot:
@@ -207,6 +207,16 @@ public class MeshBuildingGenerator : MonoBehaviour
                     break;
                 case FunctionShape.Square:
                     windowCubeScale = new Vector3(((1.0f - ratioPos) * (1.0f - ratioPos) * 0.75f + 0.25f) * width, alterLen, ((1.0f - ratioPos) * (1.0f - ratioPos) * 0.75f + 0.25f) * depth);
+                    break;
+                case FunctionShape.Keel:
+                    if(ratioPos < 2.0f / 3.0f)
+                    {
+                        windowCubeScale = new Vector3(((1.0f - 1.5f * ratioPos) * (1.0f - 1.5f * ratioPos) * 0.75f + 0.25f) * width, alterLen, ((1.0f - 1.5f * ratioPos) * (1.0f - 1.5f * ratioPos) * 0.75f + 0.25f) * depth);
+                    }
+                    else
+                    {
+                        windowCubeScale = new Vector3(((3.0f * ratioPos - 2.0f) * (3.0f * ratioPos - 2.0f) * 0.75f + 0.25f) * width, alterLen, ((3.0f * ratioPos - 2.0f) * (3.0f * ratioPos - 2.0f) * 0.75f + 0.25f) * depth);
+                    }
                     break;
             }
 
@@ -216,7 +226,7 @@ public class MeshBuildingGenerator : MonoBehaviour
 
     public void BuildCircularAlterTowerBuilding()
     {
-        CylinderGenerator.SetupCylinderMesh("base(Building)", this.transform, this.transform.position + height * 0.5f * Vector3.up, 0.25f * radius, height, resolution, hasCylinderLines, gapLength, triMat, squaMat);
+        CylinderGenerator.SetupCylinderMesh("base(Building)", this.transform, this.transform.position + height * 0.5f * Vector3.up, 0.15f * radius, height, resolution, hasCylinderLines, gapLength, triMat, squaMat);
 
         float alterLen = 0.5f * height / nbAlter;
         for (int i = 0; i < nbAlter; i++)
@@ -227,7 +237,7 @@ public class MeshBuildingGenerator : MonoBehaviour
             switch (alterFunction)
             {
                 case FunctionShape.Linear:
-                    windowRadius = ((1.0f - ratioPos) * 0.75f + 0.25f) * radius;
+                    windowRadius = ((1.0f - ratioPos) * 0.85f + 0.15f) * radius;
                     break;
                 case FunctionShape.ZigZag:
                     if (i % 2 == 0)
@@ -236,30 +246,43 @@ public class MeshBuildingGenerator : MonoBehaviour
                     }
                     else
                     {
-                        windowRadius = 0.4f * radius;
+                        windowRadius = 0.6f * radius;
                     }
                     break;
                 case FunctionShape.SquareRoot:
-                    windowRadius = (Mathf.Sqrt(1.0f - ratioPos) * 0.75f + 0.25f) * radius;
+                    windowRadius = (Mathf.Sqrt(1.0f - ratioPos) * 0.85f + 0.15f) * radius;
                     break;
                 case FunctionShape.Square:
-                    windowRadius = ((1.0f - ratioPos) * (1.0f - ratioPos) * 0.75f + 0.25f) * radius;
+                    windowRadius = ((1.0f - ratioPos) * (1.0f - ratioPos) * 0.85f + 0.15f) * radius;
+                    break;
+                case FunctionShape.Keel:
+                    if (ratioPos < 2.0f / 3.0f)
+                    {
+                        windowRadius = ((1.0f - 1.5f * ratioPos) * (1.0f - 1.5f * ratioPos) * 0.85f + 0.15f) * radius;
+                    }
+                    else
+                    {
+                        windowRadius = ((3.0f * ratioPos - 2.0f) * (3.0f * ratioPos - 2.0f) * 0.85f + 0.15f) * radius;
+                    }
                     break;
             }
 
-            CylinderGenerator.SetupCylinderMesh("alter(Building)-" + i, this.transform, this.transform.position + ((2 * i + 1) * alterLen - 0.5f * alterLen) * Vector3.up, windowRadius, alterLen, resolution, hasCylinderLines, gapLength, triMat, squaMat);
-
+            CylinderGenerator.SetupCylinderMesh("alter(Building)-" + i, this.transform, this.transform.position + ((2 * i + 1) * alterLen + 0.5f * alterLen) * Vector3.up, windowRadius, alterLen, resolution, hasCylinderLines, gapLength, triMat, squaMat);
+            if(alterFunction == FunctionShape.Keel)
+            {
+                IcosphereGenerator.SetupIcoSphereMesh("head(keelTower)", this.transform, this.transform.position + (height + radius) * Vector3.up, radius, 1, gapLength, triMat);
+            }
         }
     }
 
     public void BuildBubbleTempleBuilding()
     {
-        IcosphereGenerator.SetupIcoSphereMesh("bubble", this.transform, this.transform.position /*+ 0.5f * radius * Vector3.up*/, radius, 2, gapLength, triMat);
+        IcosphereGenerator.SetupIcoSphereMesh("bubble", this.transform, this.transform.position + 0.5f * radius * Vector3.up, radius, 2, gapLength, triMat);
 
         for(int i=0; i<nbPlane; i++)
         {
-            float posY = i * radius / nbPlane + radius / (6.0f * nbPlane);
-            CylinderGenerator.SetupCylinderMesh("plane " + i, this.transform, this.transform.position + posY * Vector3.up, 5 * gapLength + radius * Mathf.Sin(0.5f * Mathf.PI - 0.5f * Mathf.PI * i/((float)nbPlane)), radius / (6.0f * nbPlane), resolution, hasCylinderLines, gapLength, triMat, squaMat);
+            float posY = 1.5f * (i * radius / nbPlane + radius / (6.0f * nbPlane));
+            CylinderGenerator.SetupCylinderMesh("plane " + i, this.transform, this.transform.position + posY * Vector3.up, 0.1f * radius + radius * Mathf.Cos(Mathf.Asin((1.5f * i/(float)nbPlane) + 1.5f/(6.0f * nbPlane) - 0.5f)), radius / (3.0f * nbPlane), resolution, hasCylinderLines, gapLength, triMat, squaMat);
         }
     }
 
