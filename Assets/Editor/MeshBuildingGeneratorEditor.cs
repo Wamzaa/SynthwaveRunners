@@ -23,6 +23,10 @@ public class MeshBuildingGeneratorEditor : Editor
     public SerializedProperty alterFunction_prop;
     public SerializedProperty nbAlter_prop;
     public SerializedProperty nbPlane_prop;
+    public SerializedProperty isConvex_prop;
+    public SerializedProperty bonesWidth_prop;
+    public SerializedProperty edgeReduction_prop;
+    public SerializedProperty offsetReduction_prop;
 
     public SerializedProperty gapLength_prop;
     public SerializedProperty triMat_prop;
@@ -48,11 +52,15 @@ public class MeshBuildingGeneratorEditor : Editor
 
         alterFunction_prop = serializedObject.FindProperty("alterFunction");
         nbAlter_prop = serializedObject.FindProperty("nbAlter");
+        nbPlane_prop = serializedObject.FindProperty("nbPlane");
+        isConvex_prop = serializedObject.FindProperty("isConvex");
+        bonesWidth_prop = serializedObject.FindProperty("bonesWidth");
+        edgeReduction_prop = serializedObject.FindProperty("edgeReduction");
+        offsetReduction_prop = serializedObject.FindProperty("offsetReduction");
 
         gapLength_prop = serializedObject.FindProperty("gapLength");
         triMat_prop = serializedObject.FindProperty("triMat");
         squaMat_prop = serializedObject.FindProperty("squaMat");
-        nbPlane_prop = serializedObject.FindProperty("nbPlane");
 
     }
 
@@ -73,6 +81,7 @@ public class MeshBuildingGeneratorEditor : Editor
                 EditorGUILayout.PropertyField(bothSide_prop);
                 break;
             case MeshBuildingGenerator.BuildingType.CircularBloc:
+                EditorGUILayout.PropertyField(height_prop);
                 EditorGUILayout.PropertyField(radius_prop);
                 EditorGUILayout.PropertyField(resolution_prop);
                 EditorGUILayout.PropertyField(hasCylinderLines_prop);
@@ -81,12 +90,12 @@ public class MeshBuildingGeneratorEditor : Editor
                 EditorGUILayout.PropertyField(height_prop);
                 EditorGUILayout.PropertyField(width_prop);
                 EditorGUILayout.PropertyField(depth_prop);
-                EditorGUILayout.PropertyField(bothSide_prop);
 
                 EditorGUILayout.PropertyField(alterFunction_prop);
                 EditorGUILayout.PropertyField(nbAlter_prop);
                 break;
             case MeshBuildingGenerator.BuildingType.CircularAlterTower:
+                EditorGUILayout.PropertyField(height_prop);
                 EditorGUILayout.PropertyField(radius_prop);
                 EditorGUILayout.PropertyField(resolution_prop);
                 EditorGUILayout.PropertyField(hasCylinderLines_prop);
@@ -101,9 +110,26 @@ public class MeshBuildingGeneratorEditor : Editor
 
                 EditorGUILayout.PropertyField(nbPlane_prop);
                 break;
+            case MeshBuildingGenerator.BuildingType.SkelTower:
+                EditorGUILayout.PropertyField(height_prop);
+                EditorGUILayout.PropertyField(radius_prop);
+                EditorGUILayout.PropertyField(resolution_prop);
+
+                EditorGUILayout.PropertyField(nbPlane_prop);
+                EditorGUILayout.PropertyField(isConvex_prop);
+                EditorGUILayout.PropertyField(bonesWidth_prop);
+                break;
+            case MeshBuildingGenerator.BuildingType.LevelSkyscrapper:
+                EditorGUILayout.PropertyField(height_prop);
+                EditorGUILayout.PropertyField(width_prop);
+                EditorGUILayout.PropertyField(depth_prop);
+
+                EditorGUILayout.PropertyField(edgeReduction_prop);
+                EditorGUILayout.PropertyField(offsetReduction_prop);
+                break;
         }
 
-        if(type == MeshBuildingGenerator.BuildingType.SimpleBloc || type == MeshBuildingGenerator.BuildingType.CircularBloc || type == MeshBuildingGenerator.BuildingType.AlterTower || type == MeshBuildingGenerator.BuildingType.CircularAlterTower)
+        if(type == MeshBuildingGenerator.BuildingType.SimpleBloc || type == MeshBuildingGenerator.BuildingType.CircularBloc)
         {
             EditorGUILayout.PropertyField(windowType_prop);
             EditorGUILayout.PropertyField(windowSize_prop);

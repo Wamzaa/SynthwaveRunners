@@ -6,7 +6,7 @@ public class MeshBuildingGenerator : MonoBehaviour
 {
     [Header("--- Type ---")]
     public BuildingType type;
-    public enum BuildingType { SimpleBloc, CircularBloc, AlterTower, CircularAlterTower, BubbleTemple};
+    public enum BuildingType { SimpleBloc, CircularBloc, AlterTower, CircularAlterTower, BubbleTemple, SkelTower, LevelSkyscrapper};
 
 
     [Header("--- Primary Settings ---")]
@@ -30,14 +30,22 @@ public class MeshBuildingGenerator : MonoBehaviour
     [Header("--- Specific Settings ---")]
     // Alter Tower Settings
     public FunctionShape alterFunction;
-    public enum FunctionShape { Linear, ZigZag, SquareRoot, Square, Keel };
+    public enum FunctionShape { Linear, ZigZag, SquareRoot, Square, Keel, LinSin};
 
     public int nbAlter;
 
     [Header("--- Specific Settings ---")]
-    //Bubble Temple Settings
-    public int nbPlane; 
+    //Bubble Temple & Skel Tower Settings
+    public int nbPlane;
 
+    //Skel Tower Settings
+    public bool isConvex;
+    public float bonesWidth;
+
+    [Header("--- Specific Settings ---")]
+    //Level Skyscrapper Settings
+    public float edgeReduction;
+    public Vector2 offsetReduction;
 
     [Header("--- Material & Mat. Settings ---")]
     public float gapLength;
@@ -73,6 +81,14 @@ public class MeshBuildingGenerator : MonoBehaviour
         else if (type == BuildingType.BubbleTemple)
         {
             BuildBubbleTempleBuilding();
+        }
+        else if(type == BuildingType.SkelTower)
+        {
+            BuildSkelTowerBuilding();
+        }
+        else if (type == BuildingType.LevelSkyscrapper)
+        {
+            BuildLevelSkyscrapperBuilding();
         }
 
         this.transform.rotation = rot;
@@ -177,7 +193,7 @@ public class MeshBuildingGenerator : MonoBehaviour
 
     public void BuildAlterTowerBuilding()
     {
-        Vector3 baseCubeScale = new Vector3(width * 0.25f, height, depth * 0.25f);
+        Vector3 baseCubeScale = new Vector3(width * 0.15f, height, depth * 0.15f);
         CubeGenerator.SetupCubeMesh("base(Building)", this.transform, this.transform.position + height * 0.5f * Vector3.up, baseCubeScale, gapLength, squaMat);
         
 
@@ -190,7 +206,7 @@ public class MeshBuildingGenerator : MonoBehaviour
             switch (alterFunction)
             {
                 case FunctionShape.Linear:
-                    windowCubeScale = new Vector3(((1.0f - ratioPos) * 0.75f + 0.25f)* width, alterLen, ((1.0f - ratioPos) * 0.75f + 0.25f) * depth);
+                    windowCubeScale = new Vector3(((1.0f - ratioPos) * 0.85f + 0.15f)* width, alterLen, ((1.0f - ratioPos) * 0.85f + 0.15f) * depth);
                     break;
                 case FunctionShape.ZigZag:
                     if (i % 2 == 0)
@@ -203,24 +219,31 @@ public class MeshBuildingGenerator : MonoBehaviour
                     }
                     break;
                 case FunctionShape.SquareRoot:
-                    windowCubeScale = new Vector3((Mathf.Sqrt(1.0f - ratioPos) * 0.75f + 0.25f) * width, alterLen, (Mathf.Sqrt(1.0f - ratioPos) * 0.75f + 0.25f) * depth);
+                    windowCubeScale = new Vector3((Mathf.Sqrt(1.0f - ratioPos) * 0.85f + 0.15f) * width, alterLen, (Mathf.Sqrt(1.0f - ratioPos) * 0.85f + 0.15f) * depth);
                     break;
                 case FunctionShape.Square:
-                    windowCubeScale = new Vector3(((1.0f - ratioPos) * (1.0f - ratioPos) * 0.75f + 0.25f) * width, alterLen, ((1.0f - ratioPos) * (1.0f - ratioPos) * 0.75f + 0.25f) * depth);
+                    windowCubeScale = new Vector3(((1.0f - ratioPos) * (1.0f - ratioPos) * 0.85f + 0.15f) * width, alterLen, ((1.0f - ratioPos) * (1.0f - ratioPos) * 0.85f + 0.15f) * depth);
                     break;
                 case FunctionShape.Keel:
                     if(ratioPos < 2.0f / 3.0f)
                     {
-                        windowCubeScale = new Vector3(((1.0f - 1.5f * ratioPos) * (1.0f - 1.5f * ratioPos) * 0.75f + 0.25f) * width, alterLen, ((1.0f - 1.5f * ratioPos) * (1.0f - 1.5f * ratioPos) * 0.75f + 0.25f) * depth);
+                        windowCubeScale = new Vector3(((1.0f - 1.5f * ratioPos) * (1.0f - 1.5f * ratioPos) * 0.85f + 0.15f) * width, alterLen, ((1.0f - 1.5f * ratioPos) * (1.0f - 1.5f * ratioPos) * 0.85f + 0.15f) * depth);
                     }
                     else
                     {
-                        windowCubeScale = new Vector3(((3.0f * ratioPos - 2.0f) * (3.0f * ratioPos - 2.0f) * 0.75f + 0.25f) * width, alterLen, ((3.0f * ratioPos - 2.0f) * (3.0f * ratioPos - 2.0f) * 0.75f + 0.25f) * depth);
+                        windowCubeScale = new Vector3(((3.0f * ratioPos - 2.0f) * (3.0f * ratioPos - 2.0f) * 0.85f + 0.15f) * width, alterLen, ((3.0f * ratioPos - 2.0f) * (3.0f * ratioPos - 2.0f) * 0.85f + 0.15f) * depth);
                     }
+                    break;
+                case FunctionShape.LinSin:
+                    windowCubeScale = new Vector3(((1.0f - ratioPos + 0.2f * Mathf.Sin(2 * Mathf.PI * ratioPos * height / (0.5f * width + 0.5f * depth))) * 0.85f + 0.15f) * width, alterLen, ((1.0f - ratioPos + +0.2f * Mathf.Sin(2 * Mathf.PI * ratioPos * height / (0.5f * width + 0.5f * depth))) * 0.85f + 0.15f) * depth);
                     break;
             }
 
             CubeGenerator.SetupCubeMesh("alter(Building)-" + i, this.transform, this.transform.position + ((2 * i + 1) * alterLen - 0.5f * alterLen) * Vector3.up, windowCubeScale, gapLength, squaMat);
+            if (alterFunction == FunctionShape.Keel)
+            {
+                IcosphereGenerator.SetupIcoSphereMesh("head(keelTower)", this.transform, this.transform.position + (height + (0.25f * width + 0.25f * depth)) * Vector3.up, (0.25f * width + 0.25f * depth), 1, gapLength, triMat);
+            }
         }
     }
 
@@ -265,6 +288,9 @@ public class MeshBuildingGenerator : MonoBehaviour
                         windowRadius = ((3.0f * ratioPos - 2.0f) * (3.0f * ratioPos - 2.0f) * 0.85f + 0.15f) * radius;
                     }
                     break;
+                case FunctionShape.LinSin:
+                    windowRadius = ((1.0f - ratioPos + +0.2f * Mathf.Sin(2 * Mathf.PI * ratioPos * height / (1.0f*radius))) * 0.85f + 0.15f) * radius;
+                    break;
             }
 
             CylinderGenerator.SetupCylinderMesh("alter(Building)-" + i, this.transform, this.transform.position + ((2 * i + 1) * alterLen + 0.5f * alterLen) * Vector3.up, windowRadius, alterLen, resolution, hasCylinderLines, gapLength, triMat, squaMat);
@@ -283,6 +309,72 @@ public class MeshBuildingGenerator : MonoBehaviour
         {
             float posY = 1.5f * (i * radius / nbPlane + radius / (6.0f * nbPlane));
             CylinderGenerator.SetupCylinderMesh("plane " + i, this.transform, this.transform.position + posY * Vector3.up, 0.1f * radius + radius * Mathf.Cos(Mathf.Asin((1.5f * i/(float)nbPlane) + 1.5f/(6.0f * nbPlane) - 0.5f)), radius / (3.0f * nbPlane), resolution, hasCylinderLines, gapLength, triMat, squaMat);
+        }
+    }
+
+    public void BuildSkelTowerBuilding()
+    {
+        Vector3 boneSize = new Vector3(bonesWidth, height, bonesWidth);
+        for(int i =0; i<resolution; i++)
+        {
+            Transform bone = CubeGenerator.SetupCubeMesh("bone-" + i, this.transform, this.transform.position + (height / 2) * Vector3.up + radius * Mathf.Cos(2 * Mathf.PI * i / resolution) * Vector3.right + radius * Mathf.Sin(2 * Mathf.PI * i / resolution) * Vector3.forward, boneSize, gapLength, squaMat);
+            bone.LookAt(this.transform.position + (height / 2) * Vector3.up);
+            if (!isConvex)
+            {
+                bone.Rotate(Vector3.up, 45.0f);
+            }
+        }
+
+        for(int j = 1; j<=nbPlane; j++)
+        {
+            CylinderGenerator.SetupCylinderMesh("plane-" + j, this.transform, this.transform.position + (j * height / nbPlane) * Vector3.up, radius, bonesWidth, resolution, false, gapLength, triMat, squaMat);
+        }
+    }
+
+    public void BuildLevelSkyscrapperBuilding()
+    {
+        bool isMinus = true;
+        bool loopActive = true;
+        Vector3 currentPosition = this.transform.position + (height / 2) * Vector3.up;
+        Vector3 currentSize = new Vector3(width, height, depth);
+        CubeGenerator.SetupCubeMesh("baseLevel", this.transform, currentPosition, currentSize, gapLength, squaMat);
+        while (loopActive)
+        {
+            if (isMinus)
+            {
+                currentPosition.x = currentPosition.x - offsetReduction.x / 2;
+                currentPosition.y = currentPosition.y + currentSize.y + edgeReduction / 2;
+                currentPosition.z = currentPosition.z - offsetReduction.y / 2;
+            }
+            else
+            {
+                currentPosition.x = currentPosition.x + offsetReduction.x / 2;
+                currentPosition.y = currentPosition.y + currentSize.y + edgeReduction / 2;
+                currentPosition.z = currentPosition.z + offsetReduction.y / 2;
+            }
+            isMinus = !isMinus;
+
+            currentSize.x = currentSize.x - edgeReduction - offsetReduction.x;
+            currentSize.y = currentSize.y + edgeReduction;
+            currentSize.z = currentSize.z - edgeReduction - offsetReduction.y;
+
+            if(currentSize.x > 0 && currentSize.z > 0)
+            {
+                Transform level = CubeGenerator.SetupCubeMesh("level", this.transform, currentPosition, currentSize, gapLength, squaMat);
+
+                int nbWindows = (int)Mathf.Round(currentSize.y / (2 * edgeReduction)) - 1;
+                for (int i = 1; i <= nbWindows; i++)
+                {
+                    Vector3 windowCubeScale = new Vector3(currentSize.x + gapLength, edgeReduction, Mathf.Max(currentSize.z - 2*edgeReduction - 2* gapLength, 0));
+                    CubeGenerator.SetupCubeMesh("window(SkyScrapper)-" + i, level, currentPosition + i * (currentSize.y / (nbWindows + 1)) * Vector3.up - (currentSize.y / 2) * Vector3.up, windowCubeScale, 2 * edgeReduction, squaMat);
+                    windowCubeScale = new Vector3(Mathf.Max(currentSize.x - 2 * edgeReduction, 0), edgeReduction, currentSize.z + gapLength);
+                    CubeGenerator.SetupCubeMesh("window(SkyScrapper)-" + i, level, currentPosition + i * (currentSize.y / (nbWindows + 1)) * Vector3.up - (currentSize.y / 2) * Vector3.up, windowCubeScale, 2 * edgeReduction, squaMat);
+                }
+            }
+            else
+            {
+                loopActive = false;
+            }
         }
     }
 

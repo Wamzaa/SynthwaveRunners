@@ -594,6 +594,70 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &302037840
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 302037842}
+  - component: {fileID: 302037841}
+  m_Layer: 0
+  m_Name: Building (7)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &302037841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302037840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03967efd4c50b7b44a4ea582ef23403f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 6
+  height: 30
+  width: 90
+  depth: 50
+  radius: 20
+  resolution: 10
+  hasCylinderLines: 1
+  windowType: 1
+  windowSize: 3
+  windowGap: 9
+  bothSide: 1
+  alterFunction: 4
+  nbAlter: 20
+  nbPlane: 6
+  isConvex: 0
+  bonesWidth: 4
+  edgeReduction: 3
+  offsetReduction: {x: 6, y: 1}
+  gapLength: 0.5
+  triMat: {fileID: 2100000, guid: 375d5ae21f8cae140a38ef6aaca2b6bf, type: 2}
+  squaMat: {fileID: 2100000, guid: a1ee60ebc97e00c44bb7cfbf9cf07d66, type: 2}
+--- !u!4 &302037842
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302037840}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1607, y: 0, z: 948}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &303873035
 GameObject:
   m_ObjectHideFlags: 0
@@ -912,6 +976,70 @@ Transform:
   m_Father: {fileID: 493002329}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!1 &384091498
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 384091500}
+  - component: {fileID: 384091499}
+  m_Layer: 0
+  m_Name: Building (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &384091499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384091498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03967efd4c50b7b44a4ea582ef23403f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 3
+  height: 200
+  width: 60
+  depth: 30
+  radius: 40
+  resolution: 20
+  hasCylinderLines: 0
+  windowType: 1
+  windowSize: 3
+  windowGap: 9
+  bothSide: 1
+  alterFunction: 4
+  nbAlter: 25
+  nbPlane: 6
+  isConvex: 0
+  bonesWidth: 4
+  edgeReduction: 2
+  offsetReduction: {x: 4, y: 2}
+  gapLength: 0.5
+  triMat: {fileID: 2100000, guid: 375d5ae21f8cae140a38ef6aaca2b6bf, type: 2}
+  squaMat: {fileID: 2100000, guid: a1ee60ebc97e00c44bb7cfbf9cf07d66, type: 2}
+--- !u!4 &384091500
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384091498}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1228, y: 0, z: 484}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &420477010
 GameObject:
   m_ObjectHideFlags: 0
@@ -960,6 +1088,101 @@ MonoBehaviour:
   height: 5
   width: 50
   borderHeight: 10
+--- !u!1 &426996184
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 426996188}
+  - component: {fileID: 426996187}
+  - component: {fileID: 426996186}
+  - component: {fileID: 426996185}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &426996185
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426996184}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &426996186
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426996184}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 6539900a2d21b6546aefdc18b98c2163, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &426996187
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426996184}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &426996188
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426996184}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1030.1128, y: 148.81801, z: 161.37299}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &432255378
 GameObject:
   m_ObjectHideFlags: 0
@@ -1706,6 +1929,52 @@ Transform:
   m_Father: {fileID: 651426397}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &891506720
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 891506722}
+  - component: {fileID: 891506721}
+  m_Layer: 0
+  m_Name: Ark
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &891506721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 891506720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1112db6e07a8c847bf1ec6c1077b01d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scale: 10
+  gapLength: 0.1
+  mat: {fileID: 2100000, guid: a1ee60ebc97e00c44bb7cfbf9cf07d66, type: 2}
+--- !u!4 &891506722
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 891506720}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 97.5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &891629293
 GameObject:
   m_ObjectHideFlags: 0
@@ -1944,6 +2213,70 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 904703171}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &945892411
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 945892413}
+  - component: {fileID: 945892412}
+  m_Layer: 0
+  m_Name: Building (8)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &945892412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 945892411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03967efd4c50b7b44a4ea582ef23403f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 3
+  height: 250
+  width: 50
+  depth: 50
+  radius: 25
+  resolution: 10
+  hasCylinderLines: 0
+  windowType: 1
+  windowSize: 3
+  windowGap: 9
+  bothSide: 1
+  alterFunction: 5
+  nbAlter: 45
+  nbPlane: 6
+  isConvex: 0
+  bonesWidth: 4
+  edgeReduction: 2
+  offsetReduction: {x: 4, y: 2}
+  gapLength: 0.5
+  triMat: {fileID: 2100000, guid: 375d5ae21f8cae140a38ef6aaca2b6bf, type: 2}
+  squaMat: {fileID: 2100000, guid: a1ee60ebc97e00c44bb7cfbf9cf07d66, type: 2}
+--- !u!4 &945892413
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 945892411}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 905, y: 0, z: 140.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &969314512
 GameObject:
   m_ObjectHideFlags: 0
@@ -2738,6 +3071,70 @@ Transform:
   m_Father: {fileID: 1273007}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1231829153
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1231829155}
+  - component: {fileID: 1231829154}
+  m_Layer: 0
+  m_Name: Building (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1231829154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1231829153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03967efd4c50b7b44a4ea582ef23403f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  height: 200
+  width: 60
+  depth: 30
+  radius: 20
+  resolution: 8
+  hasCylinderLines: 0
+  windowType: 2
+  windowSize: 3
+  windowGap: 5
+  bothSide: 1
+  alterFunction: 4
+  nbAlter: 20
+  nbPlane: 6
+  isConvex: 0
+  bonesWidth: 4
+  edgeReduction: 2
+  offsetReduction: {x: 4, y: 2}
+  gapLength: 0.5
+  triMat: {fileID: 2100000, guid: 375d5ae21f8cae140a38ef6aaca2b6bf, type: 2}
+  squaMat: {fileID: 2100000, guid: a1ee60ebc97e00c44bb7cfbf9cf07d66, type: 2}
+--- !u!4 &1231829155
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1231829153}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 587, y: 0, z: -38}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1261940224
 GameObject:
   m_ObjectHideFlags: 0
@@ -3157,6 +3554,70 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1491151870}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1504860249
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1504860251}
+  - component: {fileID: 1504860250}
+  m_Layer: 0
+  m_Name: Building (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1504860250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1504860249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03967efd4c50b7b44a4ea582ef23403f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 4
+  height: 20
+  width: 60
+  depth: 30
+  radius: 50
+  resolution: 15
+  hasCylinderLines: 1
+  windowType: 1
+  windowSize: 3
+  windowGap: 9
+  bothSide: 1
+  alterFunction: 4
+  nbAlter: 20
+  nbPlane: 8
+  isConvex: 0
+  bonesWidth: 4
+  edgeReduction: 2
+  offsetReduction: {x: 4, y: 2}
+  gapLength: 0.5
+  triMat: {fileID: 2100000, guid: 375d5ae21f8cae140a38ef6aaca2b6bf, type: 2}
+  squaMat: {fileID: 2100000, guid: a1ee60ebc97e00c44bb7cfbf9cf07d66, type: 2}
+--- !u!4 &1504860251
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1504860249}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1007, y: 0, z: 757}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1531721763
 GameObject:
   m_ObjectHideFlags: 0
@@ -3300,49 +3761,6 @@ MonoBehaviour:
   height: 5
   width: 50
   borderHeight: 10
---- !u!1 &1574610319
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1574610321}
-  - component: {fileID: 1574610320}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1574610320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1574610319}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fbef5dd07b2ca7458c106e76402c8c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1574610321
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1574610319}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 373.121, y: 167.53316, z: -1011.84894}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1595707263
 GameObject:
   m_ObjectHideFlags: 0
@@ -4039,21 +4457,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03967efd4c50b7b44a4ea582ef23403f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 3
+  type: 0
   height: 100
-  width: 20
-  depth: 20
+  width: 40
+  depth: 30
   radius: 20
-  resolution: 60
-  hasCylinderLines: 0
-  windowType: 1
-  windowSize: 3
-  windowGap: 9
+  resolution: 10
+  hasCylinderLines: 1
+  windowType: 4
+  windowSize: 4
+  windowGap: 8
   bothSide: 1
   alterFunction: 4
   nbAlter: 20
-  nbPlane: 0
-  gapLength: 1
+  nbPlane: 6
+  isConvex: 0
+  bonesWidth: 4
+  edgeReduction: 2
+  offsetReduction: {x: 4, y: 2}
+  gapLength: 0.5
   triMat: {fileID: 2100000, guid: 375d5ae21f8cae140a38ef6aaca2b6bf, type: 2}
   squaMat: {fileID: 2100000, guid: a1ee60ebc97e00c44bb7cfbf9cf07d66, type: 2}
 --- !u!4 &1782016855
@@ -4063,13 +4485,77 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1782016853}
-  m_LocalRotation: {x: -0.33445308, y: -0.023448784, z: -0.06589112, w: 0.9398137}
-  m_LocalPosition: {x: 311.2, y: 0, z: -464}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 311.2, y: 0, z: -38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: -39.178, y: 0, z: -8.021}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1846842351
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1846842353}
+  - component: {fileID: 1846842352}
+  m_Layer: 0
+  m_Name: Building (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1846842352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1846842351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03967efd4c50b7b44a4ea582ef23403f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 2
+  height: 250
+  width: 50
+  depth: 50
+  radius: 20
+  resolution: 10
+  hasCylinderLines: 0
+  windowType: 1
+  windowSize: 3
+  windowGap: 9
+  bothSide: 1
+  alterFunction: 5
+  nbAlter: 45
+  nbPlane: 6
+  isConvex: 0
+  bonesWidth: 4
+  edgeReduction: 2
+  offsetReduction: {x: 4, y: 2}
+  gapLength: 0.5
+  triMat: {fileID: 2100000, guid: 375d5ae21f8cae140a38ef6aaca2b6bf, type: 2}
+  squaMat: {fileID: 2100000, guid: a1ee60ebc97e00c44bb7cfbf9cf07d66, type: 2}
+--- !u!4 &1846842353
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1846842351}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 905, y: 0, z: 260}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1863492349
 GameObject:
   m_ObjectHideFlags: 0
@@ -4309,6 +4795,70 @@ MonoBehaviour:
   height: 5
   width: 50
   borderHeight: 10
+--- !u!1 &1871749747
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1871749749}
+  - component: {fileID: 1871749748}
+  m_Layer: 0
+  m_Name: Building (6)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1871749748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1871749747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03967efd4c50b7b44a4ea582ef23403f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 5
+  height: 170
+  width: 60
+  depth: 30
+  radius: 30
+  resolution: 10
+  hasCylinderLines: 1
+  windowType: 1
+  windowSize: 3
+  windowGap: 9
+  bothSide: 1
+  alterFunction: 4
+  nbAlter: 20
+  nbPlane: 7
+  isConvex: 0
+  bonesWidth: 6
+  edgeReduction: 2
+  offsetReduction: {x: 4, y: 2}
+  gapLength: 0.5
+  triMat: {fileID: 2100000, guid: 375d5ae21f8cae140a38ef6aaca2b6bf, type: 2}
+  squaMat: {fileID: 2100000, guid: a1ee60ebc97e00c44bb7cfbf9cf07d66, type: 2}
+--- !u!4 &1871749749
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1871749747}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 818, y: 0, z: 1010}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1875281122
 GameObject:
   m_ObjectHideFlags: 0
@@ -4384,6 +4934,10 @@ MonoBehaviour:
   alterFunction: 2
   nbAlter: 0
   nbPlane: 10
+  isConvex: 0
+  bonesWidth: 0
+  edgeReduction: 0
+  offsetReduction: {x: 0, y: 0}
   gapLength: 1
   triMat: {fileID: 2100000, guid: 375d5ae21f8cae140a38ef6aaca2b6bf, type: 2}
   squaMat: {fileID: 2100000, guid: a1ee60ebc97e00c44bb7cfbf9cf07d66, type: 2}

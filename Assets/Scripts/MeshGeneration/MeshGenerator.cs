@@ -365,7 +365,17 @@ public class MeshGenerator : MonoBehaviour
                 Vector3 vecH = Vector3.Cross(roadNormal, controlPointsOrientation[c]);
                 vecH = vecH.normalized;
 
-                GameObject leftRoadLight = new GameObject("leftRoadLight");
+                GameObject arkRoad = new GameObject("arkRoad");
+                ArkGenerator arkGenerator = arkRoad.AddComponent<ArkGenerator>();
+                arkGenerator.gapLength = 0.3f;
+                arkGenerator.mat = edgeMat;
+                arkGenerator.scale = 2 * (t * (controlPoints[c - 1].width - controlPoints[c - 1].height / 2) + (1 - t) * (controlPoints[c].width - controlPoints[c].height / 2));
+                arkGenerator.transform.position = midPos;
+                arkGenerator.transform.LookAt(midPos + controlPointsOrientation[c-1]);
+                Quaternion leftLightRot = Quaternion.LookRotation(controlPointsOrientation[c - 1], roadNormal);
+                arkGenerator.transform.rotation = leftLightRot;
+
+                /*GameObject leftRoadLight = new GameObject("leftRoadLight");
                 RoadLightGenerator leftGen = leftRoadLight.AddComponent<RoadLightGenerator>();
                 leftGen.gapLength = 0.3f;
                 leftGen.mat = edgeMat;
@@ -383,7 +393,7 @@ public class MeshGenerator : MonoBehaviour
                 rightGen.transform.position = midPos - (t * (controlPoints[c - 1].width - controlPoints[c - 1].height / 2) * vecH + (1 - t) * (controlPoints[c].width - controlPoints[c].height / 2) * vecH);
                 rightGen.transform.LookAt(midPos);
                 Quaternion rightLightRot = Quaternion.LookRotation(midPos - rightGen.transform.position, roadNormal); 
-                rightGen.transform.rotation = rightLightRot;
+                rightGen.transform.rotation = rightLightRot;*/
             }
             roadLightCount += lightDeltaDist;
         }
