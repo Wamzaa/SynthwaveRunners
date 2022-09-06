@@ -4,16 +4,13 @@ using UnityEngine;
 
 public class MeshBuildingGenerator : MonoBehaviour
 {
-    [Header("--- Type ---")]
-    public BuildingType type;
-    public enum BuildingType { SimpleBloc, CircularBloc, AlterTower, CircularAlterTower, BubbleTemple, SkelTower, LevelSkyscrapper};
-
-
     [Header("--- Primary Settings ---")]
+    public BuildingType type;
+    public enum BuildingType { SimpleBloc, CircularBloc, AlterTower, CircularAlterTower, BubbleTemple, SkelTower, LevelSkyscrapper, EllipticLevelSkyScrapper, CircularSpiralTower, CubicSpiralTower};
+
     public float height;
     public float width;
     public float depth;
-    [Header("--- Primary Settings ---")]
     public float radius;
     public int resolution;
     public bool hasCylinderLines;
@@ -46,6 +43,13 @@ public class MeshBuildingGenerator : MonoBehaviour
     //Level Skyscrapper Settings
     public float edgeReduction;
     public Vector2 offsetReduction;
+
+    [Header("--- Specific Settings ---")]
+    //Spiral Tower Settings
+    public float levelRadius;
+    public float levelHeight;
+    public int nbSpiral;
+    public float nbLap;
 
     [Header("--- Material & Mat. Settings ---")]
     public float gapLength;
@@ -89,6 +93,18 @@ public class MeshBuildingGenerator : MonoBehaviour
         else if (type == BuildingType.LevelSkyscrapper)
         {
             BuildLevelSkyscrapperBuilding();
+        }
+        else if(type == BuildingType.EllipticLevelSkyScrapper)
+        {
+            BuildEllipticLevelSkyscrapperBuilding();
+        }
+        else if (type == BuildingType.CircularSpiralTower)
+        {
+            BuildCircularSpiralTowerBuilding();
+        }
+        else if (type == BuildingType.CubicSpiralTower)
+        {
+            BuildCubicSpiralTowerBuilding();
         }
 
         this.transform.rotation = rot;
@@ -358,14 +374,14 @@ public class MeshBuildingGenerator : MonoBehaviour
             currentSize.y = currentSize.y + edgeReduction;
             currentSize.z = currentSize.z - edgeReduction - offsetReduction.y;
 
-            if(currentSize.x > 0 && currentSize.z > 0)
+            if (currentSize.x > 0 && currentSize.z > 0)
             {
                 Transform level = CubeGenerator.SetupCubeMesh("level", this.transform, currentPosition, currentSize, gapLength, squaMat);
 
                 int nbWindows = (int)Mathf.Round(currentSize.y / (2 * edgeReduction)) - 1;
                 for (int i = 1; i <= nbWindows; i++)
                 {
-                    Vector3 windowCubeScale = new Vector3(currentSize.x + gapLength, edgeReduction, Mathf.Max(currentSize.z - 2*edgeReduction - 2* gapLength, 0));
+                    Vector3 windowCubeScale = new Vector3(currentSize.x + gapLength, edgeReduction, Mathf.Max(currentSize.z - 2 * edgeReduction - 2 * gapLength, 0));
                     CubeGenerator.SetupCubeMesh("window(SkyScrapper)-" + i, level, currentPosition + i * (currentSize.y / (nbWindows + 1)) * Vector3.up - (currentSize.y / 2) * Vector3.up, windowCubeScale, 2 * edgeReduction, squaMat);
                     windowCubeScale = new Vector3(Mathf.Max(currentSize.x - 2 * edgeReduction, 0), edgeReduction, currentSize.z + gapLength);
                     CubeGenerator.SetupCubeMesh("window(SkyScrapper)-" + i, level, currentPosition + i * (currentSize.y / (nbWindows + 1)) * Vector3.up - (currentSize.y / 2) * Vector3.up, windowCubeScale, 2 * edgeReduction, squaMat);
@@ -374,6 +390,83 @@ public class MeshBuildingGenerator : MonoBehaviour
             else
             {
                 loopActive = false;
+            }
+        }
+    }
+
+    public void BuildEllipticLevelSkyscrapperBuilding()
+    {
+        bool isMinus = true;
+        bool loopActive = true;
+        Vector3 currentPosition = this.transform.position + (height / 2) * Vector3.up;
+        Vector3 currentSize = new Vector3(width, height, depth);
+        EllipseGenerator.SetupEllipseMesh("baseLevel", this.transform, currentPosition, currentSize.y, currentSize.x, currentSize.z, resolution, false, gapLength, triMat, squaMat);
+        while (loopActive)
+        {
+            if (isMinus)
+            {
+                currentPosition.x = currentPosition.x - offsetReduction.x / 2;
+                currentPosition.y = currentPosition.y + currentSize.y + edgeReduction / 2;
+                currentPosition.z = currentPosition.z - offsetReduction.y / 2;
+            }
+            else
+            {
+                currentPosition.x = currentPosition.x + offsetReduction.x / 2;
+                currentPosition.y = currentPosition.y + currentSize.y + edgeReduction / 2;
+                currentPosition.z = currentPosition.z + offsetReduction.y / 2;
+            }
+            isMinus = !isMinus;
+
+            currentSize.x = currentSize.x - edgeReduction - offsetReduction.x;
+            currentSize.y = currentSize.y + edgeReduction;
+            currentSize.z = currentSize.z - edgeReduction - offsetReduction.y;
+
+            if (currentSize.x > 0 && currentSize.z > 0)
+            {
+                Transform level = EllipseGenerator.SetupEllipseMesh("level", this.transform, currentPosition, currentSize.y, currentSize.x, currentSize.z, resolution, false, gapLength, triMat, squaMat);
+
+                int nbWindows = (int)Mathf.Round(currentSize.y / (2 * edgeReduction)) - 1;
+                for (int i = 1; i <= nbWindows; i++)
+                {
+                    EllipseGenerator.SetupEllipseMesh("window(SkyScrapper)-" + i, level, currentPosition + i * (currentSize.y / (nbWindows + 1)) * Vector3.up - (currentSize.y / 2) * Vector3.up, edgeReduction, currentSize.x + gapLength, currentSize.z + gapLength, resolution, false, 2 * edgeReduction, triMat, squaMat);
+                }
+            }
+            else
+            {
+                loopActive = false;
+            }
+        }
+    }
+
+    public void BuildCircularSpiralTowerBuilding()
+    {
+        float nbLevel = Mathf.Ceil(height / levelHeight);
+        float angleStep = 2 * Mathf.PI * nbLap / nbLevel;
+        for(int j=0; j<nbSpiral; j++)
+        {
+            float offAngle = 2 * Mathf.PI * j / ((float)nbSpiral);
+            for (int i = 0; i < nbLevel; i++)
+            {
+                CylinderGenerator.SetupCylinderMesh("level" + i + "/" + j, this.transform, this.transform.position + radius * (Mathf.Cos(i * angleStep + offAngle) * Vector3.right + Mathf.Sin(i * angleStep + offAngle) * Vector3.forward) + (i + 0.5f) * levelHeight * Vector3.up, levelRadius, levelHeight, resolution, hasCylinderLines, gapLength, triMat, squaMat);
+            }
+        }
+    }
+
+    public void BuildCubicSpiralTowerBuilding()
+    {
+        float nbLevel = Mathf.Ceil(height / levelHeight);
+        float angleStep = 2 * Mathf.PI * nbLap / nbLevel;
+        for (int j = 0; j < nbSpiral; j++)
+        {
+            float offAngle = 2 * Mathf.PI * j / ((float)nbSpiral);
+            for (int i = 0; i < nbLevel; i++)
+            {
+                Transform cube = CubeGenerator.SetupCubeMesh("level" + i + "/" + j, this.transform, this.transform.position + radius * (Mathf.Cos(i * angleStep + offAngle) * Vector3.right + Mathf.Sin(i * angleStep + offAngle) * Vector3.forward) + (i + 0.5f) * levelHeight * Vector3.up, new Vector3(2*levelRadius, levelHeight, 2*levelRadius), gapLength, squaMat);
+                cube.LookAt(this.transform.position + (i + 0.5f) * levelHeight * Vector3.up);
+                if(!isConvex)
+                {
+                    cube.Rotate(Vector3.up, 45.0f);
+                }
             }
         }
     }

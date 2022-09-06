@@ -27,6 +27,10 @@ public class MeshBuildingGeneratorEditor : Editor
     public SerializedProperty bonesWidth_prop;
     public SerializedProperty edgeReduction_prop;
     public SerializedProperty offsetReduction_prop;
+    public SerializedProperty levelRadius_prop;
+    public SerializedProperty levelHeight_prop;
+    public SerializedProperty nbSpiral_prop;
+    public SerializedProperty nbLap_prop;
 
     public SerializedProperty gapLength_prop;
     public SerializedProperty triMat_prop;
@@ -57,6 +61,10 @@ public class MeshBuildingGeneratorEditor : Editor
         bonesWidth_prop = serializedObject.FindProperty("bonesWidth");
         edgeReduction_prop = serializedObject.FindProperty("edgeReduction");
         offsetReduction_prop = serializedObject.FindProperty("offsetReduction");
+        levelRadius_prop = serializedObject.FindProperty("levelRadius");
+        levelHeight_prop = serializedObject.FindProperty("levelHeight");
+        nbSpiral_prop = serializedObject.FindProperty("nbSpiral");
+        nbLap_prop = serializedObject.FindProperty("nbLap");
 
         gapLength_prop = serializedObject.FindProperty("gapLength");
         triMat_prop = serializedObject.FindProperty("triMat");
@@ -126,6 +134,36 @@ public class MeshBuildingGeneratorEditor : Editor
 
                 EditorGUILayout.PropertyField(edgeReduction_prop);
                 EditorGUILayout.PropertyField(offsetReduction_prop);
+                break;
+            case MeshBuildingGenerator.BuildingType.EllipticLevelSkyScrapper:
+                EditorGUILayout.PropertyField(height_prop);
+                EditorGUILayout.PropertyField(width_prop);
+                EditorGUILayout.PropertyField(depth_prop);
+                EditorGUILayout.PropertyField(resolution_prop);
+
+                EditorGUILayout.PropertyField(edgeReduction_prop);
+                EditorGUILayout.PropertyField(offsetReduction_prop);
+                break;
+            case MeshBuildingGenerator.BuildingType.CircularSpiralTower:
+                EditorGUILayout.PropertyField(height_prop);
+                EditorGUILayout.PropertyField(radius_prop);
+                EditorGUILayout.PropertyField(resolution_prop);
+                EditorGUILayout.PropertyField(hasCylinderLines_prop);
+
+                EditorGUILayout.PropertyField(levelRadius_prop);
+                EditorGUILayout.PropertyField(levelHeight_prop);
+                EditorGUILayout.PropertyField(nbSpiral_prop);
+                EditorGUILayout.PropertyField(nbLap_prop);
+                break;
+            case MeshBuildingGenerator.BuildingType.CubicSpiralTower:
+                EditorGUILayout.PropertyField(height_prop);
+                EditorGUILayout.PropertyField(radius_prop);
+
+                EditorGUILayout.PropertyField(levelRadius_prop);
+                EditorGUILayout.PropertyField(levelHeight_prop);
+                EditorGUILayout.PropertyField(nbSpiral_prop);
+                EditorGUILayout.PropertyField(nbLap_prop);
+                EditorGUILayout.PropertyField(isConvex_prop);
                 break;
         }
 
