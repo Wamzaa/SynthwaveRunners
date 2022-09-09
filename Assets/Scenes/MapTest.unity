@@ -3050,10 +3050,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e81ef0cfa7f00224ab09f1e6290034d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 10
-  depth: 20
-  maxHeight: 50
-  resolution: 20
+  resX: 20
+  resY: 20
+  scale: 20
+  maxHeight: 100
+  seed: 0
+  edgeReduction: 4
   mat: {fileID: 2100000, guid: 3b8eeffc75bb926488f92a8617078ff4, type: 2}
 --- !u!4 &1165550454
 Transform:
@@ -3063,7 +3065,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1165550452}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 481.22372, y: 42.499847, z: 381.78452}
+  m_LocalPosition: {x: 0, y: 42.499847, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

@@ -5,10 +5,14 @@ using UnityEngine;
 public class LandscawaypesGenerator : MonoBehaviour
 {
     [Header("--- Primary Settings ---")]
-    public int width;
-    public int depth;
+    public int resX;
+    public int resY;
+    public float scale;
+
+    [Header("--- Randomness Settings ---")]
     public float maxHeight;
-    public float resolution;
+    public int seed;
+    public float edgeReduction;
 
     public Material mat;
 
@@ -22,20 +26,30 @@ public class LandscawaypesGenerator : MonoBehaviour
         Quaternion rot = this.transform.rotation;
         this.transform.rotation = Quaternion.identity;
 
+        if(seed == 0)
+        {
+            GenerateSeed();
+        }
+
         GenerateLandscawaypes();
 
         this.transform.rotation = rot;
     }
 
+    public void GenerateSeed()
+    {
+        seed = Random.Range(0, 10000);
+    }
+
     public void GenerateLandscawaypes()
     {
-        Vector3[,] points = new Vector3[width,depth];
+        Vector3[,] points = new Vector3[resX, resY];
 
-        for(int i=0; i<width; i++)
+        for(int i=0; i< resX; i++)
         {
-            for (int j = 0; j < depth; j++)
+            for (int j = 0; j < resY; j++)
             {
-                points[i, j] = GetRandom(i, j) * maxHeight * Vector3.up + i * resolution * Vector3.right + j * resolution * Vector3.forward;
+                points[i, j] = GetRandom(i, j) * maxHeight * Vector3.up + i * scale * Vector3.right + j * scale * Vector3.forward;
             }
         }
 
@@ -43,9 +57,9 @@ public class LandscawaypesGenerator : MonoBehaviour
         List<int> triangles = new List<int>();
         int offset = 0;
 
-        for (int i = 0; i < width - 1; i++)
+        for (int i = 0; i < resX - 1; i++)
         {
-            for (int j = 0; j < depth - 1; j++)
+            for (int j = 0; j < resY - 1; j++)
             {
                 vertices.Add(points[i, j]);
                 vertices.Add(points[i+1, j]);
@@ -81,8 +95,8 @@ public class LandscawaypesGenerator : MonoBehaviour
 
     public float GetRandom(int x, int y)
     {
-        float distCoeff = Mathf.Min(Mathf.Min(x, width - x - 1) * Mathf.Min(y, depth - y - 1) / (0.25f*width*depth), 1.0f);
-        return Random.Range(0.0f, 1.0f) * distCoeff;
+        float distCoeff = Mathf.Min(Mathf.Min(x, resX - x - 1), edgeReduction) * Mathf.Min(Mathf.Min(y, resY - y - 1), edgeReduction) / (edgeReduction * edgeReduction);
+        return Mathf.PerlinNoise(0.5f * x, 0.5f * y) * distCoeff;
     }
 
 }
