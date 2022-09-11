@@ -1756,8 +1756,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 7
   height: 50
-  width: 100
-  depth: 50
+  width: 200
+  depth: 100
   radius: 80
   resolution: 25
   hasCylinderLines: 0
@@ -1861,52 +1861,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &921430798
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 921430800}
-  - component: {fileID: 921430799}
-  m_Layer: 0
-  m_Name: StreetLight (3)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &921430799
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 921430798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03eb5615b1e602f409249eb49769bbb5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scale: 30
-  depth: 6
-  mat: {fileID: 2100000, guid: cfe8833e4a50d3145a9511b6287a2b49, type: 2}
---- !u!4 &921430800
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 921430798}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 109.8, y: 38.7, z: -20.2}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 41
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &940752254
 GameObject:
   m_ObjectHideFlags: 0
@@ -2640,8 +2594,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 7
   height: 30
-  width: 120
-  depth: 80
+  width: 240
+  depth: 160
   radius: 80
   resolution: 10
   hasCylinderLines: 0

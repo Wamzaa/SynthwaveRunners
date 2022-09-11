@@ -122,4 +122,39 @@ public class StreetLightGenerator : MonoBehaviour
 
         this.transform.rotation = rot;
     }
+
+    public void OnDrawGizmos()
+    {
+        Texture tex = mat.GetTexture("_EmissionMap");
+        float invMaxDim = 1 / ((float)Mathf.Max(tex.width, tex.height));
+
+        float x = scale * invMaxDim * tex.width;
+        float y = scale * invMaxDim * tex.height;
+
+        Gizmos.color = Color.magenta;
+        DrawRotatedWireCube(x, y, depth);
+    }
+
+    public void DrawRotatedWireCube(float width, float height, float depth)
+    {
+        Vector3 pos = this.transform.position;
+        Vector3 x = (width / 2) * this.transform.right;
+        Vector3 y = height * this.transform.up;
+        Vector3 z = (depth / 2) * this.transform.forward;
+
+        Gizmos.DrawLine(pos - x - z, pos + x - z);
+        Gizmos.DrawLine(pos + x - z, pos + x + z);
+        Gizmos.DrawLine(pos + x + z, pos - x + z);
+        Gizmos.DrawLine(pos - x + z, pos - x - z);
+
+        Gizmos.DrawLine(pos - x - z, pos - x - z + y);
+        Gizmos.DrawLine(pos + x - z, pos + x - z + y);
+        Gizmos.DrawLine(pos + x + z, pos + x + z + y);
+        Gizmos.DrawLine(pos - x + z, pos - x + z + y);
+
+        Gizmos.DrawLine(pos - x - z + y, pos + x - z + y);
+        Gizmos.DrawLine(pos + x - z + y, pos + x + z + y);
+        Gizmos.DrawLine(pos + x + z + y, pos - x + z + y);
+        Gizmos.DrawLine(pos - x + z + y, pos - x - z + y);
+    }
 }

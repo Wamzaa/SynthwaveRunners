@@ -22,10 +22,10 @@ public class EllipseGenerator : MonoBehaviour
 
         for (int i = 0; i < resolution; i++)
         {
-            Vector3 p1 = new Vector3(width * Mathf.Cos(2 * Mathf.PI * i / resolution), height / 2, depth * Mathf.Sin(2 * Mathf.PI * i / resolution));
-            Vector3 p2 = new Vector3(width * Mathf.Cos(2 * Mathf.PI * i / resolution), -height / 2, depth * Mathf.Sin(2 * Mathf.PI * i / resolution));
-            Vector3 p3 = new Vector3(width * Mathf.Cos(2 * Mathf.PI * (i + 1) / resolution), height / 2, depth * Mathf.Sin(2 * Mathf.PI * (i + 1) / resolution));
-            Vector3 p4 = new Vector3(width * Mathf.Cos(2 * Mathf.PI * (i + 1) / resolution), -height / 2, depth * Mathf.Sin(2 * Mathf.PI * (i + 1) / resolution));
+            Vector3 p1 = new Vector3((width / 2) * Mathf.Cos(2 * Mathf.PI * i / resolution), height / 2, (depth / 2) * Mathf.Sin(2 * Mathf.PI * i / resolution));
+            Vector3 p2 = new Vector3((width / 2) * Mathf.Cos(2 * Mathf.PI * i / resolution), -height / 2, (depth / 2) * Mathf.Sin(2 * Mathf.PI * i / resolution));
+            Vector3 p3 = new Vector3((width / 2) * Mathf.Cos(2 * Mathf.PI * (i + 1) / resolution), height / 2, (depth / 2) * Mathf.Sin(2 * Mathf.PI * (i + 1) / resolution));
+            Vector3 p4 = new Vector3((width / 2) * Mathf.Cos(2 * Mathf.PI * (i + 1) / resolution), -height / 2, (depth / 2) * Mathf.Sin(2 * Mathf.PI * (i + 1) / resolution));
 
             TriMesh triMesh = TriangleGenerator.GetTriMesh(off, p3, p1, upPoint, false, false, true, gapLength);
             trianglesTri.AddRange(triMesh.triangles);

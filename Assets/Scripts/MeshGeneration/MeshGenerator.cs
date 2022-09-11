@@ -1835,5 +1835,66 @@ public class MeshGenerator : MonoBehaviour
     }
 
 
+    public void OnDrawGizmos()
+    {
+        Gizmos.color = Color.white;
+        List<Vector3> velocityList = new List<Vector3>();
+        Vector3 vel = controlPointsList[1].transform.position - controlPointsList[0].transform.position;
+        velocityList.Add(0.5f * vel);
+        for (int i = 1; i < controlPointsList.Count - 1; i++)
+        {
+            vel = controlPointsList[i + 1].transform.position - controlPointsList[i - 1].transform.position;
+            velocityList.Add(0.5f * vel);
+        }
+        vel = controlPointsList[controlPointsList.Count - 1].transform.position - controlPointsList[controlPointsList.Count - 2].transform.position;
+        velocityList.Add(0.5f * vel);
 
+        List<Vector3> points = new List<Vector3>();
+        points.Add(controlPointsList[0].transform.position);
+        for (int i = 1; i < controlPointsList.Count; i++)
+        {
+            List<Vector3> listInterpolatedPoints = GetHermitInterpolationPoints(controlPointsList[i - 1].transform.position, velocityList[i - 1], controlPointsList[i].transform.position, velocityList[i], pointResolution);
+            points.AddRange(listInterpolatedPoints);
+            points.Add(controlPointsList[i].transform.position);
+        }
+
+        float width = 0.0f;
+        if(mode == GeneratorMode.Road)
+        {
+            width = controlPointsList[0].width;
+        }
+        else if(mode == GeneratorMode.Tunnel)
+        {
+            width = controlPointsList[0].externRadius;
+        }
+        for(int j = 0; j<points.Count-1; j++)
+        {
+            Vector3 pos = points[j];
+            Vector3 vecZ = points[j + 1] - points[j];
+            vecZ = vecZ.normalized;
+            Vector3 vecX = Vector3.Cross(Vector3.up, vecZ);
+            vecX = vecX.normalized;
+            Vector3 vecY = Vector3.Cross(vecX, vecZ);
+            vecY = vecY.normalized;
+
+            Vector3 x = width * vecX;
+            Vector3 y = width * vecY;
+            Vector3 z = (points[j+1]-points[j]);
+
+            Gizmos.DrawLine(pos + x, pos + y);
+            Gizmos.DrawLine(pos - x, pos + y);
+            Gizmos.DrawLine(pos - x, pos - y);
+            Gizmos.DrawLine(pos + x, pos - y);
+
+            Gizmos.DrawLine(pos + x, pos + x + z); 
+            Gizmos.DrawLine(pos + y, pos + y + z);
+            Gizmos.DrawLine(pos - x, pos - x + z);
+            Gizmos.DrawLine(pos - y, pos - y + z);
+
+            Gizmos.DrawLine(pos + x + z, pos + y + z);
+            Gizmos.DrawLine(pos - x + z, pos + y + z);
+            Gizmos.DrawLine(pos - x + z, pos - y + z);
+            Gizmos.DrawLine(pos + x + z, pos - y + z);
+        }
+    }
 }

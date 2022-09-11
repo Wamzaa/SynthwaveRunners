@@ -471,4 +471,73 @@ public class MeshBuildingGenerator : MonoBehaviour
         }
     }
 
+
+    public void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        if (type == BuildingType.SimpleBloc)
+        {
+            DrawRotatedWireCube(width, height, depth);
+        }
+        else if (type == BuildingType.CircularBloc)
+        {
+            DrawRotatedWireCube(2 * radius, height, 2 * radius);
+        }
+        else if (type == BuildingType.AlterTower)
+        {
+            DrawRotatedWireCube(width, height, depth);
+        }
+        else if (type == BuildingType.CircularAlterTower)
+        {
+            DrawRotatedWireCube(2 * radius, height, 2 * radius);
+        }
+        else if (type == BuildingType.BubbleTemple)
+        {
+            DrawRotatedWireCube(2 * radius, 2 * radius, 2 * radius);
+        }
+        else if (type == BuildingType.SkelTower)
+        {
+            DrawRotatedWireCube(2 * radius, height, 2 * radius);
+        }
+        else if (type == BuildingType.LevelSkyscrapper)
+        {
+            DrawRotatedWireCube(width, 10 * height, depth);
+        }
+        else if (type == BuildingType.EllipticLevelSkyScrapper)
+        {
+            DrawRotatedWireCube(width, 10 * height, depth);
+        }
+        else if (type == BuildingType.CircularSpiralTower)
+        {
+            DrawRotatedWireCube(2 * radius, height, 2 * radius);
+        }
+        else if (type == BuildingType.CubicSpiralTower)
+        {
+            DrawRotatedWireCube(2 * radius, height, 2 * radius);
+        }
+    }
+
+    public void DrawRotatedWireCube(float width, float height, float depth)
+    {
+        Vector3 pos = this.transform.position;
+        Vector3 x = (width/2) * this.transform.right;
+        Vector3 y = height * this.transform.up;
+        Vector3 z = (depth/2) * this.transform.forward;
+
+        Gizmos.DrawLine(pos - x - z, pos + x - z);
+        Gizmos.DrawLine(pos + x - z, pos + x + z);
+        Gizmos.DrawLine(pos + x + z, pos - x + z);
+        Gizmos.DrawLine(pos - x + z, pos - x - z);
+
+        Gizmos.DrawLine(pos - x - z, pos - x - z + y);
+        Gizmos.DrawLine(pos + x - z, pos + x - z + y);
+        Gizmos.DrawLine(pos + x + z, pos + x + z + y);
+        Gizmos.DrawLine(pos - x + z, pos - x + z + y);
+
+        Gizmos.DrawLine(pos - x - z + y, pos + x - z + y);
+        Gizmos.DrawLine(pos + x - z + y, pos + x + z + y);
+        Gizmos.DrawLine(pos + x + z + y, pos - x + z + y);
+        Gizmos.DrawLine(pos - x + z + y, pos - x - z + y);
+    }
+
 }
