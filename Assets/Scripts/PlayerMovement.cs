@@ -94,17 +94,19 @@ public class PlayerMovement : MonoBehaviour
         Vector3 playerRight = Vector3.Cross(currentNormal, playerForward);
         playerRight = playerRight.normalized;
         float coefOffRay = 1.0f;
-        Vector3[] listDirectionRaycast = new Vector3[]
+
+        Bounds playerBounds = this.GetComponentInChildren<Collider>().bounds;
+        float minSize = Mathf.Min(playerBounds.size.x, playerBounds.size.z); 
+
+        Vector3[] listOriginOffsetRaycast = new Vector3[]
         {
-            -currentNormal, -currentNormal + coefOffRay*playerForward, -currentNormal + coefOffRay*playerRight, -currentNormal - coefOffRay*playerForward, -currentNormal - coefOffRay*playerRight,
-            -currentNormal + coefOffRay*playerForward + coefOffRay*playerRight, -currentNormal - coefOffRay*playerForward + coefOffRay*playerRight, -currentNormal + coefOffRay*playerForward - coefOffRay*playerRight, -currentNormal - coefOffRay*playerForward - coefOffRay*playerRight,
+            Vector3.zero, minSize*playerForward, minSize*playerForward + minSize*playerRight, minSize*playerRight, -minSize*playerForward + minSize*playerRight, -minSize*playerForward, - minSize*playerForward - minSize*playerRight, -minSize*playerRight, minSize*playerForward - minSize*playerRight
         };
         Vector3 meanNormal = Vector3.zero;
         RaycastHit hitOffDir;
-        foreach (Vector3 dir in listDirectionRaycast)
+        foreach (Vector3 off in listOriginOffsetRaycast)
         {
-            Vector3 normDir = dir.normalized;
-            if (Physics.Raycast(this.transform.position, normDir, out hitOffDir, Mathf.Infinity, LayerMask.GetMask("Floor")))
+            if (Physics.Raycast(this.transform.position + off, -currentNormal, out hitOffDir, Mathf.Infinity, LayerMask.GetMask("Floor")))
             {
                 meanNormal = meanNormal + hitOffDir.normal;
             }

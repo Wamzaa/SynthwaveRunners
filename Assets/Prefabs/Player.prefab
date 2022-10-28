@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5193846138865652558}
   - component: {fileID: 5193846138865652557}
   - component: {fileID: 3622321281282528193}
+  - component: {fileID: 7552922045130767590}
   m_Layer: 7
   m_Name: SynthShip
   m_TagString: Untagged
@@ -91,11 +92,24 @@ MeshCollider:
   m_GameObject: {fileID: 5193846138865652595}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5495902117074765545, guid: cf373fd143ddd84439e2de28d40a3ef1, type: 3}
+--- !u!135 &7552922045130767590
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5193846138865652595}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.018
+  m_Center: {x: 0, y: 0.005, z: 0.005}
 --- !u!1 &5193846139006710643
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,7 +190,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 2
+  m_CollisionDetection: 3
 --- !u!114 &5193846139255311295
 MonoBehaviour:
   m_ObjectHideFlags: 0

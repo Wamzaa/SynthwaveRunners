@@ -474,7 +474,7 @@ public class MeshBuildingGenerator : MonoBehaviour
 
     public void OnDrawGizmos()
     {
-        Gizmos.color = Color.yellow;
+        Gizmos.color = Color.green;
         if (type == BuildingType.SimpleBloc)
         {
             DrawRotatedWireCube(width, height, depth);
