@@ -892,23 +892,15 @@ public class MeshGenerator : MonoBehaviour
         List<Vector3> anchorList = new List<Vector3>();
         float roadLightCount = 0.0f;
 
-        Vector3 vecHInit = Vector3.Cross(roadNormals[0], controlPointsOrientation[0]);
-        Vector3.Normalize(vecHInit);
-        float widthInit = controlPoints[0].width;
-        Vector3 pAnchor1 = controlPoints[0].transform.position + widthInit * vecHInit;
-        Vector3 pAnchor2 = controlPoints[0].transform.position - widthInit * vecHInit;
-        anchorList.Add(pAnchor1);
-        anchorList.Add(pAnchor2);
-
         GameObject meshParent = new GameObject("MeshParent");
-        for (int c = 1; c < controlPoints.Count; c++)
+        for (int c = 0; c < controlPoints.Count; c++)
         {
             Vector3 posCenter = controlPoints[c].transform.position;
             Vector3 vecH = Vector3.Cross(roadNormals[c], controlPointsOrientation[c]);
             vecH = vecH.normalized;
             float width = controlPoints[c].width;
-            pAnchor1 = posCenter + width * vecH;
-            pAnchor2 = posCenter - width * vecH;
+            Vector3 pAnchor1 = posCenter + width * vecH;
+            Vector3 pAnchor2 = posCenter - width * vecH;
             anchorList.Add(pAnchor1);
             anchorList.Add(pAnchor2);
         }
@@ -960,11 +952,17 @@ public class MeshGenerator : MonoBehaviour
         }
 
         float currentLength = 0.0f;
-        float lateralOffset = (Mathf.Ceil(2 * widthInit / 20.0f) * 20.0f - 2 * widthInit) / 2 + 0.5f;
+        float lateralOffset = (Mathf.Ceil(2 * controlPoints[0].width / 20.0f) * 20.0f - 2 * controlPoints[0].width) / 2 + 0.5f;
+
+        int indexCpt = 0;
+
+        List<Vector3> verticesList = new List<Vector3>();
+        List<Vector3> normalsList = new List<Vector3>();
+        List<Vector2> uvsList = new List<Vector2>();
+        List<int> trianglesList = new List<int>();
 
         for (int c = 0; c < controlPoints.Count - 1; c++)
         {
-
             Vector3 normal1 = roadNormals[c];
             Vector3 normal2 = roadNormals[c + 1];
             
@@ -976,30 +974,27 @@ public class MeshGenerator : MonoBehaviour
             Vector3 latOff1 = (1.0f / widthResolution) * (anchorList[c * 2 + 1] - anchorList[c * 2]);
             Vector3 latOff2 = (1.0f / widthResolution) * (anchorList[(c + 1) * 2 + 1] - anchorList[(c + 1) * 2]);
 
-            List<Vector3> verticesList = new List<Vector3>(new Vector3[]
-            {
-                anchorList[c * 2 + 1],
-                anchorList[c * 2 + 1]- height1*normal1,
-                anchorList[(c+1) * 2 + 1]- height2*normal2,
-                anchorList[(c+1) * 2 + 1],
+            verticesList.Add(anchorList[c * 2 + 1]);
+            verticesList.Add(anchorList[c * 2 + 1] - height1 * normal1);
+            verticesList.Add(anchorList[(c + 1) * 2 + 1] - height2 * normal2);
+            verticesList.Add(anchorList[(c + 1) * 2 + 1]);
 
-                anchorList[c * 2] - height1*normal1,
-                anchorList[c * 2],
-                anchorList[(c+1) * 2],
-                anchorList[(c+1) * 2]- height2*normal2,
+            verticesList.Add(anchorList[c * 2] - height1 * normal1);
+            verticesList.Add(anchorList[c * 2]);
+            verticesList.Add(anchorList[(c + 1) * 2]);
+            verticesList.Add(anchorList[(c + 1) * 2] - height2 * normal2);
 
-                anchorList[c * 2 + 1]- height1*normal1,
-                anchorList[c * 2 + 1],
-                anchorList[c * 2],
-                anchorList[c * 2] - height1*normal1,
+            verticesList.Add(anchorList[c * 2 + 1] - height1 * normal1);
+            verticesList.Add(anchorList[c * 2 + 1]);
+            verticesList.Add(anchorList[c * 2]);
+            verticesList.Add(anchorList[c * 2] - height1 * normal1);
 
-                anchorList[(c+1) * 2]- height2*normal2,
-                anchorList[(c+1) * 2],
-                anchorList[(c+1) * 2 + 1],
-                anchorList[(c+1) * 2 + 1]- height2*normal2,
-            });
+            verticesList.Add(anchorList[(c + 1) * 2] - height2 * normal2);
+            verticesList.Add(anchorList[(c + 1) * 2]);
+            verticesList.Add(anchorList[(c + 1) * 2 + 1]);
+            verticesList.Add(anchorList[(c + 1) * 2 + 1] - height2 * normal2);
 
-            for(int w = 0; w < widthResolution; w++)
+            for (int w = 0; w < widthResolution; w++)
             {
                 verticesList.Add(anchorList[c * 2] + w * latOff1);
                 verticesList.Add(anchorList[c * 2] + (w + 1) * latOff1);
@@ -1012,39 +1007,30 @@ public class MeshGenerator : MonoBehaviour
                 verticesList.Add(anchorList[(c + 1) * 2] + w * latOff2 - height2 * normal2);
             }
 
-            vertices = verticesList.ToArray();
-
-            normals = new Vector3[]
-            {
-
-            };
 
             float partLen = (controlPoints[c + 1].transform.position - controlPoints[c].transform.position).magnitude;
 
 
-            List<Vector2> uvsList = new List<Vector2>(new Vector2[]
-            {
-                new Vector2(14, currentLength),
-                new Vector2(16, currentLength),
-                new Vector2(16, currentLength + partLen),
-                new Vector2(14, currentLength + partLen),
+            uvsList.Add(new Vector2(14, currentLength));
+            uvsList.Add(new Vector2(16, currentLength));
+            uvsList.Add(new Vector2(16, currentLength + partLen));
+            uvsList.Add(new Vector2(14, currentLength + partLen));
 
-                new Vector2(16, currentLength),
-                new Vector2(14, currentLength),
-                new Vector2(14, currentLength + partLen),
-                new Vector2(16, currentLength + partLen),
+            uvsList.Add(new Vector2(16, currentLength));
+            uvsList.Add(new Vector2(14, currentLength));
+            uvsList.Add(new Vector2(14, currentLength + partLen));
+            uvsList.Add(new Vector2(16, currentLength + partLen));
 
 
-                new Vector2(lateralOffset + 2*controlPoints[c].width, 14),
-                new Vector2(lateralOffset + 2*controlPoints[c].width, 16),
-                new Vector2(lateralOffset, 16),
-                new Vector2(lateralOffset, 14),
+            uvsList.Add(new Vector2(lateralOffset + 2 * controlPoints[c].width, 14));
+            uvsList.Add(new Vector2(lateralOffset + 2 * controlPoints[c].width, 16));
+            uvsList.Add(new Vector2(lateralOffset, 16));
+            uvsList.Add(new Vector2(lateralOffset, 14));
 
-                new Vector2(lateralOffset, 14),
-                new Vector2(lateralOffset, 16),
-                new Vector2(lateralOffset + 2*controlPoints[c+1].width, 16),
-                new Vector2(lateralOffset + 2*controlPoints[c+1].width, 14),
-            });
+            uvsList.Add(new Vector2(lateralOffset, 14));
+            uvsList.Add(new Vector2(lateralOffset, 16));
+            uvsList.Add(new Vector2(lateralOffset + 2 * controlPoints[c + 1].width, 16));
+            uvsList.Add(new Vector2(lateralOffset + 2 * controlPoints[c + 1].width, 14));
 
             for (int w = 0; w < widthResolution; w++)
             {
@@ -1059,63 +1045,61 @@ public class MeshGenerator : MonoBehaviour
                 uvsList.Add(new Vector2(lateralOffset + 2 * controlPoints[c + 1].width * (w / ((float)widthResolution)), currentLength + partLen));
             }
 
-            uvs = uvsList.ToArray();
 
-            List<int> triangleList = new List<int>(triangles = new int[]
-            {
-                0,1,2,
-                0,2,3,
-                4,5,6,
-                4,6,7,
-                8,9,10,
-                8,10,11,
-                12,13,14,
-                12,14,15
-            });
+            trianglesList.Add(indexCpt + 0);
+            trianglesList.Add(indexCpt + 1);
+            trianglesList.Add(indexCpt + 2);
+
+            trianglesList.Add(indexCpt + 0);
+            trianglesList.Add(indexCpt + 2);
+            trianglesList.Add(indexCpt + 3);
+
+            trianglesList.Add(indexCpt + 4);
+            trianglesList.Add(indexCpt + 5);
+            trianglesList.Add(indexCpt + 6);
+
+            trianglesList.Add(indexCpt + 4);
+            trianglesList.Add(indexCpt + 6);
+            trianglesList.Add(indexCpt + 7);
+
+            trianglesList.Add(indexCpt + 8);
+            trianglesList.Add(indexCpt + 9);
+            trianglesList.Add(indexCpt + 10);
+
+            trianglesList.Add(indexCpt + 8);
+            trianglesList.Add(indexCpt + 10);
+            trianglesList.Add(indexCpt + 11);
+
+            trianglesList.Add(indexCpt + 12);
+            trianglesList.Add(indexCpt + 13);
+            trianglesList.Add(indexCpt + 14);
+
+            trianglesList.Add(indexCpt + 12);
+            trianglesList.Add(indexCpt + 14);
+            trianglesList.Add(indexCpt + 15);
 
             for (int w = 0; w < widthResolution; w++)
             {
-                triangleList.Add(16 + 8 * w);
-                triangleList.Add(16 + 8 * w + 1);
-                triangleList.Add(16 + 8 * w + 2);
+                trianglesList.Add(indexCpt + 16 + 8 * w);
+                trianglesList.Add(indexCpt + 16 + 8 * w + 1);
+                trianglesList.Add(indexCpt + 16 + 8 * w + 2);
 
-                triangleList.Add(16 + 8 * w);
-                triangleList.Add(16 + 8 * w + 2);
-                triangleList.Add(16 + 8 * w + 3);
+                trianglesList.Add(indexCpt + 16 + 8 * w);
+                trianglesList.Add(indexCpt + 16 + 8 * w + 2);
+                trianglesList.Add(indexCpt + 16 + 8 * w + 3);
 
-                triangleList.Add(16 + 8 * w + 4);
-                triangleList.Add(16 + 8 * w + 5);
-                triangleList.Add(16 + 8 * w + 6);
+                trianglesList.Add(indexCpt + 16 + 8 * w + 4);
+                trianglesList.Add(indexCpt + 16 + 8 * w + 5);
+                trianglesList.Add(indexCpt + 16 + 8 * w + 6);
 
-                triangleList.Add(16 + 8 * w + 4);
-                triangleList.Add(16 + 8 * w + 6);
-                triangleList.Add(16 + 8 * w + 7);
+                trianglesList.Add(indexCpt + 16 + 8 * w + 4);
+                trianglesList.Add(indexCpt + 16 + 8 * w + 6);
+                trianglesList.Add(indexCpt + 16 + 8 * w + 7);
             }
 
-            triangles = triangleList.ToArray();
+            indexCpt = indexCpt + 16 + widthResolution * 8;
 
-
-            GameObject quadObj = new GameObject("QuadObj");
-            quadObj.transform.parent = meshParent.transform;
-            MeshFilter meshFilter = quadObj.AddComponent<MeshFilter>();
-            Mesh mesh = meshFilter.mesh;
-            mesh.Clear();
-
-            mesh.vertices = vertices;
-            mesh.triangles = triangles;
-            mesh.uv = uvs;
-
-            mesh.RecalculateNormals();
-
-            MeshRenderer meshRenderer = quadObj.AddComponent<MeshRenderer>();
-            meshRenderer.materials = new Material[] { mat };
-
-            MeshCollider collider = quadObj.AddComponent<MeshCollider>();
-            //collider.convex = true;
-            quadObj.isStatic = true;
-
-            quadObj.layer = LayerMask.NameToLayer("Floor");
-
+            
             //Border 1
             /*
             Vector3 offset1Wall1 = anchorList[c * 2 + 1] - anchorList[c * 2];
@@ -1350,6 +1334,31 @@ public class MeshGenerator : MonoBehaviour
             */
             currentLength += partLen;
         }
+
+        GameObject quadObj = new GameObject("RoadMesh");
+        quadObj.transform.parent = meshParent.transform;
+        MeshFilter meshFilter = quadObj.AddComponent<MeshFilter>();
+        Mesh mesh = meshFilter.mesh;
+        mesh.Clear();
+
+        vertices = verticesList.ToArray();
+        triangles = trianglesList.ToArray();
+        uvs= uvsList.ToArray();
+
+        mesh.vertices = vertices;
+        mesh.triangles = triangles;
+        mesh.uv = uvs;
+
+        mesh.RecalculateNormals();
+
+        MeshRenderer meshRenderer = quadObj.AddComponent<MeshRenderer>();
+        meshRenderer.materials = new Material[] { mat };
+
+        MeshCollider collider = quadObj.AddComponent<MeshCollider>();
+        //collider.convex = true;
+        quadObj.isStatic = true;
+
+        quadObj.layer = LayerMask.NameToLayer("Floor");
 
     }
 
