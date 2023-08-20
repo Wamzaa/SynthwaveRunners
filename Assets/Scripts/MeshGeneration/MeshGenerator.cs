@@ -271,8 +271,6 @@ public class MeshGenerator : MonoBehaviour
 
 
 
-
-
     private void BuildTornadoRoad()
     {
         List<Vector3> velocityList = new List<Vector3>();
@@ -1101,238 +1099,212 @@ public class MeshGenerator : MonoBehaviour
 
             
             //Border 1
-            /*
+            
             Vector3 offset1Wall1 = anchorList[c * 2 + 1] - anchorList[c * 2];
             offset1Wall1 = offset1Wall1.normalized;
             Vector3 offset2Wall1 = anchorList[(c + 1) * 2 + 1] - anchorList[(c + 1) * 2];
             offset2Wall1 = offset2Wall1.normalized;
 
-            vertices = new Vector3[]
-            {
-                anchorList[c * 2] + border1*normal1,
-                anchorList[c * 2] + border1*normal1 + height1*offset1Wall1,
-                anchorList[(c+1) * 2] + border2*normal2 + height2*offset2Wall1,
-                anchorList[(c+1) * 2] + border2*normal2,
 
-                anchorList[c * 2] + border1*normal1 + height1*offset1Wall1,
-                anchorList[c * 2] + height1*offset1Wall1,
-                anchorList[(c+1) * 2] + height2*offset2Wall1,
-                anchorList[(c+1) * 2] + border2*normal2 + height2*offset2Wall1,
+            verticesList.Add(anchorList[c * 2] + border1 * normal1);
+            verticesList.Add(anchorList[c * 2] + border1 * normal1 + height1 * offset1Wall1);
+            verticesList.Add(anchorList[(c + 1) * 2] + border2 * normal2 + height2 * offset2Wall1);
+            verticesList.Add(anchorList[(c + 1) * 2] + border2 * normal2);
 
-                anchorList[c * 2] + height1*offset1Wall1,
-                anchorList[c * 2],
-                anchorList[(c+1) * 2],
-                anchorList[(c+1) * 2] + height2*offset2Wall1,
+            verticesList.Add(anchorList[c * 2] + border1 * normal1 + height1 * offset1Wall1);
+            verticesList.Add(anchorList[c * 2] + height1 * offset1Wall1);
+            verticesList.Add(anchorList[(c + 1) * 2] + height2 * offset2Wall1);
+            verticesList.Add(anchorList[(c + 1) * 2] + border2 * normal2 + height2 * offset2Wall1);
 
-                anchorList[c * 2],
-                anchorList[c * 2] + border1*normal1,
-                anchorList[(c+1) * 2] + border2*normal2,
-                anchorList[(c+1) * 2],
+            verticesList.Add(anchorList[c * 2]);
+            verticesList.Add(anchorList[(c + 1) * 2]);
+            verticesList.Add(anchorList[(c + 1) * 2] + height2 * offset2Wall1);
+            verticesList.Add(anchorList[c * 2] + height1 * offset1Wall1);
 
-                anchorList[c * 2] + height1*offset1Wall1,
-                anchorList[c * 2] + border1*normal1 + height1*offset1Wall1,
-                anchorList[c * 2] + border1*normal1,
-                anchorList[c * 2],
+            verticesList.Add(anchorList[c * 2] + border1 * normal1);
+            verticesList.Add(anchorList[(c + 1) * 2] + border2 * normal2);
+            verticesList.Add(anchorList[(c + 1) * 2]);
+            verticesList.Add(anchorList[c * 2]);
 
+            verticesList.Add(anchorList[c * 2] + height1 * offset1Wall1);
+            verticesList.Add(anchorList[c * 2] + border1 * normal1 + height1 * offset1Wall1);
+            verticesList.Add(anchorList[c * 2] + border1 * normal1);
+            verticesList.Add(anchorList[c * 2]);
 
-                anchorList[(c+1) * 2],
-                anchorList[(c+1) * 2] + border2*normal2,
-                anchorList[(c+1) * 2] + border2*normal2 + height2*offset2Wall1,
-                anchorList[(c+1) * 2] + height2*offset2Wall1,
-            };
-
-            normals = new Vector3[]
-            {
-
-            };
-
-            uvs = new Vector2[]
-            {
-                new Vector2(height1, currentLength),
-                new Vector2(0, currentLength),
-                new Vector2(0, currentLength + partLen),
-                new Vector2(height2, currentLength + partLen),
-
-                new Vector2(0, currentLength),
-                new Vector2(border1, currentLength),
-                new Vector2(border2, currentLength + partLen),
-                new Vector2(0, currentLength + partLen),
-
-                new Vector2(14, currentLength),
-                new Vector2(16, currentLength),
-                new Vector2(16, currentLength + partLen),
-                new Vector2(14, currentLength + partLen),
-
-                new Vector2(height1+border1, currentLength),
-                new Vector2(height1, currentLength),
-                new Vector2(height2, currentLength + partLen),
-                new Vector2(height2+border2, currentLength + partLen),
-
-                new Vector2(border1, 0),
-                new Vector2(0, 0),
-                new Vector2(0, height1),
-                new Vector2(border1, height1),
-
-                new Vector2(border2, height2),
-                new Vector2(0, height2),
-                new Vector2(0, 0),
-                new Vector2(border2, 0),
-            };
-
-            triangles = new int[]
-            {
-                0,1,2,
-                0,2,3,
-                4,5,6,
-                4,6,7,
-                8,9,10,
-                8,10,11,
-                12,13,14,
-                12,14,15,
-                16,17,18,
-                16,18,19,
-                20,21,22,
-                20,22,23,
-            };
+            verticesList.Add(anchorList[(c + 1) * 2]);
+            verticesList.Add(anchorList[(c + 1) * 2] + border2 * normal2);
+            verticesList.Add(anchorList[(c + 1) * 2] + border2 * normal2 + height2 * offset2Wall1);
+            verticesList.Add(anchorList[(c + 1) * 2] + height2 * offset2Wall1);
 
 
-            GameObject wall1Obj = new GameObject("Wall1Obj");
-            wall1Obj.transform.parent = meshParent.transform;
-            MeshFilter wall1MeshFilter = wall1Obj.AddComponent<MeshFilter>();
-            Mesh wall1Mesh = wall1MeshFilter.mesh;
-            wall1Mesh.Clear();
 
-            wall1Mesh.vertices = vertices;
-            wall1Mesh.triangles = triangles;
-            wall1Mesh.uv = uvs;
+            uvsList.Add(new Vector2(height1, currentLength));
+            uvsList.Add(new Vector2(0, currentLength));
+            uvsList.Add(new Vector2(0, currentLength + partLen));
+            uvsList.Add(new Vector2(height2, currentLength + partLen));
 
-            wall1Mesh.RecalculateNormals();
+            uvsList.Add(new Vector2(0, currentLength));
+            uvsList.Add(new Vector2(border1, currentLength));
+            uvsList.Add(new Vector2(border2, currentLength + partLen));
+            uvsList.Add(new Vector2(0, currentLength + partLen));
 
-            MeshRenderer wall1MeshRenderer = wall1Obj.AddComponent<MeshRenderer>();
-            wall1MeshRenderer.materials = new Material[] { mat };
+            uvsList.Add(new Vector2(16, currentLength));
+            uvsList.Add(new Vector2(16, currentLength + partLen));
+            uvsList.Add(new Vector2(14, currentLength + partLen));
+            uvsList.Add(new Vector2(14, currentLength));
 
-            MeshCollider wall1Collider = wall1Obj.AddComponent<MeshCollider>();
-            wall1Collider.convex = true;
+            uvsList.Add(new Vector2(height1, currentLength));
+            uvsList.Add(new Vector2(height2, currentLength + partLen));
+            uvsList.Add(new Vector2(height2 + border2, currentLength + partLen));
+            uvsList.Add(new Vector2(height1 + border1, currentLength));
 
-            wall1Obj.layer = LayerMask.NameToLayer("Floor");
+            uvsList.Add(new Vector2(border1, 0));
+            uvsList.Add(new Vector2(0, 0));
+            uvsList.Add(new Vector2(0, height1));
+            uvsList.Add(new Vector2(border1, height1));
+
+            uvsList.Add(new Vector2(border2, height2));
+            uvsList.Add(new Vector2(0, height2));
+            uvsList.Add(new Vector2(0, 0));
+            uvsList.Add(new Vector2(border2, 0));
 
 
+            trianglesList.Add(indexCpt + 0); trianglesList.Add(indexCpt + 1); trianglesList.Add(indexCpt + 2);
+            trianglesList.Add(indexCpt + 0); trianglesList.Add(indexCpt + 2); trianglesList.Add(indexCpt + 3);
+            trianglesList.Add(indexCpt + 4); trianglesList.Add(indexCpt + 5); trianglesList.Add(indexCpt + 6);
+            trianglesList.Add(indexCpt + 4); trianglesList.Add(indexCpt + 6); trianglesList.Add(indexCpt + 7);
+            trianglesList.Add(indexCpt + 8); trianglesList.Add(indexCpt + 9); trianglesList.Add(indexCpt + 10);
+            trianglesList.Add(indexCpt + 8); trianglesList.Add(indexCpt + 10); trianglesList.Add(indexCpt + 11);
+            trianglesList.Add(indexCpt + 12); trianglesList.Add(indexCpt + 13); trianglesList.Add(indexCpt + 14);
+            trianglesList.Add(indexCpt + 12); trianglesList.Add(indexCpt + 14); trianglesList.Add(indexCpt + 15);
+            trianglesList.Add(indexCpt + 16); trianglesList.Add(indexCpt + 17); trianglesList.Add(indexCpt + 18);
+            trianglesList.Add(indexCpt + 16); trianglesList.Add(indexCpt + 18); trianglesList.Add(indexCpt + 19);
+            trianglesList.Add(indexCpt + 20); trianglesList.Add(indexCpt + 21); trianglesList.Add(indexCpt + 22);
+            trianglesList.Add(indexCpt + 20); trianglesList.Add(indexCpt + 22); trianglesList.Add(indexCpt + 23);
+
+            indexCpt = indexCpt + 24;
+
+            
             //Border2
-
+            
             Vector3 offset1Wall2 = anchorList[c * 2] - anchorList[c * 2 + 1];
             offset1Wall2 = offset1Wall2.normalized;
             Vector3 offset2Wall2 = anchorList[(c + 1) * 2] - anchorList[(c + 1) * 2 + 1];
             offset2Wall2 = offset2Wall2.normalized;
 
-            vertices = new Vector3[]
-            {
-                anchorList[c * 2 + 1] + border1*normal1 + height1*offset1Wall2,
-                anchorList[c * 2 + 1] + border1*normal1,
-                anchorList[(c+1) * 2 + 1] + border2*normal2,
-                anchorList[(c+1) * 2 + 1] + border2*normal2 + height2*offset2Wall2,
+            verticesList.Add(anchorList[c * 2 + 1] + border1 * normal1 + height1 * offset1Wall2);
+            verticesList.Add(anchorList[c * 2 + 1] + border1 * normal1);
+            verticesList.Add(anchorList[(c + 1) * 2 + 1] + border2 * normal2);
+            verticesList.Add(anchorList[(c + 1) * 2 + 1] + border2 * normal2 + height2 * offset2Wall2);
 
-                anchorList[c * 2 + 1] + border1*normal1,
-                anchorList[c * 2 + 1],
-                anchorList[(c+1) * 2 + 1],
-                anchorList[(c+1) * 2 + 1] + border2*normal2,
+            verticesList.Add(anchorList[c * 2 + 1] + border1 * normal1);
+            verticesList.Add(anchorList[c * 2 + 1]);
+            verticesList.Add(anchorList[(c + 1) * 2 + 1]);
+            verticesList.Add(anchorList[(c + 1) * 2 + 1] + border2 * normal2);
 
-                anchorList[c * 2 + 1],
-                anchorList[c * 2 + 1] + height1*offset1Wall2,
-                anchorList[(c+1) * 2 + 1] + height2*offset2Wall2,
-                anchorList[(c+1) * 2 + 1],
+            verticesList.Add(anchorList[c * 2 + 1] + height1 * offset1Wall2);
+            verticesList.Add(anchorList[(c + 1) * 2 + 1] + height2 * offset2Wall2);
+            verticesList.Add(anchorList[(c + 1) * 2 + 1]);
+            verticesList.Add(anchorList[c * 2 + 1]);
 
-                anchorList[c * 2 + 1] + height1*offset1Wall2,
-                anchorList[c * 2 + 1] + border1*normal1 + height1*offset1Wall2,
-                anchorList[(c+1) * 2 + 1] + border2*normal2 + height2*offset2Wall2,
-                anchorList[(c+1) * 2 + 1] + height2*offset2Wall2,
+            verticesList.Add(anchorList[c * 2 + 1] + border1 * normal1 + height1 * offset1Wall2);
+            verticesList.Add(anchorList[(c + 1) * 2 + 1] + border2 * normal2 + height2 * offset2Wall2);
+            verticesList.Add(anchorList[(c + 1) * 2 + 1] + height2 * offset2Wall2);
+            verticesList.Add(anchorList[c * 2 + 1] + height1 * offset1Wall2);
 
-                anchorList[c * 2 + 1],
-                anchorList[c * 2 + 1] + border1*normal1,
-                anchorList[c * 2 + 1] + border1*normal1 + height1*offset1Wall2,
-                anchorList[c * 2 + 1] + height1*offset1Wall2,
+            verticesList.Add(anchorList[c * 2 + 1]);
+            verticesList.Add(anchorList[c * 2 + 1] + border1 * normal1);
+            verticesList.Add(anchorList[c * 2 + 1] + border1 * normal1 + height1 * offset1Wall2);
+            verticesList.Add(anchorList[c * 2 + 1] + height1 * offset1Wall2);
 
-                anchorList[(c+1) * 2 + 1] + height2*offset2Wall2,
-                anchorList[(c+1) * 2 + 1] + border2*normal2 + height2*offset2Wall2,
-                anchorList[(c+1) * 2 + 1] + border2*normal2,
-                anchorList[(c+1) * 2 + 1],
-            };
-
-            normals = new Vector3[]
-            {
-
-            };
-
-            uvs = new Vector2[]
-            {
-                new Vector2(0, currentLength),
-                new Vector2(height1, currentLength),
-                new Vector2(height2, currentLength + partLen),
-                new Vector2(0, currentLength + partLen),
-
-                new Vector2(height1, currentLength),
-                new Vector2(height1+border1, currentLength),
-                new Vector2(height2+border2, currentLength + partLen),
-                new Vector2(height2, currentLength + partLen),
-
-                new Vector2(14, currentLength),
-                new Vector2(16, currentLength),
-                new Vector2(16, currentLength + partLen),
-                new Vector2(14, currentLength + partLen),
-
-                new Vector2(border1, currentLength),
-                new Vector2(0, currentLength),
-                new Vector2(0, currentLength + partLen),
-                new Vector2(border2, currentLength + partLen),
-
-                new Vector2(border1, height1),
-                new Vector2(0, height1),
-                new Vector2(0, 0),
-                new Vector2(border1, 0),
-
-                new Vector2(border2, 0),
-                new Vector2(0, 0),
-                new Vector2(0, height2),
-                new Vector2(border2, height2),
-            };
-
-            triangles = new int[]
-            {
-                0,1,2,
-                0,2,3,
-                4,5,6,
-                4,6,7,
-                8,9,10,
-                8,10,11,
-                12,13,14,
-                12,14,15,
-                16,17,18,
-                16,18,19,
-                20,21,22,
-                20,22,23,
-            };
+            verticesList.Add(anchorList[(c + 1) * 2 + 1] + height2 * offset2Wall2);
+            verticesList.Add(anchorList[(c + 1) * 2 + 1] + border2 * normal2 + height2 * offset2Wall2);
+            verticesList.Add(anchorList[(c + 1) * 2 + 1] + border2 * normal2);
+            verticesList.Add(anchorList[(c + 1) * 2 + 1]);
 
 
-            GameObject wall2Obj = new GameObject("Wall2Obj");
-            wall2Obj.transform.parent = meshParent.transform;
-            MeshFilter wall2MeshFilter = wall2Obj.AddComponent<MeshFilter>();
-            Mesh wall2Mesh = wall2MeshFilter.mesh;
-            wall2Mesh.Clear();
+            uvsList.Add(new Vector2(0, currentLength));
+            uvsList.Add(new Vector2(height1, currentLength));
+            uvsList.Add(new Vector2(height2, currentLength + partLen));
+            uvsList.Add(new Vector2(0, currentLength + partLen));
 
-            wall2Mesh.vertices = vertices;
-            wall2Mesh.triangles = triangles;
-            wall2Mesh.uv = uvs;
+            uvsList.Add(new Vector2(height1, currentLength));
+            uvsList.Add(new Vector2(height1 + border1, currentLength));
+            uvsList.Add(new Vector2(height2 + border2, currentLength + partLen));
+            uvsList.Add(new Vector2(height2, currentLength + partLen));
 
-            wall2Mesh.RecalculateNormals();
+            uvsList.Add(new Vector2(16, currentLength));
+            uvsList.Add(new Vector2(16, currentLength + partLen));
+            uvsList.Add(new Vector2(14, currentLength + partLen));
+            uvsList.Add(new Vector2(14, currentLength));
 
-            MeshRenderer wall2MeshRenderer = wall2Obj.AddComponent<MeshRenderer>();
-            wall2MeshRenderer.materials = new Material[] { mat };
+            uvsList.Add(new Vector2(0, currentLength));
+            uvsList.Add(new Vector2(0, currentLength + partLen));
+            uvsList.Add(new Vector2(border2, currentLength + partLen));
+            uvsList.Add(new Vector2(border1, currentLength));
 
-            MeshCollider wall2Collider = wall2Obj.AddComponent<MeshCollider>();
-            wall2Collider.convex = true;
+            uvsList.Add(new Vector2(border1, height1));
+            uvsList.Add(new Vector2(0, height1));
+            uvsList.Add(new Vector2(0, 0));
+            uvsList.Add(new Vector2(border1, 0));
 
-            wall2Obj.layer = LayerMask.NameToLayer("Floor");
-            */
+            uvsList.Add(new Vector2(border2, 0));
+            uvsList.Add(new Vector2(0, 0));
+            uvsList.Add(new Vector2(0, height2));
+            uvsList.Add(new Vector2(border2, height2));
+
+
+            trianglesList.Add(indexCpt + 0); trianglesList.Add(indexCpt + 1); trianglesList.Add(indexCpt + 2);
+            trianglesList.Add(indexCpt + 0); trianglesList.Add(indexCpt + 2); trianglesList.Add(indexCpt + 3);
+            trianglesList.Add(indexCpt + 4); trianglesList.Add(indexCpt + 5); trianglesList.Add(indexCpt + 6);
+            trianglesList.Add(indexCpt + 4); trianglesList.Add(indexCpt + 6); trianglesList.Add(indexCpt + 7);
+            trianglesList.Add(indexCpt + 8); trianglesList.Add(indexCpt + 9); trianglesList.Add(indexCpt + 10);
+            trianglesList.Add(indexCpt + 8); trianglesList.Add(indexCpt + 10); trianglesList.Add(indexCpt + 11);
+            trianglesList.Add(indexCpt + 12); trianglesList.Add(indexCpt + 13); trianglesList.Add(indexCpt + 14);
+            trianglesList.Add(indexCpt + 12); trianglesList.Add(indexCpt + 14); trianglesList.Add(indexCpt + 15);
+            trianglesList.Add(indexCpt + 16); trianglesList.Add(indexCpt + 17); trianglesList.Add(indexCpt + 18);
+            trianglesList.Add(indexCpt + 16); trianglesList.Add(indexCpt + 18); trianglesList.Add(indexCpt + 19);
+            trianglesList.Add(indexCpt + 20); trianglesList.Add(indexCpt + 21); trianglesList.Add(indexCpt + 22);
+            trianglesList.Add(indexCpt + 20); trianglesList.Add(indexCpt + 22); trianglesList.Add(indexCpt + 23);
+
+            indexCpt = indexCpt + 24;
+
+
             currentLength += partLen;
+
+            if(indexCpt > 10000)
+            {
+                GameObject quadObjFrac = new GameObject("RoadMesh");
+                quadObjFrac.transform.parent = meshParent.transform;
+                MeshFilter meshFilterFrac = quadObjFrac.AddComponent<MeshFilter>();
+                Mesh meshFrac = meshFilterFrac.mesh;
+                meshFrac.Clear();
+
+                vertices = verticesList.ToArray();
+                triangles = trianglesList.ToArray();
+                uvs = uvsList.ToArray();
+
+                meshFrac.vertices = vertices;
+                meshFrac.triangles = triangles;
+                meshFrac.uv = uvs;
+
+                meshFrac.RecalculateNormals();
+
+                MeshRenderer meshRendererFrac = quadObjFrac.AddComponent<MeshRenderer>();
+                meshRendererFrac.materials = new Material[] { mat };
+
+                MeshCollider colliderFrac = quadObjFrac.AddComponent<MeshCollider>();
+                quadObjFrac.isStatic = true;
+
+                quadObjFrac.layer = LayerMask.NameToLayer("Floor");
+
+                indexCpt = 0;
+
+                verticesList = new List<Vector3>();
+                normalsList = new List<Vector3>();
+                uvsList = new List<Vector2>();
+                trianglesList = new List<int>();
+            }
         }
 
         GameObject quadObj = new GameObject("RoadMesh");
@@ -1355,7 +1327,6 @@ public class MeshGenerator : MonoBehaviour
         meshRenderer.materials = new Material[] { mat };
 
         MeshCollider collider = quadObj.AddComponent<MeshCollider>();
-        //collider.convex = true;
         quadObj.isStatic = true;
 
         quadObj.layer = LayerMask.NameToLayer("Floor");
@@ -2420,63 +2391,188 @@ public class MeshGenerator : MonoBehaviour
     public void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
-        List<Vector3> velocityList = new List<Vector3>();
-        Vector3 vel = controlPointsList[1].transform.position - controlPointsList[0].transform.position;
-        velocityList.Add(0.5f * vel);
-        for (int i = 1; i < controlPointsList.Count - 1; i++)
+        if(mode == GeneratorMode.Road && roadMode == RoadMode.FlexibleRoad)
         {
-            vel = controlPointsList[i + 1].transform.position - controlPointsList[i - 1].transform.position;
+            List<Vector3> velocityList = new List<Vector3>();
+
+            Vector3 vel = controlPointsList[1].transform.position - controlPointsList[0].transform.position;
+            //vel = vel.normalized;
             velocityList.Add(0.5f * vel);
-        }
-        vel = controlPointsList[controlPointsList.Count - 1].transform.position - controlPointsList[controlPointsList.Count - 2].transform.position;
-        velocityList.Add(0.5f * vel);
+            for (int i = 1; i < controlPointsList.Count - 1; i++)
+            {
+                vel = controlPointsList[i + 1].transform.position - controlPointsList[i - 1].transform.position;
+                //vel = vel.normalized;
+                velocityList.Add(0.5f * vel);
+            }
+            vel = controlPointsList[controlPointsList.Count - 1].transform.position - controlPointsList[controlPointsList.Count - 2].transform.position;
+            //vel = vel.normalized;
+            velocityList.Add(0.5f * vel);
 
-        List<Vector3> points = new List<Vector3>();
-        points.Add(controlPointsList[0].transform.position);
-        for (int i = 1; i < controlPointsList.Count; i++)
+            List<Vector3> points = new List<Vector3>();
+            points.Add(controlPointsList[0].transform.position);
+            for (int i = 1; i < controlPointsList.Count; i++)
+            {
+                List<Vector3> listInterpolatedPoints = GetHermitInterpolationPoints(controlPointsList[i - 1].transform.position, velocityList[i - 1], controlPointsList[i].transform.position, velocityList[i], pointResolution);
+                foreach (Vector3 vec in listInterpolatedPoints)
+                {
+                    points.Add(vec);
+                }
+                points.Add(controlPointsList[i].transform.position);
+            }
+
+
+            List<Vector3> controlPointsOrientation = new List<Vector3>();
+
+            Vector3 dir = points[1] - points[0];
+            dir = dir.normalized;
+            controlPointsOrientation.Add(dir);
+            for (int i = 1; i < points.Count - 1; i++)
+            {
+                dir = points[i + 1] - points[i - 1];
+                dir = dir.normalized;
+                controlPointsOrientation.Add(dir);
+            }
+            dir = points[points.Count - 1] - points[points.Count - 2];
+            dir = dir.normalized;
+            controlPointsOrientation.Add(dir);
+
+            List<Vector3> roadNormals = new List<Vector3>();
+
+            Vector3 pointUp0 = controlPointsList[0].gameObject.transform.up;
+            pointUp0 = pointUp0.normalized;
+            Vector3 pointDir0 = controlPointsOrientation[0];
+            Vector3 proj0 = pointUp0 - Vector3.Dot(pointUp0, pointDir0) * pointDir0;
+            if (proj0.magnitude == 0.0f)
+            {
+                proj0 = Vector3.up - Vector3.Dot(Vector3.up, pointDir0) * pointDir0;
+            }
+            proj0 = proj0.normalized;
+            roadNormals.Add(proj0);
+
+            for (int i = 1; i < controlPointsList.Count; i++)
+            {
+                Vector3 pointUp = controlPointsList[i].gameObject.transform.up;
+                pointUp = pointUp.normalized;
+                Vector3 pointDir = controlPointsOrientation[i * (pointResolution + 1)];
+                Vector3 proj = pointUp - Vector3.Dot(pointUp, pointDir) * pointDir;
+                if (proj.magnitude == 0.0f)
+                {
+                    proj = Vector3.up - Vector3.Dot(Vector3.up, pointDir) * pointDir;
+                }
+                proj = proj.normalized;
+                Vector3 oldProj = roadNormals[(i - 1) * (pointResolution + 1)];
+
+                for (int k = 0; k < pointResolution; k++)
+                {
+                    float t = (k) / ((float)(pointResolution - 1));
+                    Vector3 interNormal = (1 - t) * oldProj + t * proj;
+                    interNormal = interNormal.normalized;
+                    Vector3 interDir = controlPointsOrientation[(i - 1) * (pointResolution + 1) + k];
+                    Vector3 interProj = interNormal - Vector3.Dot(interNormal, interDir) * interDir;
+                    if (interProj.magnitude == 0.0f)
+                    {
+                        interProj = Vector3.up - Vector3.Dot(Vector3.up, interDir) * interDir;
+                    }
+                    interProj = interProj.normalized;
+                    roadNormals.Add(interProj);
+                }
+                roadNormals.Add(proj);
+            }
+
+            float width = controlPointsList[0].width;
+
+            for (int j = 0; j < points.Count - 1; j++)
+            {
+                Vector3 pos = points[j];
+                Vector3 vecZ = points[j + 1] - points[j];
+                vecZ = vecZ.normalized;
+                Vector3 vecX = Vector3.Cross(roadNormals[j], vecZ);
+                vecX = vecX.normalized;
+                Vector3 vecY = roadNormals[j];
+                vecY = vecY.normalized;
+
+                Vector3 x = width * vecX;
+                Vector3 y = width * vecY;
+                Vector3 z = (points[j + 1] - points[j]);
+
+                Gizmos.DrawLine(pos + x, pos + y);
+                Gizmos.DrawLine(pos - x, pos + y);
+                Gizmos.DrawLine(pos - x, pos - y);
+                Gizmos.DrawLine(pos + x, pos - y);
+
+                Gizmos.DrawLine(pos + x, pos + x + z);
+                Gizmos.DrawLine(pos + y, pos + y + z);
+                Gizmos.DrawLine(pos - x, pos - x + z);
+                Gizmos.DrawLine(pos - y, pos - y + z);
+
+                Gizmos.DrawLine(pos + x + z, pos + y + z);
+                Gizmos.DrawLine(pos - x + z, pos + y + z);
+                Gizmos.DrawLine(pos - x + z, pos - y + z);
+                Gizmos.DrawLine(pos + x + z, pos - y + z);
+            }
+
+        }
+        else
         {
-            List<Vector3> listInterpolatedPoints = GetHermitInterpolationPoints(controlPointsList[i - 1].transform.position, velocityList[i - 1], controlPointsList[i].transform.position, velocityList[i], pointResolution);
-            points.AddRange(listInterpolatedPoints);
-            points.Add(controlPointsList[i].transform.position);
+            List<Vector3> velocityList = new List<Vector3>();
+            Vector3 vel = controlPointsList[1].transform.position - controlPointsList[0].transform.position;
+            velocityList.Add(0.5f * vel);
+            for (int i = 1; i < controlPointsList.Count - 1; i++)
+            {
+                vel = controlPointsList[i + 1].transform.position - controlPointsList[i - 1].transform.position;
+                velocityList.Add(0.5f * vel);
+            }
+            vel = controlPointsList[controlPointsList.Count - 1].transform.position - controlPointsList[controlPointsList.Count - 2].transform.position;
+            velocityList.Add(0.5f * vel);
+
+            List<Vector3> points = new List<Vector3>();
+            points.Add(controlPointsList[0].transform.position);
+            for (int i = 1; i < controlPointsList.Count; i++)
+            {
+                List<Vector3> listInterpolatedPoints = GetHermitInterpolationPoints(controlPointsList[i - 1].transform.position, velocityList[i - 1], controlPointsList[i].transform.position, velocityList[i], pointResolution);
+                points.AddRange(listInterpolatedPoints);
+                points.Add(controlPointsList[i].transform.position);
+            }
+
+            float width = 0.0f;
+            if (mode == GeneratorMode.Road)
+            {
+                width = controlPointsList[0].width;
+            }
+            else if (mode == GeneratorMode.Tunnel)
+            {
+                width = controlPointsList[0].externRadius;
+            }
+            for (int j = 0; j < points.Count - 1; j++)
+            {
+                Vector3 pos = points[j];
+                Vector3 vecZ = points[j + 1] - points[j];
+                vecZ = vecZ.normalized;
+                Vector3 vecX = Vector3.Cross(Vector3.up, vecZ);
+                vecX = vecX.normalized;
+                Vector3 vecY = Vector3.Cross(vecX, vecZ);
+                vecY = vecY.normalized;
+
+                Vector3 x = width * vecX;
+                Vector3 y = width * vecY;
+                Vector3 z = (points[j + 1] - points[j]);
+
+                Gizmos.DrawLine(pos + x, pos + y);
+                Gizmos.DrawLine(pos - x, pos + y);
+                Gizmos.DrawLine(pos - x, pos - y);
+                Gizmos.DrawLine(pos + x, pos - y);
+
+                Gizmos.DrawLine(pos + x, pos + x + z);
+                Gizmos.DrawLine(pos + y, pos + y + z);
+                Gizmos.DrawLine(pos - x, pos - x + z);
+                Gizmos.DrawLine(pos - y, pos - y + z);
+
+                Gizmos.DrawLine(pos + x + z, pos + y + z);
+                Gizmos.DrawLine(pos - x + z, pos + y + z);
+                Gizmos.DrawLine(pos - x + z, pos - y + z);
+                Gizmos.DrawLine(pos + x + z, pos - y + z);
+            }
         }
-
-        float width = 0.0f;
-        if(mode == GeneratorMode.Road)
-        {
-            width = controlPointsList[0].width;
-        }
-        else if(mode == GeneratorMode.Tunnel)
-        {
-            width = controlPointsList[0].externRadius;
-        }
-        for(int j = 0; j<points.Count-1; j++)
-        {
-            Vector3 pos = points[j];
-            Vector3 vecZ = points[j + 1] - points[j];
-            vecZ = vecZ.normalized;
-            Vector3 vecX = Vector3.Cross(Vector3.up, vecZ);
-            vecX = vecX.normalized;
-            Vector3 vecY = Vector3.Cross(vecX, vecZ);
-            vecY = vecY.normalized;
-
-            Vector3 x = width * vecX;
-            Vector3 y = width * vecY;
-            Vector3 z = (points[j+1]-points[j]);
-
-            Gizmos.DrawLine(pos + x, pos + y);
-            Gizmos.DrawLine(pos - x, pos + y);
-            Gizmos.DrawLine(pos - x, pos - y);
-            Gizmos.DrawLine(pos + x, pos - y);
-
-            Gizmos.DrawLine(pos + x, pos + x + z); 
-            Gizmos.DrawLine(pos + y, pos + y + z);
-            Gizmos.DrawLine(pos - x, pos - x + z);
-            Gizmos.DrawLine(pos - y, pos - y + z);
-
-            Gizmos.DrawLine(pos + x + z, pos + y + z);
-            Gizmos.DrawLine(pos - x + z, pos + y + z);
-            Gizmos.DrawLine(pos - x + z, pos - y + z);
-            Gizmos.DrawLine(pos + x + z, pos - y + z);
-        }
+        
     }
 }
