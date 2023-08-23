@@ -193,7 +193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 1
-  roadMode: 2
+  roadMode: 3
   controlPointsList:
   - {fileID: 1641906251}
   - {fileID: 860604341}

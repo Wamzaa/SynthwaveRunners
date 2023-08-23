@@ -100,8 +100,6 @@ public class RandomMapGenerator : MonoBehaviour
         GameObject firstControlPoint = new GameObject("ControlPoint");
         firstControlPoint.transform.position = current;
         MeshControlPoint firstMeshControlPoint = firstControlPoint.AddComponent<MeshControlPoint>();
-        firstMeshControlPoint.internRadius = internRadius;
-        firstMeshControlPoint.externRadius = externRadius;
         firstMeshControlPoint.height = height;
         firstMeshControlPoint.width = width;
         firstMeshControlPoint.borderHeight = borderHeight;
@@ -122,8 +120,6 @@ public class RandomMapGenerator : MonoBehaviour
             GameObject controlPoint = new GameObject("ControlPoint");
             controlPoint.transform.position = current;
             MeshControlPoint meshControlPoint = controlPoint.AddComponent<MeshControlPoint>();
-            meshControlPoint.internRadius = internRadius;
-            meshControlPoint.externRadius = externRadius;
             meshControlPoint.height = height;
             meshControlPoint.width = width;
             meshControlPoint.borderHeight = borderHeight;
@@ -157,8 +153,6 @@ public class RandomMapGenerator : MonoBehaviour
         GameObject firstControlPoint = new GameObject("ControlPoint");
         firstControlPoint.transform.position = current;
         MeshControlPoint firstMeshControlPoint = firstControlPoint.AddComponent<MeshControlPoint>();
-        firstMeshControlPoint.internRadius = internRadius;
-        firstMeshControlPoint.externRadius = externRadius;
         firstMeshControlPoint.height = height;
         firstMeshControlPoint.width = width;
         firstMeshControlPoint.borderHeight = borderHeight;
@@ -184,8 +178,6 @@ public class RandomMapGenerator : MonoBehaviour
             GameObject controlPoint = new GameObject("ControlPoint");
             controlPoint.transform.position = current;
             MeshControlPoint meshControlPoint = controlPoint.AddComponent<MeshControlPoint>();
-            meshControlPoint.internRadius = internRadius;
-            meshControlPoint.externRadius = externRadius;
             meshControlPoint.height = height;
             meshControlPoint.width = width;
             meshControlPoint.borderHeight = borderHeight;

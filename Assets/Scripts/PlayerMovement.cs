@@ -93,7 +93,6 @@ public class PlayerMovement : MonoBehaviour
         Vector3 playerForward = rb.velocity.normalized;
         Vector3 playerRight = Vector3.Cross(currentNormal, playerForward);
         playerRight = playerRight.normalized;
-        float coefOffRay = 1.0f;
 
         Bounds playerBounds = this.GetComponentInChildren<Collider>().bounds;
         float minSize = Mathf.Min(playerBounds.size.x, playerBounds.size.z); 

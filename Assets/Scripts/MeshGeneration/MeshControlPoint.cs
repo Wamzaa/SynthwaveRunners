@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class MeshControlPoint : MonoBehaviour
 {
-    public float internRadius;
-    public float externRadius;
+    public enum InterpolationMode { None, Linear, Smooth}
 
     public float height;
     public float width;
     public float borderHeight;
+    public InterpolationMode interpolationMode;
 }

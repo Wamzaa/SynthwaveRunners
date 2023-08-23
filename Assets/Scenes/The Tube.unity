@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isGlobal: 1
+  m_IsGlobal: 1
   priority: 0
   blendDistance: 0
   weight: 1
@@ -167,6 +167,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -200,10 +201,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5abe71932623692479930c45ec1c722b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  internRadius: 30
-  externRadius: 35
-  height: 0
-  width: 0
+  height: 5
+  width: 32
   borderHeight: 0
 --- !u!4 &348862948
 Transform:
@@ -215,6 +214,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -166, y: -161, z: -1548}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1056687397}
   m_RootOrder: 4
@@ -308,6 +308,7 @@ Transform:
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -341,10 +342,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5abe71932623692479930c45ec1c722b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  internRadius: 30
-  externRadius: 35
-  height: 0
-  width: 0
+  height: 5
+  width: 32
   borderHeight: 0
 --- !u!4 &564404750
 Transform:
@@ -356,6 +355,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 131, y: 174, z: -541}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1056687397}
   m_RootOrder: 5
@@ -387,6 +387,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2018923622}
   - {fileID: 1708603890}
@@ -432,7 +433,8 @@ MonoBehaviour:
   - {fileID: 1723083725}
   - {fileID: 2018923621}
   resolution: 50
-  pointResolution: 13
+  pointResolution: 25
+  widthResolution: 0
   initialRoadRotation: 0
   mat: {fileID: 2100000, guid: b340ee50af8bf364b801bd70b1e45cc3, type: 2}
   edgeMat: {fileID: 0}
@@ -468,10 +470,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5abe71932623692479930c45ec1c722b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  internRadius: 30
-  externRadius: 35
-  height: 0
-  width: 0
+  height: 5
+  width: 32
   borderHeight: 0
 --- !u!4 &1178937928
 Transform:
@@ -483,6 +483,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 863, y: 174, z: 214}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1056687397}
   m_RootOrder: 6
@@ -516,10 +517,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5abe71932623692479930c45ec1c722b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  internRadius: 30
-  externRadius: 35
-  height: 0
-  width: 0
+  height: 5
+  width: 32
   borderHeight: 0
 --- !u!4 &1433511377
 Transform:
@@ -531,6 +530,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 266, y: 382, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1056687397}
   m_RootOrder: 7
@@ -564,10 +564,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5abe71932623692479930c45ec1c722b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  internRadius: 30
-  externRadius: 35
-  height: 0
-  width: 0
+  height: 5
+  width: 32
   borderHeight: 0
 --- !u!4 &1447282712
 Transform:
@@ -579,6 +577,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 150, y: 0, z: 114}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1056687397}
   m_RootOrder: 10
@@ -612,10 +611,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5abe71932623692479930c45ec1c722b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  internRadius: 30
-  externRadius: 35
-  height: 0
-  width: 0
+  height: 5
+  width: 32
   borderHeight: 0
 --- !u!4 &1560814445
 Transform:
@@ -627,6 +624,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 323}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1056687397}
   m_RootOrder: 9
@@ -660,10 +658,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5abe71932623692479930c45ec1c722b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  internRadius: 30
-  externRadius: 35
-  height: 0
-  width: 0
+  height: 5
+  width: 32
   borderHeight: 0
 --- !u!4 &1594343753
 Transform:
@@ -675,6 +671,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -441, y: 52, z: -110}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1056687397}
   m_RootOrder: 2
@@ -724,6 +721,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -755,6 +753,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -199.3, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1056687397}
   m_RootOrder: 1
@@ -771,10 +770,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5abe71932623692479930c45ec1c722b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  internRadius: 30
-  externRadius: 35
-  height: 0
-  width: 0
+  height: 5
+  width: 32
   borderHeight: 0
 --- !u!1 &1723083724
 GameObject:
@@ -805,10 +802,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5abe71932623692479930c45ec1c722b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  internRadius: 30
-  externRadius: 35
-  height: 0
-  width: 0
+  height: 5
+  width: 32
   borderHeight: 0
 --- !u!4 &1723083726
 Transform:
@@ -820,6 +815,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 55, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1056687397}
   m_RootOrder: 11
@@ -853,10 +849,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5abe71932623692479930c45ec1c722b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  internRadius: 30
-  externRadius: 35
-  height: 0
-  width: 0
+  height: 5
+  width: 32
   borderHeight: 0
 --- !u!4 &1883334400
 Transform:
@@ -868,6 +862,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -542, y: 139, z: -595}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1056687397}
   m_RootOrder: 3
@@ -901,10 +896,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5abe71932623692479930c45ec1c722b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  internRadius: 30
-  externRadius: 35
-  height: 0
-  width: 0
+  height: 5
+  width: 32
   borderHeight: 0
 --- !u!4 &2018923622
 Transform:
@@ -916,6 +909,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -100, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1056687397}
   m_RootOrder: 0
@@ -949,10 +943,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5abe71932623692479930c45ec1c722b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  internRadius: 30
-  externRadius: 35
-  height: 0
-  width: 0
+  height: 5
+  width: 32
   borderHeight: 0
 --- !u!4 &2145395447
 Transform:
@@ -964,6 +956,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 309, y: 363.1, z: 317}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1056687397}
   m_RootOrder: 8
