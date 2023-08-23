@@ -24,6 +24,8 @@ public class MeshGeneratorEditor : Editor
     public SerializedProperty roadLightScale_prop;
     public SerializedProperty roadLightInter_prop;
 
+    public SerializedProperty showGizmos_prop;
+
 
     private void OnEnable()
     {
@@ -39,6 +41,7 @@ public class MeshGeneratorEditor : Editor
         withRoadLight_prop = serializedObject.FindProperty("withRoadLight");
         roadLightScale_prop = serializedObject.FindProperty("roadLightScale");
         roadLightInter_prop = serializedObject.FindProperty("roadLightInter");
+        showGizmos_prop = serializedObject.FindProperty("showGizmos");
 
     }
 
@@ -91,6 +94,8 @@ public class MeshGeneratorEditor : Editor
 
         EditorGUILayout.PropertyField(material_prop);
         EditorGUILayout.PropertyField(edgeMaterial_prop);
+
+        EditorGUILayout.PropertyField(showGizmos_prop);
 
         serializedObject.ApplyModifiedProperties();
     }

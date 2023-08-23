@@ -32,6 +32,8 @@ public class MeshGenerator : MonoBehaviour
     public float roadLightScale;
     public float roadLightInter;
 
+    public bool showGizmos;
+
     private Vector3[] vertices;
     private int[] triangles;
     private Vector3[] normals;
@@ -2733,189 +2735,191 @@ public class MeshGenerator : MonoBehaviour
 
     public void OnDrawGizmos()
     {
-        Gizmos.color = Color.white;
-        if(mode == GeneratorMode.Road && roadMode == RoadMode.FlexibleRoad)
+        if (showGizmos)
         {
-            List<Vector3> velocityList = new List<Vector3>();
-
-            Vector3 vel = controlPointsList[1].transform.position - controlPointsList[0].transform.position;
-            //vel = vel.normalized;
-            velocityList.Add(0.5f * vel);
-            for (int i = 1; i < controlPointsList.Count - 1; i++)
+            Gizmos.color = Color.white;
+            if (mode == GeneratorMode.Road && roadMode == RoadMode.FlexibleRoad)
             {
-                vel = controlPointsList[i + 1].transform.position - controlPointsList[i - 1].transform.position;
+                List<Vector3> velocityList = new List<Vector3>();
+
+                Vector3 vel = controlPointsList[1].transform.position - controlPointsList[0].transform.position;
                 //vel = vel.normalized;
                 velocityList.Add(0.5f * vel);
-            }
-            vel = controlPointsList[controlPointsList.Count - 1].transform.position - controlPointsList[controlPointsList.Count - 2].transform.position;
-            //vel = vel.normalized;
-            velocityList.Add(0.5f * vel);
-
-            List<Vector3> points = new List<Vector3>();
-            points.Add(controlPointsList[0].transform.position);
-            for (int i = 1; i < controlPointsList.Count; i++)
-            {
-                List<Vector3> listInterpolatedPoints = GetHermitInterpolationPoints(controlPointsList[i - 1].transform.position, velocityList[i - 1], controlPointsList[i].transform.position, velocityList[i], pointResolution);
-                foreach (Vector3 vec in listInterpolatedPoints)
+                for (int i = 1; i < controlPointsList.Count - 1; i++)
                 {
-                    points.Add(vec);
+                    vel = controlPointsList[i + 1].transform.position - controlPointsList[i - 1].transform.position;
+                    //vel = vel.normalized;
+                    velocityList.Add(0.5f * vel);
                 }
-                points.Add(controlPointsList[i].transform.position);
-            }
+                vel = controlPointsList[controlPointsList.Count - 1].transform.position - controlPointsList[controlPointsList.Count - 2].transform.position;
+                //vel = vel.normalized;
+                velocityList.Add(0.5f * vel);
+
+                List<Vector3> points = new List<Vector3>();
+                points.Add(controlPointsList[0].transform.position);
+                for (int i = 1; i < controlPointsList.Count; i++)
+                {
+                    List<Vector3> listInterpolatedPoints = GetHermitInterpolationPoints(controlPointsList[i - 1].transform.position, velocityList[i - 1], controlPointsList[i].transform.position, velocityList[i], pointResolution);
+                    foreach (Vector3 vec in listInterpolatedPoints)
+                    {
+                        points.Add(vec);
+                    }
+                    points.Add(controlPointsList[i].transform.position);
+                }
 
 
-            List<Vector3> controlPointsOrientation = new List<Vector3>();
+                List<Vector3> controlPointsOrientation = new List<Vector3>();
 
-            Vector3 dir = points[1] - points[0];
-            dir = dir.normalized;
-            controlPointsOrientation.Add(dir);
-            for (int i = 1; i < points.Count - 1; i++)
-            {
-                dir = points[i + 1] - points[i - 1];
+                Vector3 dir = points[1] - points[0];
                 dir = dir.normalized;
                 controlPointsOrientation.Add(dir);
-            }
-            dir = points[points.Count - 1] - points[points.Count - 2];
-            dir = dir.normalized;
-            controlPointsOrientation.Add(dir);
-
-            List<Vector3> roadNormals = new List<Vector3>();
-
-            Vector3 pointUp0 = controlPointsList[0].gameObject.transform.up;
-            pointUp0 = pointUp0.normalized;
-            Vector3 pointDir0 = controlPointsOrientation[0];
-            Vector3 proj0 = pointUp0 - Vector3.Dot(pointUp0, pointDir0) * pointDir0;
-            if (proj0.magnitude == 0.0f)
-            {
-                proj0 = Vector3.up - Vector3.Dot(Vector3.up, pointDir0) * pointDir0;
-            }
-            proj0 = proj0.normalized;
-            roadNormals.Add(proj0);
-
-            for (int i = 1; i < controlPointsList.Count; i++)
-            {
-                Vector3 pointUp = controlPointsList[i].gameObject.transform.up;
-                pointUp = pointUp.normalized;
-                Vector3 pointDir = controlPointsOrientation[i * (pointResolution + 1)];
-                Vector3 proj = pointUp - Vector3.Dot(pointUp, pointDir) * pointDir;
-                if (proj.magnitude == 0.0f)
+                for (int i = 1; i < points.Count - 1; i++)
                 {
-                    proj = Vector3.up - Vector3.Dot(Vector3.up, pointDir) * pointDir;
+                    dir = points[i + 1] - points[i - 1];
+                    dir = dir.normalized;
+                    controlPointsOrientation.Add(dir);
                 }
-                proj = proj.normalized;
-                Vector3 oldProj = roadNormals[(i - 1) * (pointResolution + 1)];
+                dir = points[points.Count - 1] - points[points.Count - 2];
+                dir = dir.normalized;
+                controlPointsOrientation.Add(dir);
 
-                for (int k = 0; k < pointResolution; k++)
+                List<Vector3> roadNormals = new List<Vector3>();
+
+                Vector3 pointUp0 = controlPointsList[0].gameObject.transform.up;
+                pointUp0 = pointUp0.normalized;
+                Vector3 pointDir0 = controlPointsOrientation[0];
+                Vector3 proj0 = pointUp0 - Vector3.Dot(pointUp0, pointDir0) * pointDir0;
+                if (proj0.magnitude == 0.0f)
                 {
-                    float t = (k) / ((float)(pointResolution - 1));
-                    Vector3 interNormal = (1 - t) * oldProj + t * proj;
-                    interNormal = interNormal.normalized;
-                    Vector3 interDir = controlPointsOrientation[(i - 1) * (pointResolution + 1) + k];
-                    Vector3 interProj = interNormal - Vector3.Dot(interNormal, interDir) * interDir;
-                    if (interProj.magnitude == 0.0f)
+                    proj0 = Vector3.up - Vector3.Dot(Vector3.up, pointDir0) * pointDir0;
+                }
+                proj0 = proj0.normalized;
+                roadNormals.Add(proj0);
+
+                for (int i = 1; i < controlPointsList.Count; i++)
+                {
+                    Vector3 pointUp = controlPointsList[i].gameObject.transform.up;
+                    pointUp = pointUp.normalized;
+                    Vector3 pointDir = controlPointsOrientation[i * (pointResolution + 1)];
+                    Vector3 proj = pointUp - Vector3.Dot(pointUp, pointDir) * pointDir;
+                    if (proj.magnitude == 0.0f)
                     {
-                        interProj = Vector3.up - Vector3.Dot(Vector3.up, interDir) * interDir;
+                        proj = Vector3.up - Vector3.Dot(Vector3.up, pointDir) * pointDir;
                     }
-                    interProj = interProj.normalized;
-                    roadNormals.Add(interProj);
+                    proj = proj.normalized;
+                    Vector3 oldProj = roadNormals[(i - 1) * (pointResolution + 1)];
+
+                    for (int k = 0; k < pointResolution; k++)
+                    {
+                        float t = (k) / ((float)(pointResolution - 1));
+                        Vector3 interNormal = (1 - t) * oldProj + t * proj;
+                        interNormal = interNormal.normalized;
+                        Vector3 interDir = controlPointsOrientation[(i - 1) * (pointResolution + 1) + k];
+                        Vector3 interProj = interNormal - Vector3.Dot(interNormal, interDir) * interDir;
+                        if (interProj.magnitude == 0.0f)
+                        {
+                            interProj = Vector3.up - Vector3.Dot(Vector3.up, interDir) * interDir;
+                        }
+                        interProj = interProj.normalized;
+                        roadNormals.Add(interProj);
+                    }
+                    roadNormals.Add(proj);
                 }
-                roadNormals.Add(proj);
+
+                float width = controlPointsList[0].width;
+
+                for (int j = 0; j < points.Count - 1; j++)
+                {
+                    Vector3 pos = points[j];
+                    Vector3 vecZ = points[j + 1] - points[j];
+                    vecZ = vecZ.normalized;
+                    Vector3 vecX = Vector3.Cross(roadNormals[j], vecZ);
+                    vecX = vecX.normalized;
+                    Vector3 vecY = roadNormals[j];
+                    vecY = vecY.normalized;
+
+                    Vector3 x = width * vecX;
+                    Vector3 y = width * vecY;
+                    Vector3 z = (points[j + 1] - points[j]);
+
+                    Gizmos.DrawLine(pos + x, pos + y);
+                    Gizmos.DrawLine(pos - x, pos + y);
+                    Gizmos.DrawLine(pos - x, pos - y);
+                    Gizmos.DrawLine(pos + x, pos - y);
+
+                    Gizmos.DrawLine(pos + x, pos + x + z);
+                    Gizmos.DrawLine(pos + y, pos + y + z);
+                    Gizmos.DrawLine(pos - x, pos - x + z);
+                    Gizmos.DrawLine(pos - y, pos - y + z);
+
+                    Gizmos.DrawLine(pos + x + z, pos + y + z);
+                    Gizmos.DrawLine(pos - x + z, pos + y + z);
+                    Gizmos.DrawLine(pos - x + z, pos - y + z);
+                    Gizmos.DrawLine(pos + x + z, pos - y + z);
+                }
+
             }
-
-            float width = controlPointsList[0].width;
-
-            for (int j = 0; j < points.Count - 1; j++)
+            else
             {
-                Vector3 pos = points[j];
-                Vector3 vecZ = points[j + 1] - points[j];
-                vecZ = vecZ.normalized;
-                Vector3 vecX = Vector3.Cross(roadNormals[j], vecZ);
-                vecX = vecX.normalized;
-                Vector3 vecY = roadNormals[j];
-                vecY = vecY.normalized;
-
-                Vector3 x = width * vecX;
-                Vector3 y = width * vecY;
-                Vector3 z = (points[j + 1] - points[j]);
-
-                Gizmos.DrawLine(pos + x, pos + y);
-                Gizmos.DrawLine(pos - x, pos + y);
-                Gizmos.DrawLine(pos - x, pos - y);
-                Gizmos.DrawLine(pos + x, pos - y);
-
-                Gizmos.DrawLine(pos + x, pos + x + z);
-                Gizmos.DrawLine(pos + y, pos + y + z);
-                Gizmos.DrawLine(pos - x, pos - x + z);
-                Gizmos.DrawLine(pos - y, pos - y + z);
-
-                Gizmos.DrawLine(pos + x + z, pos + y + z);
-                Gizmos.DrawLine(pos - x + z, pos + y + z);
-                Gizmos.DrawLine(pos - x + z, pos - y + z);
-                Gizmos.DrawLine(pos + x + z, pos - y + z);
-            }
-
-        }
-        else
-        {
-            List<Vector3> velocityList = new List<Vector3>();
-            Vector3 vel = controlPointsList[1].transform.position - controlPointsList[0].transform.position;
-            velocityList.Add(0.5f * vel);
-            for (int i = 1; i < controlPointsList.Count - 1; i++)
-            {
-                vel = controlPointsList[i + 1].transform.position - controlPointsList[i - 1].transform.position;
+                List<Vector3> velocityList = new List<Vector3>();
+                Vector3 vel = controlPointsList[1].transform.position - controlPointsList[0].transform.position;
                 velocityList.Add(0.5f * vel);
-            }
-            vel = controlPointsList[controlPointsList.Count - 1].transform.position - controlPointsList[controlPointsList.Count - 2].transform.position;
-            velocityList.Add(0.5f * vel);
+                for (int i = 1; i < controlPointsList.Count - 1; i++)
+                {
+                    vel = controlPointsList[i + 1].transform.position - controlPointsList[i - 1].transform.position;
+                    velocityList.Add(0.5f * vel);
+                }
+                vel = controlPointsList[controlPointsList.Count - 1].transform.position - controlPointsList[controlPointsList.Count - 2].transform.position;
+                velocityList.Add(0.5f * vel);
 
-            List<Vector3> points = new List<Vector3>();
-            points.Add(controlPointsList[0].transform.position);
-            for (int i = 1; i < controlPointsList.Count; i++)
-            {
-                List<Vector3> listInterpolatedPoints = GetHermitInterpolationPoints(controlPointsList[i - 1].transform.position, velocityList[i - 1], controlPointsList[i].transform.position, velocityList[i], pointResolution);
-                points.AddRange(listInterpolatedPoints);
-                points.Add(controlPointsList[i].transform.position);
-            }
+                List<Vector3> points = new List<Vector3>();
+                points.Add(controlPointsList[0].transform.position);
+                for (int i = 1; i < controlPointsList.Count; i++)
+                {
+                    List<Vector3> listInterpolatedPoints = GetHermitInterpolationPoints(controlPointsList[i - 1].transform.position, velocityList[i - 1], controlPointsList[i].transform.position, velocityList[i], pointResolution);
+                    points.AddRange(listInterpolatedPoints);
+                    points.Add(controlPointsList[i].transform.position);
+                }
 
-            float width = 0.0f;
-            if (mode == GeneratorMode.Road)
-            {
-                width = controlPointsList[0].width;
-            }
-            else if (mode == GeneratorMode.Tunnel)
-            {
-                width = controlPointsList[0].width + controlPointsList[0].height;
-            }
-            for (int j = 0; j < points.Count - 1; j++)
-            {
-                Vector3 pos = points[j];
-                Vector3 vecZ = points[j + 1] - points[j];
-                vecZ = vecZ.normalized;
-                Vector3 vecX = Vector3.Cross(Vector3.up, vecZ);
-                vecX = vecX.normalized;
-                Vector3 vecY = Vector3.Cross(vecX, vecZ);
-                vecY = vecY.normalized;
+                float width = 0.0f;
+                if (mode == GeneratorMode.Road)
+                {
+                    width = controlPointsList[0].width;
+                }
+                else if (mode == GeneratorMode.Tunnel)
+                {
+                    width = controlPointsList[0].width + controlPointsList[0].height;
+                }
+                for (int j = 0; j < points.Count - 1; j++)
+                {
+                    Vector3 pos = points[j];
+                    Vector3 vecZ = points[j + 1] - points[j];
+                    vecZ = vecZ.normalized;
+                    Vector3 vecX = Vector3.Cross(Vector3.up, vecZ);
+                    vecX = vecX.normalized;
+                    Vector3 vecY = Vector3.Cross(vecX, vecZ);
+                    vecY = vecY.normalized;
 
-                Vector3 x = width * vecX;
-                Vector3 y = width * vecY;
-                Vector3 z = (points[j + 1] - points[j]);
+                    Vector3 x = width * vecX;
+                    Vector3 y = width * vecY;
+                    Vector3 z = (points[j + 1] - points[j]);
 
-                Gizmos.DrawLine(pos + x, pos + y);
-                Gizmos.DrawLine(pos - x, pos + y);
-                Gizmos.DrawLine(pos - x, pos - y);
-                Gizmos.DrawLine(pos + x, pos - y);
+                    Gizmos.DrawLine(pos + x, pos + y);
+                    Gizmos.DrawLine(pos - x, pos + y);
+                    Gizmos.DrawLine(pos - x, pos - y);
+                    Gizmos.DrawLine(pos + x, pos - y);
 
-                Gizmos.DrawLine(pos + x, pos + x + z);
-                Gizmos.DrawLine(pos + y, pos + y + z);
-                Gizmos.DrawLine(pos - x, pos - x + z);
-                Gizmos.DrawLine(pos - y, pos - y + z);
+                    Gizmos.DrawLine(pos + x, pos + x + z);
+                    Gizmos.DrawLine(pos + y, pos + y + z);
+                    Gizmos.DrawLine(pos - x, pos - x + z);
+                    Gizmos.DrawLine(pos - y, pos - y + z);
 
-                Gizmos.DrawLine(pos + x + z, pos + y + z);
-                Gizmos.DrawLine(pos - x + z, pos + y + z);
-                Gizmos.DrawLine(pos - x + z, pos - y + z);
-                Gizmos.DrawLine(pos + x + z, pos - y + z);
+                    Gizmos.DrawLine(pos + x + z, pos + y + z);
+                    Gizmos.DrawLine(pos - x + z, pos + y + z);
+                    Gizmos.DrawLine(pos - x + z, pos - y + z);
+                    Gizmos.DrawLine(pos + x + z, pos - y + z);
+                }
             }
         }
-        
     }
 }
