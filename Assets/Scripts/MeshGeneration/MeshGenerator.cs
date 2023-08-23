@@ -952,7 +952,14 @@ public class MeshGenerator : MonoBehaviour
         }
 
         float currentLength = 0.0f;
-        float lateralOffset = (Mathf.Ceil(2 * controlPoints[0].width / 20.0f) * 20.0f - 2 * controlPoints[0].width) / 2 + 0.5f;
+        float maxWidth = 0.0f;
+        for(int i=0; i<controlPointsList.Count; i++)
+        {
+            if (controlPointsList[i].width> maxWidth)
+            {
+                maxWidth = controlPointsList[i].width;
+            }
+        }
 
         int indexCpt = 0;
 
@@ -1009,6 +1016,10 @@ public class MeshGenerator : MonoBehaviour
 
 
             float partLen = (controlPoints[c + 1].transform.position - controlPoints[c].transform.position).magnitude;
+            /*float lateralOffset1 = (Mathf.Ceil(2 * controlPoints[c].width / 20.0f) * 20.0f - 2 * controlPoints[c].width) / 2 + 0.5f;
+            float lateralOffset2 = (Mathf.Ceil(2 * controlPoints[c+1].width / 20.0f) * 20.0f - 2 * controlPoints[c+1].width) / 2 + 0.5f;*/
+            float lateralOffset1 = (Mathf.Ceil(2 * maxWidth / 20.0f) * 20.0f - 2 * controlPoints[c].width) / 2 + 0.5f;
+            float lateralOffset2 = (Mathf.Ceil(2 * maxWidth / 20.0f) * 20.0f - 2 * controlPoints[c + 1].width) / 2 + 0.5f;
 
 
             uvsList.Add(new Vector2(14, currentLength));
@@ -1022,27 +1033,27 @@ public class MeshGenerator : MonoBehaviour
             uvsList.Add(new Vector2(16, currentLength + partLen));
 
 
-            uvsList.Add(new Vector2(lateralOffset + 2 * controlPoints[c].width, 14));
-            uvsList.Add(new Vector2(lateralOffset + 2 * controlPoints[c].width, 16));
-            uvsList.Add(new Vector2(lateralOffset, 16));
-            uvsList.Add(new Vector2(lateralOffset, 14));
+            uvsList.Add(new Vector2(lateralOffset1 + 2 * controlPoints[c].width, 14));
+            uvsList.Add(new Vector2(lateralOffset1 + 2 * controlPoints[c].width, 16));
+            uvsList.Add(new Vector2(lateralOffset2, 16));
+            uvsList.Add(new Vector2(lateralOffset2, 14));
 
-            uvsList.Add(new Vector2(lateralOffset, 14));
-            uvsList.Add(new Vector2(lateralOffset, 16));
-            uvsList.Add(new Vector2(lateralOffset + 2 * controlPoints[c + 1].width, 16));
-            uvsList.Add(new Vector2(lateralOffset + 2 * controlPoints[c + 1].width, 14));
+            uvsList.Add(new Vector2(lateralOffset2, 14));
+            uvsList.Add(new Vector2(lateralOffset2, 16));
+            uvsList.Add(new Vector2(lateralOffset1 + 2 * controlPoints[c + 1].width, 16));
+            uvsList.Add(new Vector2(lateralOffset1 + 2 * controlPoints[c + 1].width, 14));
 
             for (int w = 0; w < widthResolution; w++)
             {
-                uvsList.Add(new Vector2(lateralOffset + 2 * controlPoints[c].width * (w / ((float)widthResolution)), currentLength));
-                uvsList.Add(new Vector2(lateralOffset + 2 * controlPoints[c].width * ((w + 1) / ((float) widthResolution)) , currentLength));
-                uvsList.Add(new Vector2(lateralOffset + 2 * controlPoints[c + 1].width * ((w + 1) / ((float)widthResolution)), currentLength + partLen));
-                uvsList.Add(new Vector2(lateralOffset + 2 * controlPoints[c + 1].width * (w / ((float)widthResolution)), currentLength + partLen));
+                uvsList.Add(new Vector2(lateralOffset1 + 2 * controlPoints[c].width * (w / ((float)widthResolution)), currentLength));
+                uvsList.Add(new Vector2(lateralOffset1 + 2 * controlPoints[c].width * ((w + 1) / ((float) widthResolution)) , currentLength));
+                uvsList.Add(new Vector2(lateralOffset2 + 2 * controlPoints[c + 1].width * ((w + 1) / ((float)widthResolution)), currentLength + partLen));
+                uvsList.Add(new Vector2(lateralOffset2 + 2 * controlPoints[c + 1].width * (w / ((float)widthResolution)), currentLength + partLen));
 
-                uvsList.Add(new Vector2(lateralOffset + 2 * controlPoints[c + 1].width * ((w + 1) / ((float)widthResolution)), currentLength + partLen));
-                uvsList.Add(new Vector2(lateralOffset + 2 * controlPoints[c].width * ((w + 1) / ((float)widthResolution)), currentLength));
-                uvsList.Add(new Vector2(lateralOffset + 2 * controlPoints[c].width * (w / ((float)widthResolution)), currentLength));
-                uvsList.Add(new Vector2(lateralOffset + 2 * controlPoints[c + 1].width * (w / ((float)widthResolution)), currentLength + partLen));
+                uvsList.Add(new Vector2(lateralOffset2 + 2 * controlPoints[c + 1].width * ((w + 1) / ((float)widthResolution)), currentLength + partLen));
+                uvsList.Add(new Vector2(lateralOffset1 + 2 * controlPoints[c].width * ((w + 1) / ((float)widthResolution)), currentLength));
+                uvsList.Add(new Vector2(lateralOffset1 + 2 * controlPoints[c].width * (w / ((float)widthResolution)), currentLength));
+                uvsList.Add(new Vector2(lateralOffset2 + 2 * controlPoints[c + 1].width * (w / ((float)widthResolution)), currentLength + partLen));
             }
 
 
@@ -1452,7 +1463,19 @@ public class MeshGenerator : MonoBehaviour
         }
 
         float currentLength = 0.0f;
-        float lateralOffset = (Mathf.Ceil(Mathf.PI * controlPoints[0].width / 20.0f) * 20.0f - Mathf.PI * controlPoints[0].width) / 2 + 0.5f;
+        float maxWidth = 0.0f;
+        float maxBorder = 0.0f;
+        for (int i = 0; i < controlPointsList.Count; i++)
+        {
+            if (controlPointsList[i].borderHeight > maxBorder)
+            {
+                maxBorder = controlPointsList[i].borderHeight;
+            }
+            if (controlPointsList[i].width > maxWidth)
+            {
+                maxWidth = controlPointsList[i].width;
+            }
+        }
 
         int indexCpt = 0;
 
@@ -1503,6 +1526,8 @@ public class MeshGenerator : MonoBehaviour
 
 
             float partLen = (controlPoints[c + 1].transform.position - controlPoints[c].transform.position).magnitude;
+            float lateralOffset1 = (Mathf.Ceil(2 * Mathf.PI * maxBorder * maxWidth / 20.0f) * 20.0f - 2 * Mathf.PI * controlPoints[c].borderHeight * controlPoints[c].width) / 2 + 0.5f;
+            float lateralOffset2 = (Mathf.Ceil(2 * Mathf.PI * maxBorder * maxWidth / 20.0f) * 20.0f - 2 * Mathf.PI * controlPoints[c + 1].borderHeight * controlPoints[c + 1].width) / 2 + 0.5f;
 
 
             uvsList.Add(new Vector2(14, currentLength));
@@ -1517,25 +1542,25 @@ public class MeshGenerator : MonoBehaviour
 
             for (int w = 0; w < resolution; w++)
             {
-                uvsList.Add(new Vector2(lateralOffset + 2 * controlPoints[c].width * (w / ((float)widthResolution)), currentLength));
-                uvsList.Add(new Vector2(lateralOffset + 2 * controlPoints[c].width * ((w + 1) / ((float)widthResolution)), currentLength));
-                uvsList.Add(new Vector2(lateralOffset + 2 * controlPoints[c + 1].width * ((w + 1) / ((float)widthResolution)), currentLength + partLen));
-                uvsList.Add(new Vector2(lateralOffset + 2 * controlPoints[c + 1].width * (w / ((float)widthResolution)), currentLength + partLen));
+                uvsList.Add(new Vector2(lateralOffset1 + 2 * Mathf.PI * controlPoints[c].borderHeight * controlPoints[c].width * (w / ((float)resolution)), currentLength));
+                uvsList.Add(new Vector2(lateralOffset1 + 2 * Mathf.PI * controlPoints[c].borderHeight * controlPoints[c].width * ((w + 1) / ((float)resolution)), currentLength));
+                uvsList.Add(new Vector2(lateralOffset2 + 2 * Mathf.PI * controlPoints[c + 1].borderHeight * controlPoints[c + 1].width * ((w + 1) / ((float)resolution)), currentLength + partLen));
+                uvsList.Add(new Vector2(lateralOffset2 + 2 * Mathf.PI * controlPoints[c + 1].borderHeight * controlPoints[c + 1].width * (w / ((float)resolution)), currentLength + partLen));
 
-                uvsList.Add(new Vector2(lateralOffset + 2 * controlPoints[c + 1].width * ((w + 1) / ((float)widthResolution)), currentLength + partLen));
-                uvsList.Add(new Vector2(lateralOffset + 2 * controlPoints[c].width * ((w + 1) / ((float)widthResolution)), currentLength));
-                uvsList.Add(new Vector2(lateralOffset + 2 * controlPoints[c].width * (w / ((float)widthResolution)), currentLength));
-                uvsList.Add(new Vector2(lateralOffset + 2 * controlPoints[c + 1].width * (w / ((float)widthResolution)), currentLength + partLen));
+                uvsList.Add(new Vector2(lateralOffset1 + 2 * Mathf.PI * controlPoints[c].borderHeight * controlPoints[c].width * ((w + 1) / ((float)resolution)), currentLength));
+                uvsList.Add(new Vector2(lateralOffset1 + 2 * Mathf.PI * controlPoints[c].borderHeight * controlPoints[c].width * (w / ((float)resolution)), currentLength));
+                uvsList.Add(new Vector2(lateralOffset2 + 2 * Mathf.PI * controlPoints[c + 1].borderHeight * controlPoints[c + 1].width * (w / ((float)resolution)), currentLength + partLen));
+                uvsList.Add(new Vector2(lateralOffset2 + 2 * Mathf.PI * controlPoints[c + 1].borderHeight * controlPoints[c + 1].width * ((w + 1) / ((float)resolution)), currentLength + partLen));
 
-                uvsList.Add(new Vector2(lateralOffset + 2 * controlPoints[c].width, 14));
-                uvsList.Add(new Vector2(lateralOffset + 2 * controlPoints[c].width, 16));
-                uvsList.Add(new Vector2(lateralOffset, 16));
-                uvsList.Add(new Vector2(lateralOffset, 14));
+                uvsList.Add(new Vector2(lateralOffset1 + 2 * Mathf.PI * controlPoints[c].borderHeight * controlPoints[c].width, 14));
+                uvsList.Add(new Vector2(lateralOffset1 + 2 * Mathf.PI * controlPoints[c].borderHeight * controlPoints[c].width, 16));
+                uvsList.Add(new Vector2(lateralOffset1, 16));
+                uvsList.Add(new Vector2(lateralOffset1, 14));
 
-                uvsList.Add(new Vector2(lateralOffset, 14));
-                uvsList.Add(new Vector2(lateralOffset, 16));
-                uvsList.Add(new Vector2(lateralOffset + 2 * controlPoints[c + 1].width, 16));
-                uvsList.Add(new Vector2(lateralOffset + 2 * controlPoints[c + 1].width, 14));
+                uvsList.Add(new Vector2(lateralOffset2, 14));
+                uvsList.Add(new Vector2(lateralOffset2, 16));
+                uvsList.Add(new Vector2(lateralOffset2 + 2 * Mathf.PI * controlPoints[c + 1].borderHeight * controlPoints[c + 1].width, 16));
+                uvsList.Add(new Vector2(lateralOffset2 + 2 * Mathf.PI * controlPoints[c + 1].borderHeight * controlPoints[c + 1].width, 14));
             }
 
 
