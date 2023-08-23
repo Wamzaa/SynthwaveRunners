@@ -100,7 +100,7 @@ public class MeshGenerator : MonoBehaviour
         controlPoints.Add(controlPointsList[0]);
         for(int i=1; i<controlPointsList.Count; i++)
         {
-            List<Vector3> listInterpolatedPoints = GetHermitInterpolationPoints(controlPointsList[i - 1].transform.position, velocityList[i - 1], controlPointsList[i].transform.position, velocityList[i], pointResolution);
+            List<Vector3> listInterpolatedPoints = GetHermitInterpolationPoints(controlPointsList[i - 1].transform.position, controlPointsList[i - 1].hermitVelocity * velocityList[i - 1], controlPointsList[i].transform.position, controlPointsList[i].hermitVelocity * velocityList[i], pointResolution);
             foreach(Vector3 vec in listInterpolatedPoints)
             {
                 GameObject interpolatedControlPoint = new GameObject("interpolatedControlPoint");
@@ -298,7 +298,7 @@ public class MeshGenerator : MonoBehaviour
         controlPoints.Add(controlPointsList[0]);
         for (int i = 1; i < controlPointsList.Count; i++)
         {
-            List<Vector3> listInterpolatedPoints = GetHermitInterpolationPoints(controlPointsList[i - 1].transform.position, velocityList[i - 1], controlPointsList[i].transform.position, velocityList[i], pointResolution);
+            List<Vector3> listInterpolatedPoints = GetHermitInterpolationPoints(controlPointsList[i - 1].transform.position, controlPointsList[i - 1].hermitVelocity * velocityList[i - 1], controlPointsList[i].transform.position, controlPointsList[i].hermitVelocity * velocityList[i], pointResolution);
             foreach (Vector3 vec in listInterpolatedPoints)
             {
                 GameObject interpolatedControlPoint = new GameObject("interpolatedControlPoint");
@@ -813,7 +813,7 @@ public class MeshGenerator : MonoBehaviour
         controlPoints.Add(controlPointsList[0]);
         for (int i = 1; i < controlPointsList.Count; i++)
         {
-            List<Vector3> listInterpolatedPoints = GetHermitInterpolationPoints(controlPointsList[i - 1].transform.position, velocityList[i - 1], controlPointsList[i].transform.position, velocityList[i], pointResolution);
+            List<Vector3> listInterpolatedPoints = GetHermitInterpolationPoints(controlPointsList[i - 1].transform.position, controlPointsList[i - 1].hermitVelocity * velocityList[i - 1], controlPointsList[i].transform.position, controlPointsList[i].hermitVelocity * velocityList[i], pointResolution);
             for (int k = 0; k < listInterpolatedPoints.Count; k++)
             {
                 GameObject interpolatedControlPoint = new GameObject("interpolatedControlPoint");
@@ -1370,7 +1370,7 @@ public class MeshGenerator : MonoBehaviour
         controlPoints.Add(controlPointsList[0]);
         for (int i = 1; i < controlPointsList.Count; i++)
         {
-            List<Vector3> listInterpolatedPoints = GetHermitInterpolationPoints(controlPointsList[i - 1].transform.position, velocityList[i - 1], controlPointsList[i].transform.position, velocityList[i], pointResolution);
+            List<Vector3> listInterpolatedPoints = GetHermitInterpolationPoints(controlPointsList[i - 1].transform.position, controlPointsList[i - 1].hermitVelocity * velocityList[i - 1], controlPointsList[i].transform.position, controlPointsList[i].hermitVelocity * velocityList[i], pointResolution);
             for(int k=0; k < listInterpolatedPoints.Count; k++)
             {
                 GameObject interpolatedControlPoint = new GameObject("interpolatedControlPoint");
@@ -2784,7 +2784,7 @@ public class MeshGenerator : MonoBehaviour
                 points.Add(controlPointsList[0].transform.position);
                 for (int i = 1; i < controlPointsList.Count; i++)
                 {
-                    List<Vector3> listInterpolatedPoints = GetHermitInterpolationPoints(controlPointsList[i - 1].transform.position, velocityList[i - 1], controlPointsList[i].transform.position, velocityList[i], pointResolution);
+                    List<Vector3> listInterpolatedPoints = GetHermitInterpolationPoints(controlPointsList[i - 1].transform.position, controlPointsList[i - 1].hermitVelocity * velocityList[i - 1], controlPointsList[i].transform.position, controlPointsList[i].hermitVelocity * velocityList[i], pointResolution);
                     foreach (Vector3 vec in listInterpolatedPoints)
                     {
                         points.Add(vec);
@@ -2901,7 +2901,7 @@ public class MeshGenerator : MonoBehaviour
                 points.Add(controlPointsList[0].transform.position);
                 for (int i = 1; i < controlPointsList.Count; i++)
                 {
-                    List<Vector3> listInterpolatedPoints = GetHermitInterpolationPoints(controlPointsList[i - 1].transform.position, velocityList[i - 1], controlPointsList[i].transform.position, velocityList[i], pointResolution);
+                    List<Vector3> listInterpolatedPoints = GetHermitInterpolationPoints(controlPointsList[i - 1].transform.position, controlPointsList[i - 1].hermitVelocity * velocityList[i - 1], controlPointsList[i].transform.position, controlPointsList[i].hermitVelocity * velocityList[i], pointResolution);
                     points.AddRange(listInterpolatedPoints);
                     points.Add(controlPointsList[i].transform.position);
                 }

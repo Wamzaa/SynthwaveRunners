@@ -169,8 +169,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   height: 1
   width: 22
-  borderHeight: 0.95
+  borderHeight: 0.4
   interpolationMode: 2
+  hermitVelocity: 1
 --- !u!1 &106484653
 GameObject:
   m_ObjectHideFlags: 0
@@ -241,7 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 1
-  roadMode: 2
+  roadMode: 3
   controlPointsList:
   - {fileID: 1641906251}
   - {fileID: 860604341}
@@ -270,6 +271,7 @@ MonoBehaviour:
   withRoadLight: 1
   roadLightScale: 7
   roadLightInter: 200
+  showGizmos: 1
 --- !u!4 &111142363
 Transform:
   m_ObjectHideFlags: 0
@@ -401,8 +403,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   height: 1
   width: 22
-  borderHeight: 0.95
+  borderHeight: 0.4
   interpolationMode: 2
+  hermitVelocity: 1
 --- !u!4 &216358693
 Transform:
   m_ObjectHideFlags: 0
@@ -809,8 +812,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   height: 1
   width: 22
-  borderHeight: 0.95
+  borderHeight: 0.4
   interpolationMode: 2
+  hermitVelocity: 1
 --- !u!4 &380128062
 Transform:
   m_ObjectHideFlags: 0
@@ -872,8 +876,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   height: 1
   width: 22
-  borderHeight: 0.95
+  borderHeight: 0.4
   interpolationMode: 2
+  hermitVelocity: 1.77
 --- !u!1 &574642402
 GameObject:
   m_ObjectHideFlags: 0
@@ -920,6 +925,7 @@ MonoBehaviour:
   withRoadLight: 1
   roadLightScale: 7
   roadLightInter: 200
+  showGizmos: 0
 --- !u!4 &574642404
 Transform:
   m_ObjectHideFlags: 0
@@ -1147,8 +1153,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   height: 1
   width: 10
-  borderHeight: 0.95
+  borderHeight: 0.4
   interpolationMode: 2
+  hermitVelocity: 1
 --- !u!1 &965055354
 GameObject:
   m_ObjectHideFlags: 0
@@ -1182,6 +1189,7 @@ MonoBehaviour:
   width: 20
   borderHeight: 3
   interpolationMode: 2
+  hermitVelocity: 1
 --- !u!4 &965055356
 Transform:
   m_ObjectHideFlags: 0
@@ -1243,8 +1251,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   height: 1
   width: 40
-  borderHeight: 0.95
+  borderHeight: 0.4
   interpolationMode: 2
+  hermitVelocity: 1
 --- !u!1 &1079252165
 GameObject:
   m_ObjectHideFlags: 0
@@ -1487,8 +1496,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   height: 1
   width: 20
-  borderHeight: 0.95
+  borderHeight: 0.4
   interpolationMode: 2
+  hermitVelocity: 1
 --- !u!1 &1209861868
 GameObject:
   m_ObjectHideFlags: 0
@@ -1514,7 +1524,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1209861868}
   m_LocalRotation: {x: 0, y: -0, z: 0.9480465, w: -0.31813204}
-  m_LocalPosition: {x: 722.6, y: 299.6, z: 737.6}
+  m_LocalPosition: {x: 722.6, y: 299.6, z: 712.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1535,8 +1545,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   height: 1
   width: 22
-  borderHeight: 0.95
+  borderHeight: 0.4
   interpolationMode: 2
+  hermitVelocity: 1.96
 --- !u!1 &1302621947
 GameObject:
   m_ObjectHideFlags: 0
@@ -1583,8 +1594,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   height: 1
   width: 22
-  borderHeight: 0.95
+  borderHeight: 0.4
   interpolationMode: 2
+  hermitVelocity: 1
 --- !u!1 &1309138975
 GameObject:
   m_ObjectHideFlags: 0
@@ -1633,6 +1645,7 @@ MonoBehaviour:
   width: 20
   borderHeight: 3
   interpolationMode: 2
+  hermitVelocity: 1
 --- !u!1 &1359492320
 GameObject:
   m_ObjectHideFlags: 0
@@ -1756,7 +1769,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1371678838}
   m_LocalRotation: {x: 0.28588217, y: -0.05363049, z: 0.17640808, w: 0.9403592}
-  m_LocalPosition: {x: 733.1, y: 188.2, z: 647.7}
+  m_LocalPosition: {x: 745.9, y: 169.1, z: 617.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1777,8 +1790,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   height: 1
   width: 22
-  borderHeight: 0.95
+  borderHeight: 0.4
   interpolationMode: 2
+  hermitVelocity: 2.3
 --- !u!1 &1373151977
 GameObject:
   m_ObjectHideFlags: 0
@@ -1925,6 +1939,7 @@ MonoBehaviour:
   width: 30
   borderHeight: 3
   interpolationMode: 2
+  hermitVelocity: 1
 --- !u!1 &1535944279
 GameObject:
   m_ObjectHideFlags: 0
@@ -1973,6 +1988,7 @@ MonoBehaviour:
   width: 10
   borderHeight: 3
   interpolationMode: 2
+  hermitVelocity: 1
 --- !u!1 &1549486969
 GameObject:
   m_ObjectHideFlags: 0
@@ -2117,8 +2133,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   height: 1
   width: 10
-  borderHeight: 0.95
+  borderHeight: 0.4
   interpolationMode: 2
+  hermitVelocity: 1
 --- !u!1 &1641906250
 GameObject:
   m_ObjectHideFlags: 0
@@ -2150,8 +2167,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   height: 1
   width: 22
-  borderHeight: 0.95
+  borderHeight: 0.4
   interpolationMode: 2
+  hermitVelocity: 1
 --- !u!4 &1641906252
 Transform:
   m_ObjectHideFlags: 0
@@ -2296,8 +2314,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   height: 1
   width: 22
-  borderHeight: 0.95
+  borderHeight: 0.4
   interpolationMode: 2
+  hermitVelocity: 1
 --- !u!4 &1703114025
 Transform:
   m_ObjectHideFlags: 0
@@ -2359,8 +2378,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   height: 1
   width: 10
-  borderHeight: 0.95
+  borderHeight: 0.4
   interpolationMode: 2
+  hermitVelocity: 1
 --- !u!1 &1828020654
 GameObject:
   m_ObjectHideFlags: 0
@@ -2407,8 +2427,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   height: 1
   width: 22
-  borderHeight: 0.95
+  borderHeight: 0.4
   interpolationMode: 2
+  hermitVelocity: 1
 --- !u!1 &1889090871
 GameObject:
   m_ObjectHideFlags: 0
@@ -2505,8 +2526,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   height: 1
   width: 30
-  borderHeight: 0.95
+  borderHeight: 0.4
   interpolationMode: 2
+  hermitVelocity: 1
 --- !u!1 &1951753040
 GameObject:
   m_ObjectHideFlags: 0
@@ -2553,8 +2575,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   height: 1
   width: 22
-  borderHeight: 0.95
+  borderHeight: 0.4
   interpolationMode: 2
+  hermitVelocity: 1
 --- !u!1 &1989738997
 GameObject:
   m_ObjectHideFlags: 0
@@ -2601,8 +2624,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   height: 1
   width: 22
-  borderHeight: 0.95
+  borderHeight: 0.4
   interpolationMode: 2
+  hermitVelocity: 1
 --- !u!1 &2066445976
 GameObject:
   m_ObjectHideFlags: 0
@@ -2651,3 +2675,4 @@ MonoBehaviour:
   width: 20
   borderHeight: 3
   interpolationMode: 2
+  hermitVelocity: 1
