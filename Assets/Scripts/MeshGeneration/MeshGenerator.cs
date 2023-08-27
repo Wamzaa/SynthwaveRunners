@@ -889,6 +889,12 @@ public class MeshGenerator : MonoBehaviour
             roadNormals.Add(proj);
         }
 
+        controlPointsList[0].SetRoadNormal(roadNormals[0]);
+        controlPointsList.Last().SetRoadNormal(roadNormals.Last());
+        controlPointsList[0].SetRoadDir(velocityList[0]);
+        controlPointsList.Last().SetRoadDir(velocityList.Last());
+
+
         List<Vector3> anchorList = new List<Vector3>();
         float roadLightCount = 0.0f;
 
@@ -1445,6 +1451,11 @@ public class MeshGenerator : MonoBehaviour
             }
             roadNormals.Add(proj);
         }
+
+        controlPointsList[0].SetRoadNormal(roadNormals[0]);
+        controlPointsList.Last().SetRoadNormal(roadNormals.Last());
+        controlPointsList[0].SetRoadDir(velocityList[0]);
+        controlPointsList.Last().SetRoadDir(velocityList.Last());
 
         List<Vector3> anchorList = new List<Vector3>();
 
