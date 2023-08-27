@@ -129,8 +129,8 @@ public class MeshConnecterGenerator : MonoBehaviour
             {
                 float angle = -0.5f * Mathf.PI - pointIn.borderHeight * Mathf.PI + (2 * i * pointIn.borderHeight / resolution) * Mathf.PI;
                 Vector2 dirDist = new Vector2(Mathf.Cos(angle), 1.0f + Mathf.Sin(angle));
-                paramIn.Add((pointIn.width + pointIn.height) * dirDist);
-                paramIn2.Add(pointIn.width * dirDist);
+                paramIn.Add(new Vector2(pointIn.width * Mathf.Cos(angle), pointIn.width + pointIn.width * Mathf.Sin(angle)));
+                paramIn2.Add(new Vector2((pointIn.width + pointIn.height) * Mathf.Cos(angle), pointIn.width + (pointIn.width + pointIn.height) * Mathf.Sin(angle)));
             }
             paramInUV = 2 * Mathf.PI * pointIn.width * pointIn.borderHeight / (float)resolution;
         }
@@ -172,13 +172,13 @@ public class MeshConnecterGenerator : MonoBehaviour
                 Vector2 dirDist = new Vector2(Mathf.Cos(angle), 1.0f + Mathf.Sin(angle));
                 if (!reversed)
                 {
-                    paramOut.Add(pointOut.width * dirDist);
-                    paramOut2.Add((pointOut.width + pointOut.height) * dirDist);
+                    paramOut.Add(new Vector2(pointOut.width * Mathf.Cos(angle), pointOut.width + pointOut.width * Mathf.Sin(angle)));
+                    paramOut2.Add(new Vector2((pointOut.width + pointOut.height) * Mathf.Cos(angle), pointOut.width + (pointOut.width + pointOut.height) * Mathf.Sin(angle)));
                 }
                 else
                 {
-                    paramOut2.Add(pointOut.width * dirDist);
-                    paramOut.Add((pointOut.width + pointOut.height) * dirDist);
+                    paramOut2.Add(new Vector2(pointOut.width * Mathf.Cos(angle), pointOut.width + pointOut.width * Mathf.Sin(angle)));
+                    paramOut.Add(new Vector2((pointOut.width + pointOut.height) * Mathf.Cos(angle), pointOut.width + (pointOut.width + pointOut.height) * Mathf.Sin(angle)));
                 }
             }
             paramOutUV = 2 * Mathf.PI * pointOut.width * pointOut.borderHeight / (float)resolution;
